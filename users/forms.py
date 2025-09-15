@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
+from .models import User
 
 logger = logging.getLogger(__name__)
 
@@ -101,3 +102,36 @@ class RegisterForm(UserCreationForm):
         if firstname:
             firstname = firstname.strip().capitalize()
         return firstname
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["firstname", "email", "gender"]
+        widgets = {
+            "firstname": forms.TextInput(
+                attrs={
+                    "autocomplete": "given-name",
+                    "class": "w-full my-2 border-b border-gray-400 mb-3",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "autocomplete": "email",
+                    "class": "w-full my-2 border-b border-gray-400 mb-3",
+                }
+            ),
+            "gender": forms.Select(choices=User.Gender.choices),
+        }
+
+    def clean_firstname(self):
+        firstname = self.cleaned_data.get("firstname")
+        if firstname:
+            firstname = firstname.strip().capitalize()
+        return firstname
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if User.objects.filter(email=email).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError("Cette adresse email est déjà utilisée.")
+        return email
