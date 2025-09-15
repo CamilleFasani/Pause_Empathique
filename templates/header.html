@@ -18,9 +18,9 @@
       <h1 class="hidden md:block text-3xl text-white self-center">Pause {{"Empathique"|highlight_second_letter }}</h1>
       <nav class="hidden md:flex items-center space-x-7 text-white mb-0.5">
 
-        <a href="" class="nav-text-desktop">
+        <a href="{% url 'profile' %}" class="nav-text-desktop">
           <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4">
-          Mon compte
+          Mon profil
         </a>
 
         <a href="{{ my_dashboard_url }}" class="nav-text-desktop {% if request.path == my_dashboard_url %} text-otherpink {% endif %}">
