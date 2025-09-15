@@ -7,6 +7,7 @@
   <!-- div pour séparer le contenu et permettre une continuité du background sur écran 2xl et + -->
   <div class="flex justify-between items-end h-full md:px-6 lg:px-8 max-w-screen-2xl mx-auto">
     {% url 'diary' as my_diary_url %}
+    {% url 'profile' as my_profile_url %}
     {% url 'observation' as practice_url %}
     {% url 'dashboard' as my_dashboard_url %}
     {% is_practice_section as is_practice_active %}
@@ -18,8 +19,9 @@
       <h1 class="hidden md:block text-3xl text-white self-center">Pause {{"Empathique"|highlight_second_letter }}</h1>
       <nav class="hidden md:flex items-center space-x-7 text-white mb-0.5">
 
-        <a href="{% url 'profile' %}" class="nav-text-desktop">
-          <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4">
+        <a href="{{ my_profile_url }}" class="nav-text-desktop {% if request.path == my_profile_url %} text-otherpink {% endif %}">
+          <img src="{% static '/icons/user-round-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_profile_url %} inline {% endif %}">
+          <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if request.path == my_profile_url %} hidden {% endif %}">
           Mon profil
         </a>
 
@@ -47,9 +49,10 @@
     <!-- Navigation mobile -->
     <nav class="md:hidden h-15 flex justify-between fixed bottom-0 text-white py-2 bg-header px-3 max-w-screen-2xl w-full">
       
-      <a href="" class="nav-text-mobile">
-        <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4">
-        Mon compte
+      <a href="{{ my_profile_url }}" class="nav-text-mobile {% if request.path == my_profile_url %} text-otherpink {% endif %}">
+        <img src="{% static '/icons/user-round-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_profile_url %} inline {% endif %}">
+        <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if request.path == my_profile_url %} hidden {% endif %}">
+        Mon profil
       </a>
       
       <a href="{{ my_dashboard_url }}" class="nav-text-mobile {% if request.path == my_dashboard_url %} text-otherpink {% endif %}">

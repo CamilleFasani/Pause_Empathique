@@ -4,28 +4,28 @@
 
 {% block content %}
 <main class="min-h-screen flex flex-col items-center justify-center mb-18 px-2 gap-2">
-    <section class="flex flex-col items-center space-y-2 mt-20 p-4 md:border bg-white border border-white rounded-4xl shadow-smrounded-4xl md:shadow-sm md:p-10 md:w-2/3 2xl:max-w-4xl">
+    <section class="flex flex-col items-center space-y-6 md:mt-20 p-4 md:border bg-white border border-white rounded-4xl shadow-smrounded-4xl md:shadow-sm md:p-10 md:w-2/3 2xl:max-w-4xl">
 
         <h1 class="form-title text-xl md:text-2xl mb-3">Mon profil</h1>
 
         <div class="border-white w-full rounded-2xl shadow-sm bg-background p-3 flex justify-between">
-            <h2 class="form-title"> Prénom</h2>
+            <h2 class="md:form-title font-semibold"> Prénom</h2>
             <p class="text-justify">{{ user.firstname }}</p>
         </div>
     
         <div class="border-white w-full rounded-2xl shadow-sm bg-background p-3 flex justify-between">
-            <h2 class="form-title md:mb-2" >Email</h2>
+            <h2 class="md:form-title font-semibold"" >Email</h2>
             <p class="text-justify">{{ user.email }}</p>
         </div>
     
         <div class="border-white w-full rounded-2xl shadow-sm bg-background p-3 flex justify-between">
-            <h2 class="form-title text-left md:mb-2">Je préfère lire les textes au:</h2>
+            <h2 class="md:form-title font-semibold">Je préfère lire les textes au :</h2>
             <p class="text-center">{{ user.get_gender_display }}</p>
 
         </div>
        
-        <div class="flex justify-between items-center border-white w-full rounded-2xl shadow-sm bg-background p-3 text-sm"><h3 class="form-title text-sm md:text-lg">Profil créé le</h3>{{ user.created_at|date:"l j F Y à H:i" }}</div>
-        <div class="flex justify-between items-center border-white w-full rounded-2xl shadow-sm bg-background  p-3 text-sm mb-6"><h3 class="form-title text-sm md:text-lg">Profil modifié le</h3>{{ user.updated_at|date:"l j F Y à H:i" }}</div>
+        <div class="flex justify-between items-center border-white w-full rounded-2xl shadow-sm bg-background p-3 text-sm"><h3 class="form-title text-sm md:text-lg">Profil créé le</h3>{{ user.created_at|date:"j F Y à H:i" }}</div>
+        <div class="flex justify-between items-center border-white w-full rounded-2xl shadow-sm bg-background  p-3 text-sm mb-6"><h3 class="form-title text-sm md:text-lg">Profil modifié le </h3>{{ user.updated_at|date:"j F Y à H:i" }}</div>
         
         <div class="flex items-center gap-10 md:mt-5">
             <div class="flex justify-center gap-1 p-2 rounded-2xl shadow-sm hover:scale-105 hover:font-semibold bg-gray-300 w-32 transition-all duration-150">
