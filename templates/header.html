@@ -16,7 +16,7 @@
 
     {% if user.is_authenticated %}
     <!-- Navigation desktop -->
-      <h1 class="hidden md:block text-3xl text-white self-center">Pause {{"Empathique"|highlight_second_letter }}</h1>
+      <h1><a href="{{ my_dashboard_url }}" class="hidden md:block text-3xl text-white self-center mb-1">Pause {{"Empathique"|highlight_second_letter }}</h1>
       <nav class="hidden md:flex items-center space-x-7 text-white mb-0.5">
 
         <a href="{{ my_profile_url }}" class="nav-text-desktop {% if request.path == my_profile_url %} text-otherpink {% endif %}">

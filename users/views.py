@@ -14,7 +14,7 @@ from .models import User
 class CustomLoginView(LoginView):
     template_name = "users/login.html"
     authentication_form = CustomAuthenticationForm
-    # redirect_authenticated_user = True
+    redirect_authenticated_user = True
 
 
 def register(request):
