@@ -28,35 +28,37 @@ def register(request):
         form = RegisterForm()
     return render(request, "users/register.html", context={"form": form})
 
+
 class UserProfileView(LoginRequiredMixin, DetailView):
-    model=User
+    model = User
     template_name = "users/profile_detail.html"
+
     def get_object(self, queryset=None):
         return self.request.user
-    
-class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
 
+
+class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = "users/profile_update.html"
-    
+    success_url = reverse_lazy("profile")
+
     def get_object(self, queryset=None):
         return self.request.user
-    
+
+
 class UserProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = "users/profile_delete.html"
-    success_url = reverse_lazy('home')
-
+    success_url = reverse_lazy("home")
 
     def get_object(self, queryset=None):
         return self.request.user
-    
+
     def delete(self, request, *args, **kwargs):
         user = self.get_object()
         messages.success(
-            request, 
-            f"Votre compte et toutes vos données ont été supprimés."
+            request, f"Votre compte et toutes vos données ont été supprimés."
         )
         logout(request)
-        return super.delete(request, *args, **kwargs )
+        return super.delete(request, *args, **kwargs)

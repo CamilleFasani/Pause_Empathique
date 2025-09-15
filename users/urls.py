@@ -1,5 +1,10 @@
 from django.urls import path
-from .views import CustomLoginView, UserProfileUpdateView, UserProfileView, UserProfileDeleteView
+from .views import (
+    CustomLoginView,
+    UserProfileUpdateView,
+    UserProfileView,
+    UserProfileDeleteView,
+)
 from . import views
 from django.contrib.auth.views import LogoutView
 
