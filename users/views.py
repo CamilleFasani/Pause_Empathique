@@ -21,9 +21,12 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
+            try:
+                user = form.save()
+                login(request, user)
+                return redirect(settings.LOGIN_REDIRECT_URL)
+            except Exception as e:
+                messages.error(request, "Une erreur est survenue. Veuillez réessayer.")
     else:
         form = RegisterForm()
     return render(request, "users/register.html", context={"form": form})
