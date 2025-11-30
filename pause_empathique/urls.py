@@ -18,11 +18,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import CustomLoginView
+from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("pauses/", include("pauses.urls")),
     path("users/", include("users.urls")),
     path("", CustomLoginView.as_view(), name="home"),
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
