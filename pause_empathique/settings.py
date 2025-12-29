@@ -106,7 +106,7 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.parse(
-        config("DATABASE_URL", default=""),
+        config("DATABASE_URL"),
         conn_max_age=600,
     )
 }
@@ -122,22 +122,6 @@ if not DATABASES["default"].get("NAME"):
             "PORT": config("POSTGRES_PORT", default="5432"),
         }
     }
-
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("PGDATABASE", default=None)
-        or config("POSTGRES_DB", default=None),
-        "USER": config("PGUSER", default=None) or config("POSTGRES_USER", default=None),
-        "PASSWORD": config("PGPASSWORD", default=None)
-        or config("POSTGRES_PASSWORD", default=None),
-        "HOST": config("PGHOST", default=None) or config("POSTGRES_HOST", default=None),
-        "PORT": config("PGPORT", default=None)
-        or config("POSTGRES_PORT", default="5432"),
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
