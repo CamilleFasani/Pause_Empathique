@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-
 from pathlib import Path
 from decouple import config
 import dj_database_url
@@ -33,7 +32,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
-ADMIN_URL = config("ADMIN_URL", default="admin/")   
+ADMIN_URL = config("ADMIN_URL", default="admin/")
 
 if ENV_STATE == "production":
     SESSION_COOKIE_SECURE = True
@@ -74,13 +73,11 @@ MIDDLEWARE = [
 ]
 if DEBUG:
     INSTALLED_APPS += [
-    "django_browser_reload",
-
+        "django_browser_reload",
     ]
     MIDDLEWARE += [
         "django_browser_reload.middleware.BrowserReloadMiddleware",
     ]
-
 
 
 ROOT_URLCONF = "pause_empathique.urls"
