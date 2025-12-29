@@ -103,14 +103,18 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("PGDATABASE", default=config("POSTGRES_DB")),
-        "USER": config("PGUSER", default=config("POSTGRES_USER")),
-        "PASSWORD": config("PGPASSWORD", default=config("POSTGRES_PASSWORD")),
-        "HOST": config("PGHOST", default=config("POSTGRES_HOST")),
-        "PORT": config("PGPORT", default=config("POSTGRES_PORT", default="5432")),
+        "NAME": config("PGDATABASE", default=None)
+        or config("POSTGRES_DB", default=None),
+        "USER": config("PGUSER", default=None) or config("POSTGRES_USER", default=None),
+        "PASSWORD": config("PGPASSWORD", default=None)
+        or config("POSTGRES_PASSWORD", default=None),
+        "HOST": config("PGHOST", default=None) or config("POSTGRES_HOST", default=None),
+        "PORT": config("PGPORT", default=None)
+        or config("POSTGRES_PORT", default="5432"),
     }
 }
 
