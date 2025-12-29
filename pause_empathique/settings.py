@@ -103,7 +103,17 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("PGDATABASE", default=config("POSTGRES_DB")),
+        "USER": config("PGUSER", default=config("POSTGRES_USER")),
+        "PASSWORD": config("PGPASSWORD", default=config("POSTGRES_PASSWORD")),
+        "HOST": config("PGHOST", default=config("POSTGRES_HOST")),
+        "PORT": config("PGPORT", default=config("POSTGRES_PORT", default="5432")),
+    }
+}
+
 
 
 # Password validation
