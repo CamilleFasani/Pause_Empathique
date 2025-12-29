@@ -103,34 +103,7 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
-import os
-
-DATABASE_URL = os.environ.get("DATABASE_URL") or config("DATABASE_URL", default=None)
-if DATABASE_URL:
-    db_config = dj_database_url.parse(
-        DATABASE_URL,
-        conn_max_age=600,
-    )
-    if not db_config.get("NAME"):
-        import urllib.parse
-
-        parsed_url = urllib.parse.urlparse(DATABASE_URL)
-        db_name = parsed_url.path.lstrip("/") or "postgres"
-        db_config["NAME"] = db_name
-    DATABASES = {"default": db_config}
-else:
-    # Fallback local
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("POSTGRES_DB", default="postgres"),
-            "USER": config("POSTGRES_USER", default="postgres"),
-            "PASSWORD": config("POSTGRES_PASSWORD", default="postgres"),
-            "HOST": config("POSTGRES_HOST", default="localhost"),
-            "PORT": config("POSTGRES_PORT", default="5432"),
-        }
-    }
+DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
