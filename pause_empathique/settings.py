@@ -105,6 +105,26 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 
 
 DATABASES = {
+    "default": dj_database_url.parse(
+        config("DATABASE_URL", default=""),
+        conn_max_age=600,
+    )
+}
+
+if not DATABASES["default"].get("NAME"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("POSTGRES_DB"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST"),
+            "PORT": config("POSTGRES_PORT", default="5432"),
+        }
+    }
+
+
+DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("PGDATABASE", default=None)
