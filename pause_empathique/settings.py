@@ -108,13 +108,19 @@ import os
 
 DATABASE_URL = os.environ.get("DATABASE_URL") or config("DATABASE_URL", default=None)
 if DATABASE_URL:
-    DATABASES = {
-        "default": dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-        )
-    }
+    db_config = dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+    )
+    if not db_config.get("NAME"):
+        import urllib.parse
+
+        parsed_url = urllib.parse.urlparse(DATABASE_URL)
+        db_name = parsed_url.path.lstrip("/") or "postgres"
+        db_config["NAME"] = db_name
+    DATABASES = {"default": db_config}
 else:
+    # Fallback local
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
