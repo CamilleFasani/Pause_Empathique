@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="min-h-screen flex flex-col items-center justify-center mb-18 px-2 gap-2">
+    <section class="flex flex-col items-center space-y-2 p-4 bg-white border-2 border-otherpink rounded-4xl shadow-smrounded-4xl md:shadow-sm md:p-10 md:w-2/3 2xl:max-w-4xl">
+        <h1 class="text-2xl mb-6">Êtes vous sûr.e de vouloir supprimer votre compte? </h1>
+        <p class="mb-8">Cette action est irréversible et supprimera toutes vos données. </p>
+        
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="flex md:justify-between items-center flex-col md:flex-row md:gap-10 gap-3 md:mt-5">
+            <form method="POST" class="flex items-center justify-center gap-1 bg-otherpink shadow-sm p-2 rounded-2xl w-32  hover:scale-105 hover:font-semibold transition-all duration-150">
+                {% csrf_token %}
+                <button class="" type="submit">Oui, supprimez tout!</button>
+            </form>
+            <a href="{% url 'dashboard' %}"  class="flex items-center gap-1 p-2 rounded-2xl shadow-sm hover:scale-105 bg-gray-300 transition-all duration-150">Non, je souhaite garder mon compte.</a>
+        </div>
+    </section>
+</main>
+{% endblock content %}

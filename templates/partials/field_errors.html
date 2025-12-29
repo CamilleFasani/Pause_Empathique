@@ -1,0 +1,6 @@
+{% if field.errors %}
+    {% for error in field.errors %}
+        <p style="color:red;">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
