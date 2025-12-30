@@ -30,13 +30,24 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ["*"]
-
-ADMIN_URL = config("ADMIN_URL", default="admin/")
-
 if ENV_STATE == "production":
+    ALLOWED_HOSTS = [
+        "pause-empathique.fr",
+        "www.pause-empathique.fr",
+        "app.pause-empathique.fr",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://pause-empathique.fr",
+        "https://www.pause-empathique.fr",
+        "https://app.pause-empathique.fr",
+    ]
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
+
+ADMIN_URL = config("ADMIN_URL", default="admin/")
 
 # Application definition
 
