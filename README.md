@@ -40,7 +40,7 @@ C'est un outil accessible et gratuit, pour affiner son discernement et apprendre
 - [ ] Alpine JS
 - [ ] Visualisation de statistiques des données
 - [x] Mise en place de tests
-- [ ] Déploiement avec Railway
+- [x] Déploiement avec Railway
 - [ ] Mise en place CI/CD
       
 et + encore... ! 
@@ -81,7 +81,7 @@ It's an accessible and free tool to refine your discernment and learn to embrace
 - [ ] Alpine JS
 - [ ] Data visualization and statistics
 - [x] Test implementation
-- [ ] Railway deployment
+- [x] Railway deployment
 - [ ] CI/CD setup
 
 and much more...!
