@@ -30,7 +30,21 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ["*"]
+if ENV_STATE == "production":
+    ALLOWED_HOSTS = [
+        "pause-empathique.fr",
+        "www.pause-empathique.fr",
+        "app.pause-empathique.fr",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://pause-empathique.fr",
+        "https://www.pause-empathique.fr",
+        "https://app.pause-empathique.fr",
+    ]
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 ADMIN_URL = config("ADMIN_URL", default="admin/")
 
@@ -104,7 +118,6 @@ WSGI_APPLICATION = "pause_empathique.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
