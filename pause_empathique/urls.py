@@ -21,7 +21,7 @@ from users.views import CustomLoginView
 from django.conf import settings
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     path("pauses/", include("pauses.urls")),
     path("users/", include("users.urls")),
     path("", CustomLoginView.as_view(), name="home"),
