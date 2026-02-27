@@ -1,9 +1,12 @@
-from django.test import TestCase
+from datetime import datetime
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from pauses.models import Pause, Feeling, Need, default_pause_title
-from unittest.mock import patch
-from datetime import datetime
+from django.db import IntegrityError
+from django.test import TestCase
+
+from pauses.models import Feeling, Need, Pause, default_pause_title
 
 User = get_user_model()
 
@@ -23,7 +26,7 @@ class UserModelTest(TestCase):
         User.objects.create_user(
             email="test@example.com", firstname="User1", gender="F"
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(IntegrityError):
             User.objects.create_user(
                 email="test@example.com", firstname="User2", gender="M"
             )
@@ -99,7 +102,6 @@ class NeedModelTest(TestCase):
 
 
 class PauseModelTest(TestCase):
-
     def setUp(self):
         self.user = User.objects.create_user(
             email="test@example.com", firstname="Test", gender="F"
@@ -135,7 +137,6 @@ class PauseModelTest(TestCase):
 
 
 class DefaultPauseTitleTest(TestCase):
-
     @patch("pauses.models.timezone.now")
     def test_default_pause_title(self, mock_now):
         mock_now.return_value = datetime(2025, 9, 9)

@@ -1,16 +1,14 @@
-from django.test import TestCase, Client
-from pauses.models import *
-from users.models import *
-from users.forms import RegisterForm
-from django.contrib.auth import get_user_model
-from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
+from django.urls import reverse
+
+from users.forms import RegisterForm
 
 User = get_user_model()
 
 
 class RegisterViewTest(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.register_url = reverse("register")
@@ -105,7 +103,9 @@ class RegisterViewTest(TestCase):
         # On teste l'inscription avec un utilisateur existant
 
         User.objects.create_user(
-            firstname="existing_user", email="martin@test.fr", password="password123"
+            firstname="existing_user",
+            email="martin@test.fr",
+            password="password123",  # noqa: S106
         )
         response = self.client.post(self.register_url, self.valid_user_data)
 

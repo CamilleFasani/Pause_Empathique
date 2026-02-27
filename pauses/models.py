@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
 
 
 def default_pause_title():
@@ -45,7 +45,6 @@ class Pause(models.Model):
 
 
 class Feeling(models.Model):
-
     class FeelingFamily(models.TextChoices):
         AFFECTION = "AF", "Affection"
         SERENITE = "SE", "Sérénité"
@@ -81,7 +80,6 @@ class Feeling(models.Model):
 
 
 class Need(models.Model):
-
     class NeedFamily(models.TextChoices):
         SURVIE = "SU", "Survie"
         INTEGRITE = "IN", "Intégrité"

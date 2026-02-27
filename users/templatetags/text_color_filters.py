@@ -11,4 +11,4 @@ def highlight_second_letter(word, css_class="text-otherpink"):
     first = word[0]
     second = word[1]
     rest = word[2:]
-    return mark_safe(f'{first}<span class="{css_class}">{second}</span>{rest}')
+    return mark_safe(f'{first}<span class="{css_class}">{second}</span>{rest}')  # noqa: S308
