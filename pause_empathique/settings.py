@@ -43,14 +43,20 @@ if ENV_STATE == "production":
     ]
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+elif ENV_STATE == "staging":
+    ALLOWED_HOSTS = [
+        "staging.pause-empathique.fr",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://staging.pause-empathique.fr",
+    ]
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 else:
+    # development
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 ADMIN_URL = config("ADMIN_URL", default="admin/")
-
-if ENV_STATE == "production":
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
