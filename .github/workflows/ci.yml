@@ -8,19 +8,24 @@ on:
 
 jobs:
   lint:
-    name: Code Quality (Black)
+    name: Code Quality (Ruff)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Copy CI env file
-        run: cp .env.ci .env
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
 
-      - name: Build Docker image for web
-        run: docker compose -p pause_empathique-local build --pull web
+      - name: Install Ruff
+        run: pip install ruff==0.9.10
 
-      - name: Run Black formatting check
-        run: docker compose -p pause_empathique-local run --rm --no-deps --entrypoint="" web poetry run black --check --diff .
+      - name: Ruff format check
+        run: ruff format --check --diff .
+
+      - name: Ruff lint check
+        run: ruff check .
 
   test:
     name: Django Tests

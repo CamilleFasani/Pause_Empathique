@@ -35,16 +35,16 @@ Ce projet est la base sur laquelle sera préparé le titre CDA. Les évolutions 
 
 | Technologie          | Version | Rôle                                                                       |
 | -------------------- | ------- | -------------------------------------------------------------------------- |
-| Python               | 3.13    | Langage principal                                                          |
-| Django               | 5.2.5   | Framework full stack                                                       |
+| Python               | 3.13.6  | Langage principal                                                          |
+| Django               | 5.2.6   | Framework full stack                                                       |
 | PostgreSQL           | 17      | Base de données                                                            |
-| psycopg              | 3       | Driver PostgreSQL (nouvelle API async-compatible)                          |
-| dj-database-url      | 3       | Parse l'URL de BDD depuis les variables d'env                              |
+| psycopg              | 3.2.10  | Driver PostgreSQL (nouvelle API async-compatible)                          |
+| dj-database-url      | 3.0.1   | Parse l'URL de BDD depuis les variables d'env                              |
 | python-decouple      | 3.8     | Gestion des variables d'environnement (.env)                               |
-| gunicorn             | 23      | Serveur WSGI de production                                                 |
-| whitenoise[brotli]   | 6       | Servir les fichiers statiques en production (+ compression Brotli)         |
-| django-widget-tweaks | 1.5     | Ajouter des attributs HTML aux champs de formulaires dans les templates    |
-| user-agents          | 2.2     | Détecter le type d'appareil (mobile/desktop) pour adapter les redirections |
+| gunicorn             | 23.0.0  | Serveur WSGI de production                                                 |
+| whitenoise[brotli]   | 6.11.0  | Servir les fichiers statiques en production (+ compression Brotli)         |
+| django-widget-tweaks | 1.5.0   | Ajouter des attributs HTML aux champs de formulaires dans les templates    |
+| user-agents          | 2.2.0   | Détecter le type d'appareil (mobile/desktop) pour adapter les redirections |
 
 ### Front-end (actuel — full stack Django)
 
@@ -56,14 +56,14 @@ Ce projet est la base sur laquelle sera préparé le titre CDA. Les évolutions 
 
 ### Dev / Tooling
 
-| Outil                   | Rôle                                        |
-| ----------------------- | ------------------------------------------- |
-| Poetry                  | Gestionnaire de dépendances Python          |
-| Docker + docker-compose | Environnement de développement local        |
-| Black                   | Formateur de code Python (ligne = 88 chars) |
-| npm                     | Compilation Tailwind (`tailwind watch`)     |
-| django-browser-reload   | Hot reload en développement                 |
-| GitHub Actions          | CI : lint (Black) + tests Django            |
+| Outil                   | Version | Rôle                                         |
+| ----------------------- | ------- | -------------------------------------------- |
+| Poetry                  | —       | Gestionnaire de dépendances Python           |
+| Docker + docker-compose | —       | Environnement de développement local         |
+| Ruff                    | 0.9.10  | Formateur + linter Python (ligne = 88 chars) |
+| npm                     | —       | Compilation Tailwind (`tailwind watch`)      |
+| django-browser-reload   | 1.19.0  | Hot reload en développement                  |
+| GitHub Actions          | —       | CI : lint (Ruff) + tests Django              |
 
 ---
 
@@ -72,7 +72,7 @@ Ce projet est la base sur laquelle sera préparé le titre CDA. Les évolutions 
 ```
 pause_empathique/          ← Racine du repo back (deviendra API)
 ├── .github/workflows/
-│   └── ci.yml             ← CI : Black check + Django tests (branches main & dev)
+│   └── ci.yml             ← CI : Ruff check + Django tests (branches main & dev)
 ├── pause_empathique/      ← Config Django (settings, urls, wsgi, asgi)
 ├── pauses/                ← App Django "pauses"
 │   ├── models.py          ← Pause, Feeling (FeelingFamily), Need
@@ -183,7 +183,7 @@ CORS_ALLOWED_ORIGINS → à ajouter lors de la phase API (domaine front)
 **CI/CD (GitHub Actions) :**
 
 - Déclenché sur push/PR vers `main` et `dev`
-- Job `lint` : Black formatting check (via Docker)
+- Job `lint` : Ruff format + lint check (via Docker)
 - Job `test` : Django test runner (via Docker + Postgres)
 
 ---
@@ -233,20 +233,6 @@ Tailwind CSS est conservé pour toute la durée du projet (Django full stack et 
 **Approche pour la charte graphique :**
 Avec Tailwind v4, la charte s'applique via des variables CSS natives dans le fichier `input.css` :
 
-```css
-/* static/css/input.css */
-@import "tailwindcss";
-
-@theme {
-  --color-primary: #...;
-  --color-accent: #...;
-  --font-sans: "NomDeLaPolice", sans-serif;
-}
-```
-
-Ces variables deviennent ensuite utilisables comme classes utilitaires (`bg-primary`, `text-accent`)
-ET comme variables CSS standard (`var(--color-primary)`) — le meilleur des deux mondes.
-
 ### Authentification API : JWT ✅ décidé
 
 Librairie retenue : **`djangorestframework-simplejwt`** ([doc officielle](https://django-rest-framework-simplejwt.readthedocs.io/))
@@ -292,15 +278,15 @@ Pour une SPA (Single Page Application), le front et le back sont sur des domaine
 ```yaml
 # .github/workflows/ci.yml
 jobs:
-  lint: → Black formatting check (via Docker)
+  lint: → Ruff format + lint check (sans Docker, ~20s)  ✅ optimisé
   test: → Django test runner (via Docker + Postgres)
 ```
 
-**Problème principal :** tout passe par Docker. Construire l'image à chaque run de CI prend du temps (souvent 2-3 min juste pour le build). Pour du lint, c'est du gaspillage.
+**Lint séparé du Docker ✅** : le job `lint` n'utilise plus Docker. Il installe directement Ruff via `pip` avec `actions/setup-python` + cache. Durée : ~20s au lieu de 2-3 min.
 
 ---
 
-### Recommandation : migrer de Black vers Ruff ✅
+### Migration Black → Ruff ✅ (terminée)
 
 **Ruff** ([doc officielle](https://docs.astral.sh/ruff/)) est un linter + formateur Python écrit en Rust.
 Il est **10 à 100× plus rapide** que Black + flake8 et peut les remplacer tous les deux.
@@ -312,7 +298,7 @@ Il est **10 à 100× plus rapide** que Black + flake8 et peut les remplacer tous
 | `isort`     | `ruff check --select I` (règles isort intégrées) |
 | `pyupgrade` | `ruff check --select UP`                         |
 
-**Migration depuis Black :** Ruff format est compatible Black par défaut (`line-length = 88`). Le passage est transparent.
+**Ruff format est compatible Black par défaut** (`line-length = 88`). Le passage est transparent.
 
 Configuration dans `pyproject.toml` :
 
@@ -339,9 +325,9 @@ ignore = ["S101"]  # autorise les assert (utiles dans les tests)
 
 ### Améliorations CI recommandées
 
-#### 1. Séparer lint du Docker (quick win majeur)
+#### 1. ~~Séparer lint du Docker~~ ✅ (fait)
 
-Le job `lint` n'a pas besoin de Docker ni de Postgres. Avec `actions/setup-python` + cache pip, il tourne en ~20 secondes.
+Le job `lint` n'utilise plus Docker. `actions/setup-python` + `pip install ruff==0.9.10` + cache pip. Tourne en ~20 secondes.
 
 #### 2. Ajouter la couverture de tests (coverage)
 
