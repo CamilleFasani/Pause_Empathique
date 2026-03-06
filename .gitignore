@@ -51,3 +51,6 @@ package-lock.json
 static/css/output.css
 
 ARCHITECTURE.md 
+
+# Ruff
+.ruff_cache/
