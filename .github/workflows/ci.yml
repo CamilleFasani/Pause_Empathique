@@ -40,7 +40,7 @@ jobs:
         run: docker compose -p pause_empathique-local build --pull
 
       - name: Run dependency audit
-        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web sh -lc "poetry run pip install pip-audit && poetry run pip-audit"
+        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web sh -lc "poetry run pip install --upgrade pip pip-audit && poetry run pip-audit"
 
       - name: Cleanup
         if: always()
