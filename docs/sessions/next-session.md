@@ -5,29 +5,22 @@
 
 ---
 
-## Session #3 — Date prévue : 13 mars 2026
+## Session #4 — Date prévue : 20 mars 2026
 
 ### Contexte
 
-Session #2 (6 mars) : debugging infra Railway + DNS.
+Session #3 (13 mars) : validation infra + préparation qualité.
 
-- Dockerfile corrigé (Node 20 + build Tailwind)
-- `start-django.sh` corrigé (gunicorn bind sur `0.0.0.0:$PORT`, staging utilise gunicorn)
-- TXT `_railway-verify.staging` et `_railway-verify.www` ajoutés dans OVH
-- En attente de propagation DNS et validation Railway au moment de clore la session
+- Production et staging validés sur Railway (DNS + SSL + disponibilité)
+- Déploiement auto de la branche `dev` confirmé sur staging
+- Job CI `security` avec `pip-audit` en place
+- Priorité suivante validée : migration tests vers pytest + mise en place pre-commit
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Valider que prod et staging sont en ligne
-
-- [x] Vérifier que Railway a validé les deux domaines (plus de "Waiting for DNS update")
-- [x] Vérifier que `www.pause-empathique.fr` et `staging.pause-empathique.fr` répondent (SSL OK, pas de 404)
-- [x] Vérifier que le déploiement automatique sur la branche `dev` fonctionne (webhook Railway)
-- [x] Si encore bloqué : supprimer/recréer les domaines dans Railway pour forcer la re-vérification
-
-#### Objectif 2 — Migration vers pytest + mesure de couverture (Phase 0.2)
+#### Objectif 1 — Migration vers pytest + mesure de couverture (Phase 0.2)
 
 - [ ] Installer `pytest`, `pytest-django`, `pytest-cov` (via Poetry)
 - [ ] Configurer `[tool.pytest.ini_options]` dans `pyproject.toml`
@@ -48,10 +41,16 @@ Session #2 (6 mars) : debugging infra Railway + DNS.
 - [ ] Créer `.pre-commit-config.yaml` avec `ruff check` + `ruff format`
 - [ ] Tester sur un commit fictif
 
+#### Objectif 4 — Préparer la documentation API Swagger (Phase 2)
+
+- [ ] Valider l'outil retenu : `drf-spectacular` (OpenAPI 3 + Swagger UI + Redoc)
+- [ ] Planifier l'installation dès le démarrage de la phase DRF (setup technique de la phase 2.1)
+- [ ] Prévoir la validation finale de la doc sur staging (phase 2.4)
+
 ---
 
 ### Rappels du chef de projet
 
 - ⚠️ La Phase 1 (charte graphique) ne démarre pas tant que la Phase 0 n'est pas validée
 - 📋 Penser à définir la charte graphique (couleurs, typos) pour ne pas bloquer la Phase 1
-- 🔒 Aucune dépendance DRF ni Vue.js pour l'instant — on consolide la base
+- 🔒 Aucune dépendance DRF (hors doc Swagger préparatoire) ni Vue.js pour l'instant — on consolide la base

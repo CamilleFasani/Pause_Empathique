@@ -93,6 +93,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 - [ ] Installer `djangorestframework`
 - [ ] Configurer DRF dans `settings.py` (authentification, permissions, pagination)
+- [ ] Installer `drf-spectacular` et exposer les routes de documentation (`/api/schema/`, Swagger UI, Redoc)
 - [ ] Installer `djangorestframework-simplejwt`
 - [ ] Configurer les endpoints JWT : `/api/token/`, `/api/token/refresh/`
 - [ ] Configurer CORS (`django-cors-headers`) pour le futur front Vue.js
@@ -113,8 +114,8 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 2.4 — Documentation API
 
-- [ ] Installer `drf-spectacular` (OpenAPI 3)
-- [ ] Générer la doc Swagger / Redoc accessible en staging
+- [ ] Stabiliser et compléter le schéma OpenAPI (serializers, exemples, erreurs)
+- [ ] Valider la doc Swagger / Redoc en staging avant migration front complète
 
 #### 2.5 — Suppression des templates Django
 
