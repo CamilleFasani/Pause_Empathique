@@ -40,7 +40,7 @@ Session #2 (6 mars) : debugging infra Railway + DNS.
 
 - [x] Ajouter un job CI `security` avec `pip-audit`
 - [x] Exécuter l'audit sur PR et sur push `main` / `dev`
-- [ ] Traiter les vulnérabilités critiques détectées (si présentes)
+- [x] Traiter les vulnérabilités critiques détectées (si présentes)
 
 #### Objectif 3 — Pre-commit hooks (Phase 0.4) (si le temps le permet)
 

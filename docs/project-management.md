@@ -56,7 +56,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 #### 0.3 — Sécurité des dépendances
 
 - [x] Ajouter un job CI `security` : `pip-audit`
-- [ ] Résoudre les CVE critiques si détectées
+- [x] Résoudre les CVE critiques si détectées
 
 #### 0.4 — Pre-commit hooks
 
