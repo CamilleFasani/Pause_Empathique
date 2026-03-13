@@ -5,6 +5,41 @@
 
 ---
 
+## Session #2 — 6 mars 2026
+
+**Objectifs prévus :** Déboguer prod et staging Railway (DNS + déploiement)
+
+**Ce qui a été fait :**
+
+- ✅ Identification du problème DNS : Railway exige des enregistrements TXT `_railway-verify.<sous-domaine>` en plus des CNAME
+- ✅ Ajout des TXT `_railway-verify.staging` et `_railway-verify.www` dans la zone OVH (mode texte brut)
+- ✅ Correction du `Dockerfile` : installation de Node.js 20 via NodeSource + build Tailwind CSS (`npm run build:css`) — le CSS compilé n'était pas inclus dans le déploiement
+- ✅ Correction de `start-django.sh` : gunicorn écoute maintenant sur `0.0.0.0:${PORT:-8000}` et le staging utilise gunicorn (plus `runserver`)
+- ✅ Diagnostic du déploiement automatique sur Railway (branche `dev` mal ou pas connectée via webhook)
+
+**Ce qui reste :**
+
+- [ ] Vérifier que la propagation DNS est complète et que Railway valide les domaines (`_railway-verify.*`)
+- [ ] Vérifier que www.pause-empathique.fr et staging.pause-empathique.fr répondent correctement (SSL inclus)
+- [ ] Vérifier le déploiement auto Railway sur la branche `dev`
+- [ ] Installer `pytest`, `pytest-django`, `pytest-cov` et configurer la couverture
+- [ ] Installer `pre-commit` avec `ruff check` + `ruff format`
+
+**Décisions prises :**
+
+- Le CSS Tailwind doit être compilé dans le Dockerfile (non commité dans git)
+- gunicorn doit toujours binder sur `0.0.0.0:$PORT` pour que Railway puisse atteindre l'app
+- staging et prod utilisent tous deux gunicorn (pas `runserver`)
+
+**Blocages / Points ouverts :**
+
+- Propagation DNS TXT en attente — Railway pas encore validé au moment de clore la session
+- Déploiement automatique Railway sur `dev` à confirmer
+
+**Humeur de la session :** Beaucoup de debugging infra, bonne progression malgré les contraintes OVH.
+
+---
+
 ## Session #1 — 5 mars 2026
 
 **Objectifs prévus :** Mise en place du système de collaboration (copilot-instructions, gestion de projet, sessions)

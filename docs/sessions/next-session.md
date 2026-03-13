@@ -5,36 +5,42 @@
 
 ---
 
-## Session #2 — 6 mars 2026
+## Session #3 — Date prévue : 13 mars 2026
 
 ### Contexte
 
-Depuis la session #1, les travaux suivants ont été réalisés en autonomie :
+Session #2 (6 mars) : debugging infra Railway + DNS.
 
-- **Phase 0.1** : Environnement staging créé dans le code et déployé sur Railway (branche `dev`)
-- **DNS** : Reorganisation des zones DNS OVH — `app.pause-empathique.fr` (prod) et `pause-empathique.fr` (anciennement en redirection permanente, forcé par OVH Cloud qui n'autorisait pas l'enregistrement A sur le domaine nu)
-
-Ces changements sont en place mais **la prod et le staging ne répondent pas correctement**. La priorité absolue de la session est de déboguer et remettre les deux environnements en ligne.
+- Dockerfile corrigé (Node 20 + build Tailwind)
+- `start-django.sh` corrigé (gunicorn bind sur `0.0.0.0:$PORT`, staging utilise gunicorn)
+- TXT `_railway-verify.staging` et `_railway-verify.www` ajoutés dans OVH
+- En attente de propagation DNS et validation Railway au moment de clore la session
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Déboguer prod et staging Railway (priorité absolue)
+#### Objectif 1 — Valider que prod et staging sont en ligne
 
-- [ ] Vérifier l'état des déploiements Railway (prod + staging) — logs, statuts
-- [ ] Vérifier la propagation DNS (`dig`, `nslookup`) pour `app.pause-empathique.fr` et `pause-empathique.fr`
-- [ ] Vérifier les enregistrements DNS dans OVH (A, CNAME, redirections actives/supprimées)
-- [ ] Vérifier la configuration des domaines personnalisés dans Railway (prod + staging)
-- [ ] Vérifier les variables d'environnement (`ALLOWED_HOSTS`, `DJANGO_SETTINGS_MODULE`, etc.)
-- [ ] Corriger les erreurs identifiées et valider que les deux sites répondent
+- [x] Vérifier que Railway a validé les deux domaines (plus de "Waiting for DNS update")
+- [x] Vérifier que `www.pause-empathique.fr` et `staging.pause-empathique.fr` répondent (SSL OK, pas de 404)
+- [ ] Vérifier que le déploiement automatique sur la branche `dev` fonctionne (webhook Railway)
+- [x] Si encore bloqué : supprimer/recréer les domaines dans Railway pour forcer la re-vérification
 
-#### Objectif 2 — Mesure de couverture et pre-commit hooks (si le temps le permet)
+#### Objectif 2 — Migration vers pytest + mesure de couverture (Phase 0.2)
 
 - [ ] Installer `pytest`, `pytest-django`, `pytest-cov` (via Poetry)
 - [ ] Configurer `[tool.pytest.ini_options]` dans `pyproject.toml`
+- [ ] Vérifier que les tests existants passent avec pytest
 - [ ] Mesurer la couverture actuelle : `pytest --cov=. --cov-report=term-missing`
-- [ ] Installer `pre-commit`, créer `.pre-commit-config.yaml` avec `ruff check` + `ruff format`
+- [ ] Identifier les zones non couvertes (modèles, vues, forms)
+- [ ] Mettre à jour le job CI `test` pour utiliser pytest
+
+#### Objectif 3 — Pre-commit hooks (Phase 0.4) (si le temps le permet)
+
+- [ ] Installer `pre-commit` localement
+- [ ] Créer `.pre-commit-config.yaml` avec `ruff check` + `ruff format`
+- [ ] Tester sur un commit fictif
 
 ---
 
