@@ -24,7 +24,7 @@ Session #2 (6 mars) : debugging infra Railway + DNS.
 
 - [x] Vérifier que Railway a validé les deux domaines (plus de "Waiting for DNS update")
 - [x] Vérifier que `www.pause-empathique.fr` et `staging.pause-empathique.fr` répondent (SSL OK, pas de 404)
-- [ ] Vérifier que le déploiement automatique sur la branche `dev` fonctionne (webhook Railway)
+- [x] Vérifier que le déploiement automatique sur la branche `dev` fonctionne (webhook Railway)
 - [x] Si encore bloqué : supprimer/recréer les domaines dans Railway pour forcer la re-vérification
 
 #### Objectif 2 — Migration vers pytest + mesure de couverture (Phase 0.2)
@@ -35,6 +35,12 @@ Session #2 (6 mars) : debugging infra Railway + DNS.
 - [ ] Mesurer la couverture actuelle : `pytest --cov=. --cov-report=term-missing`
 - [ ] Identifier les zones non couvertes (modèles, vues, forms)
 - [ ] Mettre à jour le job CI `test` pour utiliser pytest
+
+#### Objectif 2 bis — Audit sécurité des dépendances (Phase 0.3)
+
+- [x] Ajouter un job CI `security` avec `pip-audit`
+- [x] Exécuter l'audit sur PR et sur push `main` / `dev`
+- [ ] Traiter les vulnérabilités critiques détectées (si présentes)
 
 #### Objectif 3 — Pre-commit hooks (Phase 0.4) (si le temps le permet)
 

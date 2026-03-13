@@ -21,12 +21,13 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
 - ✅ CI/CD GitHub Actions (lint Ruff + tests Django via Docker)
+- ✅ Job CI sécurité dépendances (`pip-audit`) ajouté
 - ✅ Déploiement Railway (branche `main`)
+- ✅ Environnement staging Railway opérationnel (`staging.pause-empathique.fr`) avec déploiement automatique sur `dev`
 - ✅ Modèles : User, Pause, Feeling, Need
 - ✅ CRUD complet sur les pauses
-- ❌ Pas d'environnement staging
 - ❌ Pas de couverture de tests mesurée
-- ❌ Pas d'audit de sécurité des dépendances
+- ⚠️ Audit de sécurité des dépendances en place, remédiation CVE à suivre
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -40,10 +41,10 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 #### 0.1 — Environnement Staging
 
-- [ ] Créer un service Railway pour la branche `dev`
-- [ ] Configurer les variables d'environnement staging (`ENV_STATE=staging`, `DEBUG=False`, etc.)
-- [ ] Vérifier que le pipeline CI/CD fusionne correctement vers staging
-- [ ] Valider l'accès : `staging.pause-empathique.fr`
+- [x] Créer un service Railway pour la branche `dev`
+- [x] Configurer les variables d'environnement staging (`ENV_STATE=staging`, `DEBUG=False`, etc.)
+- [x] Vérifier que le pipeline CI/CD fusionne correctement vers staging
+- [x] Valider l'accès : `staging.pause-empathique.fr`
 
 #### 0.2 — Couverture de tests
 
@@ -54,7 +55,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 #### 0.3 — Sécurité des dépendances
 
-- [ ] Ajouter un job CI `security` : `pip-audit`
+- [x] Ajouter un job CI `security` : `pip-audit`
 - [ ] Résoudre les CVE critiques si détectées
 
 #### 0.4 — Pre-commit hooks

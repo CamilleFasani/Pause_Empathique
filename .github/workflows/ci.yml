@@ -27,6 +27,25 @@ jobs:
       - name: Ruff lint check
         run: ruff check .
 
+  security:
+    name: Dependency Security Audit (pip-audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy CI env file
+        run: cp .env.ci .env
+
+      - name: Build Docker images
+        run: docker compose -p pause_empathique-local build --pull
+
+      - name: Run dependency audit
+        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web sh -lc "poetry run pip install pip-audit && poetry run pip-audit"
+
+      - name: Cleanup
+        if: always()
+        run: docker compose -p pause_empathique-local down -v
+
   test:
     name: Django Tests
     runs-on: ubuntu-latest
