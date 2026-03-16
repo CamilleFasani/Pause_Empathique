@@ -7,16 +7,16 @@
         <h1 class="form-title self-center">Modifier mon profil</h1>
         {% csrf_token %}
         {% include 'partials/non_field_errors.html' %}
- 
+
         <label for="{{ form.firstname.id_for_label }}" class="text-gray-900 font-semibold md:text-lg">{{ form.firstname.label }}</label>
         {{ form.firstname | add_class:"italic mb-4"}}
         {% include 'partials/field_errors.html' with field=form.firstname %}
-    
+
 
         <label for="{{ form.email.id_for_label }}" class="text-gray-900 font-semibold md:text-lg">{{ form.email.label }}</label>
         {{ form.email | add_class:"italic mb-4"}}
         {% include 'partials/field_errors.html' with field=form.email %}
-    
+
 
         <label for="{{ form.gender.id_for_label }}" class="text-gray-900 font-semibold mb-4 md:text-lg">{{ form.gender.label }}</label>
         {{ form.gender }}

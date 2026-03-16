@@ -1,4 +1,4 @@
-{% load static %} 
+{% load static %}
 {% load text_color_filters %}
 {% load navigation_tags %}
 {% block header %}
@@ -45,34 +45,34 @@
           </button>
         </form>
       </nav>
-      
+
     <!-- Navigation mobile -->
     <nav class="md:hidden h-15 flex justify-between fixed bottom-0 text-white py-2 bg-header px-3 max-w-screen-2xl w-full">
-      
+
       <a href="{{ my_profile_url }}" class="nav-text-mobile {% if request.path == my_profile_url %} text-otherpink {% endif %}">
         <img src="{% static '/icons/user-round-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_profile_url %} inline {% endif %}">
         <img src="{% static '/icons/user-round-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if request.path == my_profile_url %} hidden {% endif %}">
         Mon profil
       </a>
-      
+
       <a href="{{ my_dashboard_url }}" class="nav-text-mobile {% if request.path == my_dashboard_url %} text-otherpink {% endif %}">
         <img src="{% static '/icons/house-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_dashboard_url %} inline {% endif %}">
         <img src="{% static '/icons/house-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if request.path == my_dashboard_url %} hidden {% endif %}">
         Mon espace
       </a>
-      
+
       <a href="{{ my_diary_url }}" class="nav-text-mobile {% if request.path == my_diary_url %} text-otherpink {% endif %}">
         <img src="{% static '/icons/book-heart-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_diary_url %} inline {% endif %}">
         <img src="{% static '/icons/book-heart-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if request.path == my_diary_url %} hidden {% endif %}">
         Mon journal
       </a>
-      
+
       <a href="{{ practice_url }}" class="nav-text-mobile {% if is_practice_active %} text-otherpink {% endif %}">
         <img src="{% static '/icons/heart-plus-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if is_practice_active %} inline {% endif %}">
         <img src="{% static '/icons/heart-plus-white.svg' %}" aria-hidden="true" class="w-4 h-4 {% if is_practice_active %} hidden {% endif %}">
         Pratiquer
       </a>
-      
+
       <form action="{% url 'logout' %}" method="post" >
         {% csrf_token %}
         <button type="submit" class="nav-text-mobile cursor-pointer">
@@ -84,7 +84,7 @@
 
     {% else %}
       <h1 class="hidden md:block text-3xl text-white self-center">Pause {{"Empathique"|highlight_second_letter }}</h1>
-      <h3 class="hidden md:block text-l text-white">Observer, Ressentir, Comprendre, Agir</h3>  
+      <h3 class="hidden md:block text-l text-white">Observer, Ressentir, Comprendre, Agir</h3>
     {% endif %}
   </div>
 </header>
