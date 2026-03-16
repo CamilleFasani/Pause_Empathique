@@ -47,7 +47,7 @@ jobs:
         run: docker compose -p pause_empathique-local down -v
 
   test:
-    name: Django Tests
+    name: Pytest + Coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,8 +61,8 @@ jobs:
       - name: Start and wait for database
         run: docker compose -p pause_empathique-local up -d --wait db
 
-      - name: Run Django tests
-        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web poetry run python manage.py test
+      - name: Run pytest with coverage
+        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web poetry run pytest --cov=. --cov-report=term-missing
 
       - name: Cleanup
         if: always()
