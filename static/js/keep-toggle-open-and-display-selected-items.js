@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", function() {
     function isDesktop() {
         return window.innerWidth >= 768;
     }
-    
+
     // Afficher les sentiments ou besoins sélectionnés
     function updateSelectedList() {
         listOfItems.innerHTML = "";
-        
+
         const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
         const errorMessage = document.querySelector("#error-message");
-        
+
         checkedBoxes.forEach(box => {
             const li = document.createElement("li");
             const label = box.closest("label");
@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Masquer le message d'erreur s'il y a des cases cochées
         if (checkedBoxes.length > 0) {
             errorMessage.style.display = "none";
-        }   
+        }
     }
 
     //Laisser les familles ouvertes sur desktop et sur mobile si elles ont des items sélectionnés
     families.forEach((family) => {
         let boxes = family.querySelectorAll("input[type=checkbox]");
-        
+
         //Faire apparaître/disparaître les sentiments ou besoin au clic sur la famille sur desktop
         family.addEventListener("click", () => {
             if (isDesktop()) {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if(checkbox.checked){
                         label.style.display = "block";
                     }
-                    
+
                     if (label.style.display === "block") {
                         // Ne cacher que si la checkbox n'est pas cochée
                         if (!checkbox.checked) {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
         function hasCheckedBox() {
             return Array.from(boxes).some(b => b.checked);
         }
-        
+
         if (isDesktop() || hasCheckedBox()) {
             family.setAttribute("open", "");
         } else {
@@ -95,13 +95,13 @@ document.addEventListener("DOMContentLoaded", function() {
             function hasCheckedBox() {
                 return Array.from(boxes).some(b => b.checked);
             }
-            
+
             // Réinitialiser les styles inline des labels
             const familyLabels = family.querySelectorAll("label");
             familyLabels.forEach(label => {
                 label.style.display = "";
             });
-            
+
             if (isDesktop() || hasCheckedBox()) {
                 family.setAttribute("open", "");
                 label.style.display = "block";

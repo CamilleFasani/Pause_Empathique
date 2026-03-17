@@ -49,13 +49,13 @@
     }
     .feeling:has(input:checked){
         @apply font-semibold
-    }    
+    }
     .need{
         @apply flex flex-col items-center p-2 cursor-pointer w-44 gap-5 hover:font-semibold rounded-sm my-1
     }
     .need:has(input:checked){
         @apply font-semibold bg-background-button
-    } 
+    }
 }
 
 @layer utilities{
@@ -64,7 +64,7 @@
         @apply bg-[#F0D3DD]
     }
     .affection-feelings{
-        @apply bg-[#D585A1] 
+        @apply bg-[#D585A1]
     }
     .serenite{
         @apply bg-[#d3e6f0]

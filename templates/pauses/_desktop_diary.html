@@ -6,7 +6,7 @@
         <h1 class="text-2xl">Mon journal</h1>
         <img src="{% static '/icons/diary-background-free.png' %}" alt="dessin d'un livre avec un coeur dessus" class="w-8 h-12">
     </div>
-    
+
     {% if messages %}
         <ul>
         {% for message in messages %}
@@ -17,11 +17,11 @@
 
     {% if not pauses %}
         <p class="self-center italic">Aucune pause enregistrée pour le moment.</p>
-    {% else %} 
+    {% else %}
         <table class="table-fixed border-2 border-white">
             <thead>
                 <tr>
-                    <th id="Titre-de-la-pause" class="table-title">Titre</th> 
+                    <th id="Titre-de-la-pause" class="table-title">Titre</th>
                     <th id="Date-de-la-dernière-modification" class="table-title">Date</th>
                     <th id="Contenu-étape-vide-ton-sac" class="table-title">Vide ton sac</th>
                     <th id="Contenu-étape-Observation" class="table-title ">Observation</th>
@@ -60,14 +60,14 @@
                     </td>
                     <td headers="Modifier-la-pause" class="table-cell text-center">
                         <a href="{% url 'update_pause' pause.id %}" aria-label="Modifier cette pause" class="inline-block">
-                        <img src="{% static '/icons/square-pen-header.svg' %}" alt="" aria-hidden="true" class="w-6 h-6 cursor-pointer hover:scale-105">  
+                        <img src="{% static '/icons/square-pen-header.svg' %}" alt="" aria-hidden="true" class="w-6 h-6 cursor-pointer hover:scale-105">
                         </a>
                     </td>
                     <td headers="Supprimer-la-pause" class="delete-cell">
-                        <form 
-                        action="{% url 'delete_pause' pause.id %}{% if page_obj %}?page={{ page_obj.number }}{% endif %}" 
-                        method="post" 
-                        onsubmit="return confirm('Es-tu sûr.e de vouloir supprimer cette pause? C\'est irréversible.')">                   
+                        <form
+                        action="{% url 'delete_pause' pause.id %}{% if page_obj %}?page={{ page_obj.number }}{% endif %}"
+                        method="post"
+                        onsubmit="return confirm('Es-tu sûr.e de vouloir supprimer cette pause? C\'est irréversible.')">
                         {% csrf_token %}
                         <button type="submit" aria-label="Supprimer cette pause">
                             <img src="{% static '/icons/trash-2-otherpink.svg' %}" alt="" aria-hidden="true" class="w-6 h-6 cursor-pointer hover:scale-105">
@@ -76,15 +76,15 @@
                     </td>
                 </tr>
                 {% endfor %}
-            </tbody>       
+            </tbody>
         </table>
-    
+
         {% if page_obj %}
         <nav class="pagination flex justify-center" aria-label="Navigation parmi les pages du journal">
             <div class="step-links flex items-center">
                 {% if page_obj.has_previous %}
                     <a href="?page=1" aria-label="Aller à la première page">
-                    <img src="{% static '/icons/chevron-first-black.svg' %}" alt="" aria-hidden="true" class="icons-pagination">  
+                    <img src="{% static '/icons/chevron-first-black.svg' %}" alt="" aria-hidden="true" class="icons-pagination">
                     </a>
                     <a href="?page={{ page_obj.previous_page_number }}" aria-label="Aller à la page précédente">
                     <img src="{% static '/icons/chevron-left-black.svg' %}" alt="" aria-hidden="true" class="icons-pagination">

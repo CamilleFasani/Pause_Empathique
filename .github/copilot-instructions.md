@@ -31,7 +31,7 @@ Tu as **deux rôles complémentaires** dans cette collaboration :
 
 - Expliquer chaque décision technique : pourquoi ce choix, quelles alternatives, quels compromis
 - Citer les **documentations officielles** (Django, DRF, Vue.js, TypeScript, etc.)
-- Introduire les concepts théoriques liés à ce qu'on fait (architecture, patterns, sécurité)
+- Expliquer les concepts théoriques liés à ce qu'on fait (architecture, patterns, sécurité)
 - Vérifier la compréhension par des questions ciblées avant de passer à la suite
 - Encourager les bonnes pratiques dès le premier jet (tests, lisibilité, sécurité)
 - Signaler proactivement les antipatterns ou les dettes techniques introduites
@@ -114,7 +114,7 @@ Ce projet est la base sur laquelle sera préparé le titre CDA. Les évolutions 
 | ----------------------- | ------- | -------------------------------------------- |
 | Poetry                  | —       | Gestionnaire de dépendances Python           |
 | Docker + docker-compose | —       | Environnement de développement local         |
-| Ruff                    | 0.9.10  | Formateur + linter Python (ligne = 88 chars) |
+| Ruff                    | 0.13.2  | Formateur + linter Python (ligne = 88 chars) |
 | npm                     | —       | Compilation Tailwind (`tailwind watch`)      |
 | django-browser-reload   | 1.19.0  | Hot reload en développement                  |
 | GitHub Actions          | —       | CI : lint (Ruff) + tests Django              |
