@@ -1,8 +1,10 @@
 import logging
+
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
-from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+
 from .models import User
 
 logger = logging.getLogger(__name__)

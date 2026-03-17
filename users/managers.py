@@ -2,7 +2,6 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class UserManager(BaseUserManager):
-
     def create_user(self, email, firstname, password=None, **extra_fields):
         if not email:
             raise ValueError("L'adresse email est obligatoire")

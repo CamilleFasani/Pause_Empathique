@@ -8,7 +8,27 @@ on:
 
 jobs:
   lint:
-    name: Code Quality (Black)
+    name: Code Quality (Ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install Ruff
+        run: pip install ruff==0.9.10
+
+      - name: Ruff format check
+        run: ruff format --check --diff .
+
+      - name: Ruff lint check
+        run: ruff check .
+
+  security:
+    name: Dependency Security Audit (pip-audit)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,11 +36,15 @@ jobs:
       - name: Copy CI env file
         run: cp .env.ci .env
 
-      - name: Build Docker image for web
-        run: docker compose -p pause_empathique-local build --pull web
+      - name: Build Docker images
+        run: docker compose -p pause_empathique-local build --pull
 
-      - name: Run Black formatting check
-        run: docker compose -p pause_empathique-local run --rm --no-deps --entrypoint="" web poetry run black --check --diff .
+      - name: Run dependency audit
+        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web sh -lc "poetry run pip install --upgrade pip pip-audit && poetry run pip-audit"
+
+      - name: Cleanup
+        if: always()
+        run: docker compose -p pause_empathique-local down -v
 
   test:
     name: Django Tests

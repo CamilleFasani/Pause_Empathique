@@ -3,9 +3,12 @@ FROM python:3.13-bullseye
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN mkdir /code
-
 WORKDIR /code
+
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN pip install poetry
 
@@ -13,7 +16,12 @@ COPY pyproject.toml poetry.lock ./
 
 RUN poetry install --no-root
 
+COPY package.json ./
+RUN npm install
+
 COPY . .
+
+RUN npm run build:css
 
 RUN chmod 755 /code/start-django.sh
 

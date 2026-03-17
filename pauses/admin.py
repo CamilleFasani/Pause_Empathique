@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Pause, Feeling, Need
+
+from .models import Feeling, Need, Pause
 
 
 @admin.register(Pause)

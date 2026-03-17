@@ -1,14 +1,15 @@
-from user_agents import parse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseForbidden
-from pauses.models import Pause, Feeling, Need
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from user_agents import parse
+
+from pauses.models import Feeling, Need, Pause
 
 
 @login_required

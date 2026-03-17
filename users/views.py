@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout
-from django.views.generic import DetailView, UpdateView, DeleteView
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, DetailView, UpdateView
+
 from .forms import CustomAuthenticationForm, RegisterForm, UserProfileForm
-from django.contrib.auth import login
-from django.contrib import messages
-from django.conf import settings
 from .models import User
 
 
@@ -25,7 +25,7 @@ def register(request):
                 user = form.save()
                 login(request, user)
                 return redirect(settings.LOGIN_REDIRECT_URL)
-            except Exception as e:
+            except Exception:
                 messages.error(request, "Une erreur est survenue. Veuillez réessayer.")
     else:
         form = RegisterForm()
@@ -60,7 +60,7 @@ class UserProfileDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.success(
-            request, f"Votre compte et toutes vos données ont été supprimés."
+            request, "Votre compte et toutes vos données ont été supprimés."
         )
         logout(request)
         return super().delete(request, *args, **kwargs)

@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+
 import dj_database_url
+from decouple import config
 
 ENV_STATE = config("ENV_STATE")
 
@@ -43,9 +44,18 @@ if ENV_STATE == "production":
     ]
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+elif ENV_STATE == "staging":
+    ALLOWED_HOSTS = [
+        "staging.pause-empathique.fr",
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://staging.pause-empathique.fr",
+    ]
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 else:
+    # development
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-
 
 ADMIN_URL = config("ADMIN_URL", default="admin/")
 
@@ -121,7 +131,7 @@ DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",

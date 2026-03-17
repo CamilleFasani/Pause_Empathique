@@ -1,15 +1,16 @@
 from django.urls import path
+
 from .views import (
+    PauseCreateView,
+    PauseDetailView,
+    PauseFeelingCreateView,
+    PauseFeelingUpdateView,
+    PauseListView,
+    PauseNeedCreateView,
+    PauseNeedUpdateView,
+    PauseUpdateView,
     dashboard,
     delete_pause,
-    PauseCreateView,
-    PauseFeelingCreateView,
-    PauseNeedCreateView,
-    PauseUpdateView,
-    PauseFeelingUpdateView,
-    PauseNeedUpdateView,
-    PauseListView,
-    PauseDetailView,
 )
 
 urlpatterns = [
