@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
 <main>
   <form
@@ -54,14 +53,7 @@
             value="{{ feeling.id }}"
             class="sr-only focus:not-sr-only focus:z-50"
             tabindex="0"
-            {%
-            if
-            feeling.id
-            in
-            selected_feelings
-            %}checked{%
-            endif
-            %}
+            {% if feeling.id in selected_feelings %}checked{% endif %}
           />
           {{ feeling.label }}
         </label>
@@ -71,6 +63,8 @@
     </section>
   </form>
 </main>
-{% endblock content %} {% block js %}
+{% endblock content %}
+
+{% block js %}
 <script src="{% static 'js/keep-toggle-open-and-display-selected-items.js' %}"></script>
 {% endblock js %}
