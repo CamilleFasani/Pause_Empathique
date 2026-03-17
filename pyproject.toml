@@ -24,7 +24,7 @@ packages = [{include = "pause_empathique", from = "src"}]
 
 [tool.poetry.group.dev.dependencies]
 django-browser-reload = "^1.18.0"
-ruff = "^0.9.0"
+ruff = "0.13.2"
 pytest = "^9.0.2"
 pytest-django = "^4.12.0"
 pytest-cov = "^7.0.0"

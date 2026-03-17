@@ -114,7 +114,7 @@ Ce projet est la base sur laquelle sera préparé le titre CDA. Les évolutions 
 | ----------------------- | ------- | -------------------------------------------- |
 | Poetry                  | —       | Gestionnaire de dépendances Python           |
 | Docker + docker-compose | —       | Environnement de développement local         |
-| Ruff                    | 0.9.10  | Formateur + linter Python (ligne = 88 chars) |
+| Ruff                    | 0.13.2  | Formateur + linter Python (ligne = 88 chars) |
 | npm                     | —       | Compilation Tailwind (`tailwind watch`)      |
 | django-browser-reload   | 1.19.0  | Hot reload en développement                  |
 | GitHub Actions          | —       | CI : lint (Ruff) + tests Django              |
