@@ -62,7 +62,7 @@ jobs:
         run: docker compose -p pause_empathique-local up -d --wait db
 
       - name: Run pytest with coverage
-        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web poetry run pytest --cov=. --cov-report=term-missing
+        run: docker compose -p pause_empathique-local run --rm --entrypoint="" web poetry run pytest --cov=pause_empathique --cov=pauses --cov=users --cov-report=term-missing
 
       - name: Cleanup
         if: always()
