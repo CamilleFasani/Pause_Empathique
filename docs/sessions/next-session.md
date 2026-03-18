@@ -5,43 +5,43 @@
 
 ---
 
-## Session #5 — Date prévue : 17 mars 2026
+## Session #6 — Date prévue : 19 mars 2026
 
 ### Contexte
 
-Session #4 (16 mars) : consolidation qualité terminée.
+Session #5 (18 mars) : lancement de la formalisation du design system.
 
-- Migration vers `pytest` effectuée et job CI `test` mis à jour
-- `pre-commit` local validé avec Ruff (hooks opérationnels)
-- Préparation Swagger validée (`drf-spectacular` retenu)
-- Prochaine priorité : démarrer la Phase 1 (charte graphique) avec contrôle accessibilité
+- Premières décisions de charte : palette principale et typographies de base
+- Direction design system validée : approche hybride (composants simples maison + librairie future pour composants complexes)
+- Prochaine priorité : finaliser la bascule de style v1.0 avec validation accessibilité
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Démarrer la Phase 1 : charte graphique (priorité)
+#### Objectif 1 — Finaliser le design system v1.0 (priorité)
 
-- [ ] Formaliser la charte visuelle cible (palette, typographies, composants de base)
-- [ ] Mettre en place les variables CSS de charte dans `static/css/input.css`
-- [ ] Appliquer la charte sur 1 à 2 vues prioritaires pour valider la direction
+- [ ] Finaliser les tokens de fondation (couleurs, typographies, neutres, états)
+- [ ] Finaliser la bascule de style dans `static/css/input.css`
+- [ ] Appliquer la charte sur les vues prioritaires pour valider la direction v1.0
 
-#### Objectif 2 — Accessibilité (à vérifier dès le début)
+#### Objectif 2 — Accessibilité et preuve de conformité visuelle
 
-- [ ] Définir une checklist accessibilité minimale (contrastes, focus visible, labels, hiérarchie titres)
-- [ ] Vérifier les contrastes des nouvelles couleurs avant application globale
-- [ ] Contrôler la navigation clavier sur les vues modifiées
-- [ ] Corriger les problèmes bloquants détectés avant généralisation de la charte
+- [ ] Vérifier les contrastes des nouvelles couleurs (niveau AA minimum)
+- [ ] Contrôler focus visible et navigation clavier sur les vues modifiées
+- [ ] Corriger les problèmes bloquants détectés avant généralisation
+- [ ] Réaliser des captures d'écran (avant/après) pour le dossier projet
 
-#### Objectif 3 — Suivi qualité restant (Phase 0)
+#### Objectif 3 — Préparer le démarrage DRF (après validation UI)
 
-- [ ] Relever le niveau de couverture et planifier les tests manquants pour viser 80 %
-- [ ] Confirmer qu'aucune régression n'est introduite par les modifications UI
+- [ ] Confirmer qu'aucune régression fonctionnelle n'est introduite par la bascule visuelle
+- [ ] Démarrer l'installation de DRF une fois la validation UI/accessibilité terminée
 
 ---
 
 ### Rappels du chef de projet
 
-- 🎨 La session suivante démarre la Phase 1 avec une approche incrémentale (vue par vue)
-- ♿ L'accessibilité est un critère bloquant de validation UI dès la première itération
-- 🔒 Aucun démarrage DRF/Vue.js avant d'avoir une base qualité suffisante et stable
+- 🎨 Priorité à la finalisation du design system v1.0 et à la bascule de style
+- ♿ L'accessibilité (contrastes + focus + clavier) reste un critère bloquant
+- 🗂️ Les captures d'écran font partie des livrables de session pour le dossier projet
+- 🔒 Installation DRF uniquement après validation UI de la session

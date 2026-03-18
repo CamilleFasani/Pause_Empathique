@@ -5,6 +5,41 @@
 
 ---
 
+## Session #5 — 18 mars 2026
+
+**Objectifs prévus :** Démarrer la Phase 1 (charte graphique), structurer les tokens et poser la direction design system
+
+**Ce qui a été fait :**
+
+- ✅ Clarification de la stratégie Tailwind v4 : pilotage via tokens dans `static/css/input.css`
+- ✅ Premiers choix de charte validés : fond principal `#FFF4D5`, accent `#FFB300`, déclinaisons, texte `#1A1300`
+- ✅ Typographies identifiées : Fraunces (brand), Manrope (contenu/boutons)
+- ✅ Direction design system validée : approche hybride (composants simples maison + librairie future pour composants complexes)
+- ✅ Planification de la prochaine session centrée sur la bascule visuelle v1.0 + validation accessibilité
+
+**Ce qui reste :**
+
+- [ ] Finaliser les tokens de fondation et aliases sémantiques dans `static/css/input.css`
+- [ ] Appliquer la charte sur les vues prioritaires
+- [ ] Vérifier contrastes/focus/navigation clavier
+- [ ] Réaliser des captures d'écran pour le dossier projet
+- [ ] Démarrer l'installation DRF après validation UI/accessibilité
+
+**Décisions prises :**
+
+- Le design system suit une approche hybride : composants simples codés en interne ; composants complexes via librairie à sélectionner plus tard (DaisyUI, shadcn, PrimeVue)
+- La couleur de focus clavier peut être noire si sa visibilité est maintenue sur tous les fonds
+- L'ajout d'une phase RGPD est priorisé avant la phase Logs & Monitoring
+
+**Blocages / Points ouverts :**
+
+- Choix définitif de la librairie de composants complexes non arrêté
+- Vérification de contraste AA à valider sur l'ensemble de la palette finale
+
+**Humeur de la session :** Bonne progression de cadrage, direction design claire pour exécution dès la prochaine session.
+
+---
+
 ## Session #4 — 16 mars 2026
 
 **Objectifs prévus :** Finaliser la phase qualité (pytest/couverture, pre-commit) et préparer Swagger (DRF)
