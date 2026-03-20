@@ -5,43 +5,45 @@
 
 ---
 
-## Session #5 — Date prévue : 17 mars 2026
+## Session #7 — Date prévue : 20 mars 2026
 
 ### Contexte
 
-Session #4 (16 mars) : consolidation qualité terminée.
+Session #6 (19 mars) : base de charte consolidée et stratégie de transition clarifiée.
 
-- Migration vers `pytest` effectuée et job CI `test` mis à jour
-- `pre-commit` local validé avec Ruff (hooks opérationnels)
-- Préparation Swagger validée (`drf-spectacular` retenu)
-- Prochaine priorité : démarrer la Phase 1 (charte graphique) avec contrôle accessibilité
+- Contraste couleurs vérifié (accessibilité OK)
+- Captures d'écran réalisées pour le dossier projet
+- Choix stratégique acté : V1 en production, V2 en staging
+- Refonte complète des templates Django volontairement mise en pause
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Démarrer la Phase 1 : charte graphique (priorité)
+#### Objectif 1 — Finaliser les merges de synchronisation (priorité)
 
-- [ ] Formaliser la charte visuelle cible (palette, typographies, composants de base)
-- [ ] Mettre en place les variables CSS de charte dans `static/css/input.css`
-- [ ] Appliquer la charte sur 1 à 2 vues prioritaires pour valider la direction
+- [ ] Merger `dev` vers `main` pour intégrer les changements précédents (dont migration `pytest`)
+- [ ] Vérifier CI/CD et stabilité après merge sur `main`
+- [ ] Merger ensuite la branche en cours vers `dev`
+- [ ] Vérifier le déploiement staging post-merge
 
-#### Objectif 2 — Accessibilité (à vérifier dès le début)
+#### Objectif 2 — Démarrer la phase DRF
 
-- [ ] Définir une checklist accessibilité minimale (contrastes, focus visible, labels, hiérarchie titres)
-- [ ] Vérifier les contrastes des nouvelles couleurs avant application globale
-- [ ] Contrôler la navigation clavier sur les vues modifiées
-- [ ] Corriger les problèmes bloquants détectés avant généralisation de la charte
+- [ ] Installer `djangorestframework`
+- [ ] Préparer la configuration initiale DRF dans le projet
+- [ ] Valider qu'aucune régression fonctionnelle n'est introduite
 
-#### Objectif 3 — Suivi qualité restant (Phase 0)
+#### Objectif 3 — Préparer la suite design system côté front Vue
 
-- [ ] Relever le niveau de couverture et planifier les tests manquants pour viser 80 %
-- [ ] Confirmer qu'aucune régression n'est introduite par les modifications UI
+- [ ] Définir les états manquants du design system (`hover`, `focus`, `disabled`)
+- [ ] Poser les bases des premiers composants Vue
+- [ ] Préparer l'ajout des liens/références quand le front sera en place
 
 ---
 
 ### Rappels du chef de projet
 
-- 🎨 La session suivante démarre la Phase 1 avec une approche incrémentale (vue par vue)
-- ♿ L'accessibilité est un critère bloquant de validation UI dès la première itération
-- 🔒 Aucun démarrage DRF/Vue.js avant d'avoir une base qualité suffisante et stable
+- 🔀 Respecter l'ordre des merges pour sécuriser l'historique et les déploiements
+- ✅ Garder la V1 stable en production, travailler la V2 sur staging
+- 🔒 Enchaîner rapidement sur l'installation DRF après validation des merges
+- 🧩 Continuer le design system en priorité sur les composants Vue plutôt que sur les templates Django amenés à disparaître

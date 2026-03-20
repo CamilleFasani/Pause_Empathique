@@ -17,7 +17,12 @@
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-900: oklch(21% 0.034 264.665);
-    --color-black: #1f1e1e;
+    --color-neutral-50: #fffdf7;
+    --color-neutral-200: #ede4cf;
+    --color-neutral-300: #d8c9a4;
+    --color-neutral-500: #8b7a55;
+    --color-neutral-700: #4a3f26;
+    --color-black: #1a1300;
     --color-white: #ffffff;
     --spacing: 0.25rem;
     --breakpoint-2xl: 96rem;
@@ -43,18 +48,35 @@
     --font-weight-semibold: 600;
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
     --radius-2xl: 1rem;
     --radius-4xl: 2rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --color-header: #1a2628;
+    --color-brand-400: #ffd151;
+    --color-brand-500: #ffb300;
+    --color-bg-page: #fff4d5;
+    --color-surface: #ffffff;
+    --color-text-primary: #1a1300;
+    --color-text-on-brand: #1a1300;
+    --color-border-default: var(--color-neutral-200);
+    --color-primary: var(--color-brand-500);
+    --color-primary-hover: var(--color-brand-400);
+    --color-primary-active: #e6a100;
+    --color-focus: #1a1300;
+    --font-brand: "Fraunces", serif;
+    --font-body: "Manrope", sans-serif;
+    --font-button: "Manrope", sans-serif;
+    --font-weight-body: 400;
+    --font-weight-button: 500;
+    --color-header: #fffdf7;
     --color-table-title: #81ccd9;
-    --color-background: #ebf7f9;
-    --color-background-button: #d0ecf1;
+    --color-background: #fff4d5;
+    --color-background-button: #ffb300;
     --color-sweetpink: #faf2f2;
-    --color-otherpink: #ff8080;
+    --color-otherpink: #ffb300;
   }
 }
 @layer base {
@@ -206,6 +228,9 @@
   }
 }
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -701,6 +726,11 @@
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
+  .transition {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
   .transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -1132,6 +1162,59 @@
     @media (width >= 96rem) {
       max-width: var(--container-6xl);
     }
+  }
+}
+@layer base {
+  body {
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-body);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-brand);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    padding-inline: calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 2);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    background-color: var(--color-primary);
+    color: var(--color-text-on-brand);
+    font-family: var(--font-button);
+    font-weight: var(--font-weight-button);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+  .btn-primary:active {
+    background-color: var(--color-primary-active);
+  }
+  .input-field {
+    width: 100%;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    padding-inline: calc(var(--spacing) * 3);
+    padding-block: calc(var(--spacing) * 2);
+    border: 1px solid var(--color-border-default);
+    color: var(--color-text-primary);
+  }
+  .card {
+    border-radius: var(--radius-lg);
+    padding: calc(var(--spacing) * 4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-default);
   }
 }
 @layer components {

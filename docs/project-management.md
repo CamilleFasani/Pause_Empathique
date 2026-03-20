@@ -30,6 +30,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ⚠️ Audit de sécurité des dépendances en place, remédiation CVE à suivre
 - ✅ `pre-commit` local en place (Ruff + hooks qualité)
 - ✅ Outil de documentation API validé : `drf-spectacular`
+- ✅ Vérification des contrastes accessibilité (niveau AA) validée sur la palette actuelle
+- ✅ Captures d'écran réalisées pour le dossier projet
+- ✅ Stratégie de transition actée : V1 maintenue en production, V2 travaillée sur staging
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -67,24 +70,27 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-### Phase 1 — Nouvelle charte graphique 🚀 DÉMARRAGE PROCHAINE SESSION
+### Phase 1 — Nouvelle charte graphique 🚧 EN COURS
 
-> Objectif : appliquer la nouvelle identité visuelle sur le Django full stack existant.
-> Le front reste en templates Django pendant toute cette phase.
+> Objectif : poser une base solide de charte graphique (tokens + direction visuelle) sans refonte complète des templates Django.
+> La V1 reste en production ; la V2 est travaillée et validée sur staging.
 
-- [ ] Définir la charte : couleurs, typographies, composants (déjà en cours ?)
-- [ ] Configurer Tailwind v4 avec les variables CSS natives dans `input.css`
-- [ ] Appliquer la charte vue par vue (templates Django)
+- [x] Définir la charte : couleurs, typographies, composants (base v1.0)
+- [x] Configurer Tailwind v4 avec les variables CSS natives dans `input.css`
+- [ ] Appliquer la charte uniquement sur des vues pilotes (pas de refonte complète des templates Django)
 - [ ] Responsive : vérifier mobile / desktop (le hook `user-agents` est déjà en place)
-- [ ] Accessibilité : valider contrastes, navigation clavier, focus visible, labels
+- [ ] Accessibilité : contrastes validés, navigation clavier/focus visible/labels à finaliser
+- [x] Réaliser des captures d'écran pour le dossier projet
 - [ ] Valider en staging avant merge sur `main`
+- [ ] Approche composants hybride : composants simples "maison" (bouton, card, input) + choix ultérieur d'une librairie pour composants complexes (calendrier, etc.)
 
 **Critères de validation :**
 
-- Toutes les vues sont stylées selon la charte
+- Base de charte v1.0 stabilisée (tokens + direction visuelle)
+- Vues pilotes validées en staging sans refonte globale des templates
 - Aucune régression fonctionnelle
-- Tests visuels validés sur mobile et desktop
-- Contrastes et navigation clavier conformes aux bonnes pratiques d'accessibilité
+- Tests visuels (captures) validés sur mobile et desktop
+- Contrastes conformes ; focus visible et navigation clavier validés avant généralisation
 
 ---
 
@@ -160,7 +166,13 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [ ] Détail d'une pause
 - [ ] Profil utilisateur
 
-#### 3.4 — Déploiement front
+#### 3.4 — Mise à jour sécurité
+
+- [ ] Mettre en place HSTS côté application et/ou reverse proxy
+- [ ] Lancer un test de sécurité avec OWASP ZAP sur l'environnement staging
+- [ ] Refaire l'audit de sécurité du projet ( avec fiche donnée par Théo encadrant) et traiter les vulnérabilités remontées
+
+#### 3.5 — Déploiement front
 
 - [ ] Déployer le front (Railway, Vercel, Netlify — à décider)
 - [ ] Configurer les variables d'environnement (URL de l'API)
@@ -168,24 +180,48 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ---
 
-### Phase 4 — Logs & Monitoring 📌 NON PRIORITAIRE (post-CDA)
+### Phase 4 — Mise en conformité RGPD ⏳ EN ATTENTE PHASE 3
+
+> Objectif : sécuriser la conformité légale et la protection des données personnelles avant la phase d'observabilité.
+
+#### 4.1 — Cartographie et minimisation des données
+
+- [ ] Cartographier les données personnelles collectées (profil, contenus de pauses, logs)
+- [ ] Vérifier la minimisation des données et la base légale des traitements
+- [ ] Formaliser les finalités de traitement dans la documentation projet
+
+#### 4.2 — Information et consentement
+
+- [ ] Rédiger/mettre à jour politique de confidentialité et mentions légales
+- [ ] Vérifier les mécanismes de consentement si des traceurs/cookies sont utilisés
+- [ ] Ajouter des informations claires sur les droits utilisateurs (accès, rectification, suppression)
+
+#### 4.3 — Droits des personnes et sécurité
+
+- [ ] Définir la procédure d'exercice des droits RGPD (demande d'accès/suppression)
+- [ ] Vérifier la politique de conservation et suppression des données
+- [ ] Vérifier les mesures techniques de sécurité (contrôle d'accès, secrets, sauvegardes)
+
+---
+
+### Phase 5 — Logs & Monitoring 📌 NON PRIORITAIRE (post-CDA)
 
 > Objectif : améliorer l'observabilité et la maintenance après stabilisation fonctionnelle.
 > Cette phase est volontairement positionnée en fin de roadmap.
 
-#### 4.1 — Logs applicatifs
+#### 5.1 — Logs applicatifs
 
 - [ ] Structurer les logs Django (niveau, format, contexte requête)
 - [ ] Centraliser les logs (solution à décider : Railway, Grafana stack, autre)
 - [ ] Définir une politique de rétention adaptée
 
-#### 4.2 — Monitoring technique
+#### 5.2 — Monitoring technique
 
 - [ ] Mettre en place des checks de santé (app + DB)
 - [ ] Suivre des métriques minimales : erreurs 5xx, latence, disponibilité
 - [ ] Configurer des alertes (mail/Slack) sur incidents critiques
 
-#### 4.3 — Monitoring produit
+#### 5.3 — Monitoring produit
 
 - [ ] Définir 2 à 3 KPI d'usage utiles (ex: pauses créées, taux de complétion)
 - [ ] Ajouter un tableau de bord de suivi simple
@@ -194,13 +230,14 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ## Informations à collecter
 
-| Information                                                 | Statut                 |
-| ----------------------------------------------------------- | ---------------------- |
-| Détails de la nouvelle charte graphique (couleurs, typos)   | ❌ À définir           |
-| URL du repo front Vue.js                                    | ❌ À créer             |
-| Contraintes de délai pour la formation CDA                  | ❌ À préciser          |
-| Décision stockage JWT : `httpOnly cookie` vs `localStorage` | ❌ À décider (phase 3) |
-| Stack logs/monitoring retenue                               | ❌ À décider (phase 4) |
+| Information                                                 | Statut                        |
+| ----------------------------------------------------------- | ----------------------------- |
+| Détails de la nouvelle charte graphique (couleurs, typos)   | ⚠️ En cours de définition     |
+| Stratégie composants design system (maison + librairie)     | ✅ Validée (approche hybride) |
+| URL du repo front Vue.js                                    | ❌ À créer                    |
+| Contraintes de délai pour la formation CDA                  | ❌ À préciser                 |
+| Décision stockage JWT : `httpOnly cookie` vs `localStorage` | ❌ À décider (phase 3)        |
+| Stack logs/monitoring retenue                               | ❌ À décider (phase 5)        |
 
 ---
 
