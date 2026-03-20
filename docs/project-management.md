@@ -26,8 +26,10 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Environnement staging Railway opérationnel (`staging.pause-empathique.fr`) avec déploiement automatique sur `dev`
 - ✅ Modèles : User, Pause, Feeling, Need
 - ✅ CRUD complet sur les pauses
-- ❌ Pas de couverture de tests mesurée
+- ✅ Couverture de tests mesurée via `pytest-cov` (seuil 80 % à atteindre)
 - ⚠️ Audit de sécurité des dépendances en place, remédiation CVE à suivre
+- ✅ `pre-commit` local en place (Ruff + hooks qualité)
+- ✅ Outil de documentation API validé : `drf-spectacular`
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -48,10 +50,10 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 #### 0.2 — Couverture de tests
 
-- [ ] Migrer les tests vers `pytest` + `pytest-django`
-- [ ] Ajouter `pytest-cov` et mesurer la couverture actuelle
+- [x] Migrer les tests vers `pytest` + `pytest-django`
+- [x] Ajouter `pytest-cov` et mesurer la couverture actuelle
 - [ ] Atteindre un seuil minimum de couverture : **80 %**
-- [ ] Mettre à jour le job CI `test` pour utiliser pytest avec rapport de couverture
+- [x] Mettre à jour le job CI `test` pour utiliser pytest avec rapport de couverture
 
 #### 0.3 — Sécurité des dépendances
 
@@ -60,12 +62,12 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 #### 0.4 — Pre-commit hooks
 
-- [ ] Installer et configurer `pre-commit` localement
-- [ ] Hooks : `ruff check` + `ruff format` avant chaque commit
+- [x] Installer et configurer `pre-commit` localement
+- [x] Hooks : `ruff check` + `ruff format` avant chaque commit
 
 ---
 
-### Phase 1 — Nouvelle charte graphique ⏳ EN ATTENTE PHASE 0
+### Phase 1 — Nouvelle charte graphique 🚀 DÉMARRAGE PROCHAINE SESSION
 
 > Objectif : appliquer la nouvelle identité visuelle sur le Django full stack existant.
 > Le front reste en templates Django pendant toute cette phase.
@@ -74,6 +76,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - [ ] Configurer Tailwind v4 avec les variables CSS natives dans `input.css`
 - [ ] Appliquer la charte vue par vue (templates Django)
 - [ ] Responsive : vérifier mobile / desktop (le hook `user-agents` est déjà en place)
+- [ ] Accessibilité : valider contrastes, navigation clavier, focus visible, labels
 - [ ] Valider en staging avant merge sur `main`
 
 **Critères de validation :**
@@ -81,6 +84,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - Toutes les vues sont stylées selon la charte
 - Aucune régression fonctionnelle
 - Tests visuels validés sur mobile et desktop
+- Contrastes et navigation clavier conformes aux bonnes pratiques d'accessibilité
 
 ---
 
@@ -164,6 +168,30 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ---
 
+### Phase 4 — Logs & Monitoring 📌 NON PRIORITAIRE (post-CDA)
+
+> Objectif : améliorer l'observabilité et la maintenance après stabilisation fonctionnelle.
+> Cette phase est volontairement positionnée en fin de roadmap.
+
+#### 4.1 — Logs applicatifs
+
+- [ ] Structurer les logs Django (niveau, format, contexte requête)
+- [ ] Centraliser les logs (solution à décider : Railway, Grafana stack, autre)
+- [ ] Définir une politique de rétention adaptée
+
+#### 4.2 — Monitoring technique
+
+- [ ] Mettre en place des checks de santé (app + DB)
+- [ ] Suivre des métriques minimales : erreurs 5xx, latence, disponibilité
+- [ ] Configurer des alertes (mail/Slack) sur incidents critiques
+
+#### 4.3 — Monitoring produit
+
+- [ ] Définir 2 à 3 KPI d'usage utiles (ex: pauses créées, taux de complétion)
+- [ ] Ajouter un tableau de bord de suivi simple
+
+---
+
 ## Informations à collecter
 
 | Information                                                 | Statut                 |
@@ -172,6 +200,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 | URL du repo front Vue.js                                    | ❌ À créer             |
 | Contraintes de délai pour la formation CDA                  | ❌ À préciser          |
 | Décision stockage JWT : `httpOnly cookie` vs `localStorage` | ❌ À décider (phase 3) |
+| Stack logs/monitoring retenue                               | ❌ À décider (phase 4) |
 
 ---
 

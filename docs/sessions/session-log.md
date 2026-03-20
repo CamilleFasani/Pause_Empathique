@@ -5,6 +5,42 @@
 
 ---
 
+## Session #4 — 16 mars 2026
+
+**Objectifs prévus :** Finaliser la phase qualité (pytest/couverture, pre-commit) et préparer Swagger (DRF)
+
+**Ce qui a été fait :**
+
+- ✅ Migration des tests vers `pytest` + `pytest-django` + `pytest-cov`
+- ✅ Configuration `pytest` dans `pyproject.toml`
+- ✅ Exécution des tests et mesure de couverture (`pytest --cov`)
+- ✅ Mise à jour du job CI `test` pour `pytest`
+- ✅ Mise en place de `pre-commit` en local (hors conteneur de commit)
+- ✅ Configuration `.pre-commit-config.yaml` avec Ruff et hooks qualité
+- ✅ Test des hooks sur commit réel (RAS)
+- ✅ Validation de l'outil de documentation API : `drf-spectacular`
+- ✅ Plan de préparation Swagger défini pour la phase DRF (2.1) + validation staging (2.4)
+
+**Ce qui reste :**
+
+- [ ] Atteindre le seuil cible de couverture globale (80 %)
+- [ ] Démarrer la Phase 1 : application de la charte graphique
+- [ ] Ajouter un contrôle d'accessibilité systématique dans la phase UI
+
+**Décisions prises :**
+
+- Les commits Git restent réalisés sur l'hôte ; `pre-commit` est donc installé/exécuté sur l'hôte
+- Les tests restent exécutés dans le conteneur Docker
+- `drf-spectacular` est confirmé comme standard OpenAPI/Swagger pour la phase API
+- La prochaine session démarre la Phase 1 avec focus accessibilité
+
+**Blocages / Points ouverts :**
+
+- Charte graphique à formaliser précisément (couleurs, typographies, composants)
+- Niveau de couverture actuel à faire progresser jusqu'au seuil de 80 %
+
+**Humeur de la session :** Très bonne progression, phase qualité consolidée et transition claire vers le design.
+
 ## Session #3 — 13 mars 2026
 
 **Objectifs prévus :** Valider prod/staging Railway + avancer sur qualité (sécurité, tests)

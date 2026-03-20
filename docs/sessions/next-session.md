@@ -5,52 +5,43 @@
 
 ---
 
-## Session #4 — Date prévue : 20 mars 2026
+## Session #5 — Date prévue : 17 mars 2026
 
 ### Contexte
 
-Session #3 (13 mars) : validation infra + préparation qualité.
+Session #4 (16 mars) : consolidation qualité terminée.
 
-- Production et staging validés sur Railway (DNS + SSL + disponibilité)
-- Déploiement auto de la branche `dev` confirmé sur staging
-- Job CI `security` avec `pip-audit` en place
-- Priorité suivante validée : migration tests vers pytest + mise en place pre-commit
+- Migration vers `pytest` effectuée et job CI `test` mis à jour
+- `pre-commit` local validé avec Ruff (hooks opérationnels)
+- Préparation Swagger validée (`drf-spectacular` retenu)
+- Prochaine priorité : démarrer la Phase 1 (charte graphique) avec contrôle accessibilité
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Migration vers pytest + mesure de couverture (Phase 0.2)
+#### Objectif 1 — Démarrer la Phase 1 : charte graphique (priorité)
 
-- [ ] Installer `pytest`, `pytest-django`, `pytest-cov` (via Poetry)
-- [ ] Configurer `[tool.pytest.ini_options]` dans `pyproject.toml`
-- [ ] Vérifier que les tests existants passent avec pytest
-- [ ] Mesurer la couverture actuelle : `pytest --cov=. --cov-report=term-missing`
-- [ ] Identifier les zones non couvertes (modèles, vues, forms)
-- [ ] Mettre à jour le job CI `test` pour utiliser pytest
+- [ ] Formaliser la charte visuelle cible (palette, typographies, composants de base)
+- [ ] Mettre en place les variables CSS de charte dans `static/css/input.css`
+- [ ] Appliquer la charte sur 1 à 2 vues prioritaires pour valider la direction
 
-#### Objectif 2 bis — Audit sécurité des dépendances (Phase 0.3)
+#### Objectif 2 — Accessibilité (à vérifier dès le début)
 
-- [x] Ajouter un job CI `security` avec `pip-audit`
-- [x] Exécuter l'audit sur PR et sur push `main` / `dev`
-- [x] Traiter les vulnérabilités critiques détectées (si présentes)
+- [ ] Définir une checklist accessibilité minimale (contrastes, focus visible, labels, hiérarchie titres)
+- [ ] Vérifier les contrastes des nouvelles couleurs avant application globale
+- [ ] Contrôler la navigation clavier sur les vues modifiées
+- [ ] Corriger les problèmes bloquants détectés avant généralisation de la charte
 
-#### Objectif 3 — Pre-commit hooks (Phase 0.4) (si le temps le permet)
+#### Objectif 3 — Suivi qualité restant (Phase 0)
 
-- [ ] Installer `pre-commit` localement
-- [ ] Créer `.pre-commit-config.yaml` avec `ruff check` + `ruff format`
-- [ ] Tester sur un commit fictif
-
-#### Objectif 4 — Préparer la documentation API Swagger (Phase 2)
-
-- [ ] Valider l'outil retenu : `drf-spectacular` (OpenAPI 3 + Swagger UI + Redoc)
-- [ ] Planifier l'installation dès le démarrage de la phase DRF (setup technique de la phase 2.1)
-- [ ] Prévoir la validation finale de la doc sur staging (phase 2.4)
+- [ ] Relever le niveau de couverture et planifier les tests manquants pour viser 80 %
+- [ ] Confirmer qu'aucune régression n'est introduite par les modifications UI
 
 ---
 
 ### Rappels du chef de projet
 
-- ⚠️ La Phase 1 (charte graphique) ne démarre pas tant que la Phase 0 n'est pas validée
-- 📋 Penser à définir la charte graphique (couleurs, typos) pour ne pas bloquer la Phase 1
-- 🔒 Aucune dépendance DRF (hors doc Swagger préparatoire) ni Vue.js pour l'instant — on consolide la base
+- 🎨 La session suivante démarre la Phase 1 avec une approche incrémentale (vue par vue)
+- ♿ L'accessibilité est un critère bloquant de validation UI dès la première itération
+- 🔒 Aucun démarrage DRF/Vue.js avant d'avoir une base qualité suffisante et stable
