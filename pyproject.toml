@@ -16,6 +16,8 @@ dependencies = [
     "user-agents (>=2.2.0,<3.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
     "whitenoise[brotli] (>=6.11.0,<7.0.0)",
+    "djangorestframework (>=3.17.0,<4.0.0)",
+    "django-filter (>=25.2,<26.0)",
 ]
 
 [tool.poetry]
