@@ -5,6 +5,42 @@
 
 ---
 
+## Session #6 — 19 mars 2026
+
+**Objectifs prévus :** Finaliser la base du design system v1.0, valider l'accessibilité couleur et préparer la transition vers DRF
+
+**Ce qui a été fait :**
+
+- ✅ Consolidation de la base de charte graphique (tokens/fondations) sans refonte complète des templates Django
+- ✅ Stratégie de transition clarifiée : V1 conservée en production, V2 travaillée en préproduction sur staging
+- ✅ Vérification des contrastes couleurs validée (niveau accessibilité OK)
+- ✅ Captures d'écran réalisées pour le dossier projet
+- ✅ Priorisation de la suite : démarrer l'installation DRF après les merges prévus
+
+**Ce qui reste :**
+
+- [ ] Finaliser le workflow Git prévu : merge `dev` vers `main` (incluant la migration pytest), puis merge de la branche en cours vers `dev`
+- [ ] Vérifier staging après merge de la branche V2
+- [ ] Démarrer l'installation de DRF
+- [ ] Compléter la suite du design system (états `hover`, `focus`, `disabled`)
+- [ ] Ajouter les liens et conventions associées quand le front Vue sera en place
+- [ ] Créer les premiers composants de base côté Vue
+
+**Décisions prises :**
+
+- La refonte complète des templates Django est mise en pause pour éviter un effort court terme sur des vues destinées à disparaître avec la migration front
+- La production reste sur la V1 stable ; les évolutions visuelles V2 sont validées sur staging
+- La prochaine étape technique prioritaire devient l'installation DRF après synchronisation des branches
+
+**Blocages / Points ouverts :**
+
+- Vérifier l'ordre exact des merges et les contrôles CI associés avant bascule
+- Définir le format final de documentation des composants Vue (avec états et liens)
+
+**Humeur de la session :** Progression pragmatique, focus recentré sur les actions à fort impact pour la transition API + front.
+
+---
+
 ## Session #5 — 18 mars 2026
 
 **Objectifs prévus :** Démarrer la Phase 1 (charte graphique), structurer les tokens et poser la direction design system

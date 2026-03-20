@@ -5,43 +5,45 @@
 
 ---
 
-## Session #6 — Date prévue : 19 mars 2026
+## Session #7 — Date prévue : 20 mars 2026
 
 ### Contexte
 
-Session #5 (18 mars) : lancement de la formalisation du design system.
+Session #6 (19 mars) : base de charte consolidée et stratégie de transition clarifiée.
 
-- Premières décisions de charte : palette principale et typographies de base
-- Direction design system validée : approche hybride (composants simples maison + librairie future pour composants complexes)
-- Prochaine priorité : finaliser la bascule de style v1.0 avec validation accessibilité
+- Contraste couleurs vérifié (accessibilité OK)
+- Captures d'écran réalisées pour le dossier projet
+- Choix stratégique acté : V1 en production, V2 en staging
+- Refonte complète des templates Django volontairement mise en pause
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Finaliser le design system v1.0 (priorité)
+#### Objectif 1 — Finaliser les merges de synchronisation (priorité)
 
-- [ ] Finaliser les tokens de fondation (couleurs, typographies, neutres, états)
-- [ ] Finaliser la bascule de style dans `static/css/input.css`
-- [ ] Appliquer la charte sur les vues prioritaires pour valider la direction v1.0
+- [ ] Merger `dev` vers `main` pour intégrer les changements précédents (dont migration `pytest`)
+- [ ] Vérifier CI/CD et stabilité après merge sur `main`
+- [ ] Merger ensuite la branche en cours vers `dev`
+- [ ] Vérifier le déploiement staging post-merge
 
-#### Objectif 2 — Accessibilité et preuve de conformité visuelle
+#### Objectif 2 — Démarrer la phase DRF
 
-- [ ] Vérifier les contrastes des nouvelles couleurs (niveau AA minimum)
-- [ ] Contrôler focus visible et navigation clavier sur les vues modifiées
-- [ ] Corriger les problèmes bloquants détectés avant généralisation
-- [ ] Réaliser des captures d'écran (avant/après) pour le dossier projet
+- [ ] Installer `djangorestframework`
+- [ ] Préparer la configuration initiale DRF dans le projet
+- [ ] Valider qu'aucune régression fonctionnelle n'est introduite
 
-#### Objectif 3 — Préparer le démarrage DRF (après validation UI)
+#### Objectif 3 — Préparer la suite design system côté front Vue
 
-- [ ] Confirmer qu'aucune régression fonctionnelle n'est introduite par la bascule visuelle
-- [ ] Démarrer l'installation de DRF une fois la validation UI/accessibilité terminée
+- [ ] Définir les états manquants du design system (`hover`, `focus`, `disabled`)
+- [ ] Poser les bases des premiers composants Vue
+- [ ] Préparer l'ajout des liens/références quand le front sera en place
 
 ---
 
 ### Rappels du chef de projet
 
-- 🎨 Priorité à la finalisation du design system v1.0 et à la bascule de style
-- ♿ L'accessibilité (contrastes + focus + clavier) reste un critère bloquant
-- 🗂️ Les captures d'écran font partie des livrables de session pour le dossier projet
-- 🔒 Installation DRF uniquement après validation UI de la session
+- 🔀 Respecter l'ordre des merges pour sécuriser l'historique et les déploiements
+- ✅ Garder la V1 stable en production, travailler la V2 sur staging
+- 🔒 Enchaîner rapidement sur l'installation DRF après validation des merges
+- 🧩 Continuer le design system en priorité sur les composants Vue plutôt que sur les templates Django amenés à disparaître
