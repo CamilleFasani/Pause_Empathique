@@ -22,7 +22,7 @@
     --color-neutral-300: #d8c9a4;
     --color-neutral-500: #8b7a55;
     --color-neutral-700: #4a3f26;
-    --color-black: #1f1e1e;
+    --color-black: #1a1300;
     --color-white: #ffffff;
     --spacing: 0.25rem;
     --breakpoint-2xl: 96rem;
@@ -71,7 +71,7 @@
     --font-button: "Manrope", sans-serif;
     --font-weight-body: 400;
     --font-weight-button: 500;
-    --color-header: #1a2628;
+    --color-header: #fffdf7;
     --color-table-title: #81ccd9;
     --color-background: #fff4d5;
     --color-background-button: #ffb300;
@@ -228,6 +228,9 @@
   }
 }
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
   .sr-only {
     position: absolute;
     width: 1px;

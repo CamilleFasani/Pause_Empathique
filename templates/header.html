@@ -12,12 +12,12 @@
     {% url 'dashboard' as my_dashboard_url %}
     {% is_practice_section as is_practice_active %}
 
-    <h3 class="md:hidden flex-1 text-2l self-center text-center text-white">❤️ Observer, Ressentir, Comprendre, Agir</h3>
+    <h3 class="md:hidden flex-1 text-2l self-center text-center text-black">❤️ Observer, Ressentir, Comprendre, Agir</h3>
 
     {% if user.is_authenticated %}
     <!-- Navigation desktop -->
-      <h1><a href="{{ my_dashboard_url }}" class="hidden md:block text-3xl text-white self-center mb-1">Pause {{"Empathique"|highlight_second_letter }}</h1>
-      <nav class="hidden md:flex items-center space-x-7 text-white mb-0.5">
+      <h1><a href="{{ my_dashboard_url }}" class="hidden md:block text-3xl text-black self-center mb-1">Pause {{"Empathique"|highlight_second_letter }}</h1>
+      <nav class="hidden md:flex items-center space-x-7 text-black mb-0.5">
 
         <a href="{{ my_profile_url }}" class="nav-text-desktop {% if request.path == my_profile_url %} text-otherpink {% endif %}">
           <img src="{% static '/icons/user-round-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_profile_url %} inline {% endif %}">
@@ -47,7 +47,7 @@
       </nav>
 
     <!-- Navigation mobile -->
-    <nav class="md:hidden h-15 flex justify-between fixed bottom-0 text-white py-2 bg-header px-3 max-w-screen-2xl w-full">
+    <nav class="md:hidden h-15 flex justify-between fixed bottom-0 text-black py-2 bg-header px-3 max-w-screen-2xl w-full">
 
       <a href="{{ my_profile_url }}" class="nav-text-mobile {% if request.path == my_profile_url %} text-otherpink {% endif %}">
         <img src="{% static '/icons/user-round-otherpink.svg' %}" aria-hidden="true" class="w-4 h-4 hidden {% if request.path == my_profile_url %} inline {% endif %}">
