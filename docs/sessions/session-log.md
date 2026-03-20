@@ -5,6 +5,41 @@
 
 ---
 
+## Session #7 — 20 mars 2026
+
+**Objectifs prévus :** Finaliser les merges de synchronisation, démarrer la phase DRF, cadrer la suite API
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 terminé : merges de synchronisation validés et stabilité confirmée
+- ✅ Installation des dépendances API dans l'environnement Docker/Poetry : DRF, `djangorestframework-simplejwt`, `django-cors-headers`, `drf-spectacular`
+- ✅ Configuration initiale DRF dans `settings.py` : JWT auth par défaut, permissions, pagination, filtres, throttling global
+- ✅ Configuration CORS de base pour le futur front Vue local
+- ✅ Ajout du routing API de base : versioning `api/v1`, endpoint `health`, schéma OpenAPI et Swagger UI
+- ✅ Cadrage pédagogique de la suite : prioriser les endpoints d'authentification avant les endpoints métier
+
+**Ce qui reste :**
+
+- [ ] Merger la branche `chore/drf-setup` vers `dev`
+- [ ] Vérifier CI/CD et staging après ce merge
+- [ ] Créer la branche feature dédiée auth API
+- [ ] Implémenter les endpoints auth : login, logout, register, profil (read), suppression de compte, reset mot de passe
+- [ ] Écrire les tests API auth (cas passants + refus d'accès + erreurs de payload)
+
+**Décisions prises :**
+
+- L'authentification API sera basée sur JWT avec Simple JWT
+- Les routes auth API seront implémentées dans l'app `users` (et agrégées via routing API global)
+- Le design system front est temporairement secondaire tant que le socle auth API n'est pas stabilisé
+- Workflow Git validé : merge de `chore/drf-setup` dans `dev`, puis nouvelle branche pour l'authentification
+
+**Blocages / Points ouverts :**
+
+- Définir le détail du flux reset password (endpoints, email, tokens, UX)
+- Valider la stratégie de stockage des tokens côté front Vue (phase front)
+
+**Humeur de la session :** Bonne progression, bases API posées proprement et plan clair pour la suite auth.
+
 ## Session #6 — 19 mars 2026
 
 **Objectifs prévus :** Finaliser la base du design system v1.0, valider l'accessibilité couleur et préparer la transition vers DRF

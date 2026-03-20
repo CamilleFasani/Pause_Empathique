@@ -5,45 +5,47 @@
 
 ---
 
-## Session #7 — Date prévue : 20 mars 2026
+## Session #8 — Date prévue : 27 mars 2026
 
 ### Contexte
 
-Session #6 (19 mars) : base de charte consolidée et stratégie de transition clarifiée.
+Session #7 (20 mars) : démarrage effectif de la phase DRF/JWT sur backend Dockerisé.
 
-- Contraste couleurs vérifié (accessibilité OK)
-- Captures d'écran réalisées pour le dossier projet
-- Choix stratégique acté : V1 en production, V2 en staging
-- Refonte complète des templates Django volontairement mise en pause
+- Installation des dépendances API : DRF, Simple JWT, CORS headers, drf-spectacular
+- Configuration initiale DRF dans `settings.py` (JWT, permissions, throttling, schéma OpenAPI)
+- Ajout du routing API versionné et du premier endpoint `health`
+- Clarification de la stratégie : auth API d'abord (JWT), endpoints métier ensuite
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Finaliser les merges de synchronisation (priorité)
+#### Objectif 1 — Finaliser le merge de setup DRF (priorité)
 
-- [ ] Merger `dev` vers `main` pour intégrer les changements précédents (dont migration `pytest`)
-- [ ] Vérifier CI/CD et stabilité après merge sur `main`
-- [ ] Merger ensuite la branche en cours vers `dev`
+- [ ] Merger `chore/drf-setup` vers `dev`
+- [ ] Vérifier CI/CD après merge sur `dev`
 - [ ] Vérifier le déploiement staging post-merge
+- [ ] Créer une nouvelle branche dédiée auth API (ex: `feature/auth-api-jwt`)
 
-#### Objectif 2 — Démarrer la phase DRF
+#### Objectif 2 — Implémenter les endpoints d'authentification JWT
 
-- [ ] Installer `djangorestframework`
-- [ ] Préparer la configuration initiale DRF dans le projet
-- [ ] Valider qu'aucune régression fonctionnelle n'est introduite
+- [ ] Créer les routes auth API dans l'app `users` (namespace `api/v1/auth/`)
+- [ ] Implémenter : se connecter, se déconnecter, créer son compte
+- [ ] Implémenter : consulter son compte, supprimer son compte
+- [ ] Implémenter : reset mot de passe (forgot/reset)
+- [ ] Ajouter les tests API auth (permissions, cas OK/KO)
 
-#### Objectif 3 — Préparer la suite design system côté front Vue
+#### Objectif 3 — Stabiliser la base API et documentation
 
-- [ ] Définir les états manquants du design system (`hover`, `focus`, `disabled`)
-- [ ] Poser les bases des premiers composants Vue
-- [ ] Préparer l'ajout des liens/références quand le front sera en place
+- [ ] Vérifier l'accès à `/api/v1/health/`, `/api/schema/`, `/api/docs/`
+- [ ] Documenter les endpoints auth dans le schéma OpenAPI
+- [ ] Valider l'absence de régression sur les vues Django existantes
 
 ---
 
 ### Rappels du chef de projet
 
-- 🔀 Respecter l'ordre des merges pour sécuriser l'historique et les déploiements
-- ✅ Garder la V1 stable en production, travailler la V2 sur staging
-- 🔒 Enchaîner rapidement sur l'installation DRF après validation des merges
-- 🧩 Continuer le design system en priorité sur les composants Vue plutôt que sur les templates Django amenés à disparaître
+- 🔀 Merger d'abord `chore/drf-setup` vers `dev`, puis créer une branche feature dédiée auth
+- ✅ Garder la V1 stable en production, travailler la V2/API sur staging
+- 🔒 Sécuriser les endpoints auth dès le départ (JWT + permissions + throttling + tests)
+- 🧩 Reporter les efforts design system front tant que le socle auth API n'est pas stabilisé

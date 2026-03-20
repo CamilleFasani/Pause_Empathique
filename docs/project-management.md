@@ -94,19 +94,19 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-### Phase 2 — Migration vers API REST (DRF) ⏳ EN ATTENTE PHASE 1
+### Phase 2 — Migration vers API REST (DRF) 🚧 EN COURS (démarrage anticipé)
 
 > Objectif : transformer le back Django en API REST pure, progressivement, sans coupure.
 > Stratégie : coexistence temporaire templates Django + endpoints API dans le même projet.
 
 #### 2.1 — Mise en place DRF
 
-- [ ] Installer `djangorestframework`
-- [ ] Configurer DRF dans `settings.py` (authentification, permissions, pagination)
-- [ ] Installer `drf-spectacular` et exposer les routes de documentation (`/api/schema/`, Swagger UI, Redoc)
-- [ ] Installer `djangorestframework-simplejwt`
+- [x] Installer `djangorestframework`
+- [x] Configurer DRF dans `settings.py` (authentification, permissions, pagination)
+- [x] Installer `drf-spectacular` et exposer les routes de documentation (`/api/schema/`, Swagger UI, Redoc)
+- [x] Installer `djangorestframework-simplejwt`
 - [ ] Configurer les endpoints JWT : `/api/token/`, `/api/token/refresh/`
-- [ ] Configurer CORS (`django-cors-headers`) pour le futur front Vue.js
+- [x] Configurer CORS (`django-cors-headers`) pour le futur front Vue.js
 
 #### 2.2 — Endpoints par ressource
 
