@@ -62,6 +62,8 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 - [x] Ajouter un job CI `security` : `pip-audit`
 - [x] Résoudre les CVE critiques si détectées
+- [ ] Suivre la publication du correctif pour `CVE-2026-4539` (pygments) et mettre à jour la dépendance dès disponibilité
+- [ ] Après mise à jour, relancer l'audit sécurité CI et valider que staging/prod utilisent des images de déploiement adaptées (runtime sans dépendances dev inutiles)
 
 #### 0.4 — Pre-commit hooks
 

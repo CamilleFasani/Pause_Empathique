@@ -16,16 +16,30 @@ Session #7 (20 mars) : démarrage effectif de la phase DRF/JWT sur backend Docke
 - Ajout du routing API versionné et du premier endpoint `health`
 - Clarification de la stratégie : auth API d'abord (JWT), endpoints métier ensuite
 
+Mise à jour session #8 (27 mars) :
+
+- ✅ Merge de `chore/drf-setup` vers `dev` effectué
+- ⚠️ CI non passante après merge : `pip-audit` a détecté `CVE-2026-4539` sur `pygments` (pas de version corrigée publiée à ce stade)
+- ✅ Ajout d'un objectif complémentaire de pré-check sécurité avant prochain déploiement
+- ✅ Passage sur l'Objectif 2 (auth API)
+
 ---
 
 ### Objectifs de la session
 
 #### Objectif 1 — Finaliser le merge de setup DRF (priorité)
 
-- [ ] Merger `chore/drf-setup` vers `dev`
-- [ ] Vérifier CI/CD après merge sur `dev`
+- [x] Merger `chore/drf-setup` vers `dev`
+- [x] Vérifier CI/CD après merge sur `dev` (échec du job security : `pip-audit` / `CVE-2026-4539`)
 - [ ] Vérifier le déploiement staging post-merge
-- [ ] Créer une nouvelle branche dédiée auth API (ex: `feature/auth-api-jwt`)
+- [x] Créer une nouvelle branche dédiée auth API : `feature/authentication`
+
+#### Objectif complémentaire — Pré-check sécurité avant prochain déploiement
+
+- [ ] Surveiller la publication d'un correctif pour `CVE-2026-4539` (pygments)
+- [ ] Dès qu'un fix est disponible, mettre à jour la version dans les dépendances et régénérer le lock
+- [ ] Relancer le job sécurité (`pip-audit`) en CI pour valider la remédiation
+- [ ] Vérifier l'adéquation des images de déploiement staging et production (dépendances runtime uniquement, pas de dépendances dev inutiles)
 
 #### Objectif 2 — Implémenter les endpoints d'authentification JWT
 
