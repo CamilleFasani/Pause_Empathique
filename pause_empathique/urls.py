@@ -18,11 +18,15 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from users.views import CustomLoginView
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
+    path("api/v1/", include("pause_empathique.api.urls")),
     path("pauses/", include("pauses.urls")),
     path("users/", include("users.urls")),
     path("", CustomLoginView.as_view(), name="home"),

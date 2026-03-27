@@ -77,7 +77,7 @@ class RegisterViewTest(TestCase):
         self.assertEqual(User.objects.count(), initial_user_count)
         self.assertIn("email", response.context["form"].errors)
         self.assertIn(
-            "Saisissez une adresse de courriel valide.",
+            "Saisissez une adresse e-mail valide.",
             response.context["form"].errors["email"],
         )
         self.assertFalse("_auth_user_id" in self.client.session)
