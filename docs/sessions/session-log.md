@@ -5,6 +5,43 @@
 
 ---
 
+## Session #8 — 27 mars 2026 (écourtée)
+
+**Objectifs prévus :** Merger `chore/drf-setup`, démarrer les endpoints auth JWT, stabiliser la base API
+
+**Ce qui a été fait :**
+
+- ✅ Merge de `chore/drf-setup` vers `dev` effectué
+- ✅ Vérification CI après merge : job `security` en échec (`pip-audit` détecte `CVE-2026-4539` sur `pygments`, pas de correctif publié à ce jour)
+- ✅ Branche `feature/authentication` créée
+- ✅ Squelette auth API posé : routing `api/v1/auth/`, `api/v1/users/`, serializers (`RegisterSerializer`, `UserSerializer`)
+- ⚠️ Vues API non implémentées — `users/api/views.py` vide, placeholders `xxxx` dans les URL files
+- ⚠️ Session écourtée avant implémentation des vues et des tests
+
+**Ce qui reste :**
+
+- [ ] Vérifier le déploiement staging post-merge `chore/drf-setup`
+- [ ] Surveiller la publication du correctif `CVE-2026-4539` (pygments) et mettre à jour dès disponibilité
+- [ ] Implémenter les vues API auth : register, login (TokenObtainPair), refresh, blacklist (logout)
+- [ ] Implémenter la vue profil : `GET/PUT /api/v1/users/me/` + suppression de compte
+- [ ] Implémenter reset mot de passe
+- [ ] Écrire les tests API auth (cas OK, permissions, erreurs payload)
+- [ ] Vérifier l'accès aux endpoints `/api/v1/health/`, `/api/schema/`, `/api/docs/`
+
+**Décisions prises :**
+
+- CVE pygments non bloquante à court terme (pas de fix dispo) ; à surveiller et corriger dès que possible
+- Squelette d'implémentation validé : réutiliser les vues Simple JWT fournies + créer RegisterView custom
+
+**Blocages / Points ouverts :**
+
+- `CVE-2026-4539` sur pygments : attente correctif upstream
+- Flux reset password à définir en détail (endpoints, envoi email, tokens)
+
+**Humeur de la session :** Session productive sur la structure mais écourtée avant l'implémentation réelle.
+
+---
+
 ## Session #7 — 20 mars 2026
 
 **Objectifs prévus :** Finaliser les merges de synchronisation, démarrer la phase DRF, cadrer la suite API
