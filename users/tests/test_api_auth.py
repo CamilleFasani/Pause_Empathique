@@ -112,27 +112,97 @@ class RegisterAPITest(APITestCase):
         self.assertIn("password", response.data)
 
 
-# class LoginAPITest(APITestCase):
-#     def setUp(self):
-#         self.url = reverse("auth:login")
-#         self.user = User.objects.create_user(
-#             email="camille@test.fr",
-#             password="motdepasse123",
-#             firstname="Camille",
-#             gender="F",
-#         )
+class LoginAPITest(APITestCase):
+    def setUp(self):
+        self.url = reverse("api:auth:login")
+        self.user = User.objects.create_user(
+            email="magda@test.fr",
+            password="motdepasse456",
+            firstname="Magdalena",
+            gender="F",
+        )
 
-#     def test_login_valid_credentials(self):
-#         # POST valide → 200, contient "access" et "refresh"
-#         ...
+    def test_login_valid_credentials(self):
+        # Given valid credentials
+        payload = {"email": "magda@test.fr", "password": "motdepasse456"}
 
-#     def test_login_wrong_password(self):
-#         # POST mauvais mdp → 401
-#         ...
+        # When the user logs in
+        response = self.client.post(self.url, payload, format="json")
 
-#     def test_login_unknown_email(self):
-#         # POST email inconnu → 401
-#         ...
+        # Then we get 200 with both tokens
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("access", response.data)
+        self.assertIn("refresh", response.data)
+
+    def test_login_wrong_password(self):
+        # Given wrong password
+        payload = {"email": "magda@test.fr", "password": "mauvaismdp"}
+
+        # When the user tries to log in
+        response = self.client.post(self.url, payload, format="json")
+
+        # Then access is denied
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_login_unknown_email(self):
+        # Given an email that doesn't exist in the database
+        payload = {"email": "inconnu@test.fr", "password": "motdepasse456"}
+
+        # When the user tries to log in
+        response = self.client.post(self.url, payload, format="json")
+
+        # Then access is denied
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class LogoutAPITest(APITestCase):
+    def setUp(self):
+        self.login_url = reverse("api:auth:login")
+        self.logout_url = reverse("api:auth:token_blacklist")
+        self.refresh_url = reverse("api:auth:token_refresh")
+        self.user = User.objects.create_user(
+            email="magda@test.fr",
+            password="motdepasse456",
+            firstname="Magdalena",
+            gender="F",
+        )
+
+    def _get_tokens(self):
+        """Helper : login et retourne (access, refresh)."""
+        response = self.client.post(
+            self.login_url,
+            {"email": "magda@test.fr", "password": "motdepasse456"},
+            format="json",
+        )
+        return response.data["access"], response.data["refresh"]
+
+    def test_logout_blacklists_token(self):
+        # Given a logged-in user with a valid refresh token
+        _, refresh = self._get_tokens()
+
+        # When they log out
+        response = self.client.post(
+            self.logout_url, {"refresh": refresh}, format="json"
+        )
+
+        # Then the blacklist call succeeds
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # And the token can no longer be used to get a new access token
+        refresh_response = self.client.post(
+            self.refresh_url, {"refresh": refresh}, format="json"
+        )
+        self.assertEqual(refresh_response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_logout_invalid_token(self):
+        # Given a malformed / invalid refresh token
+        payload = {"refresh": "tokeninvalide"}
+
+        # When we try to blacklist it
+        response = self.client.post(self.logout_url, payload, format="json")
+
+        # Then we get a 401 (Simple JWT rejects the token as unauthorized)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class UserMeAPITest(APITestCase):
@@ -152,7 +222,7 @@ class UserMeAPITest(APITestCase):
         # When they request their profile
         response = self.client.get(self.url)
 
-        # Then they get their data back
+        # Then they get their data back - without password
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["email"], self.user.email)
         self.assertEqual(response.data["firstname"], self.user.firstname)
@@ -173,14 +243,14 @@ class UserMeAPITest(APITestCase):
 
         # When they update their firstname
         response = self.client.patch(
-            self.url, {"firstname": "Camille M."}, format="json"
+            self.url, {"firstname": "Camillette"}, format="json"
         )
 
         # Then the update is persisted
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["firstname"], "Camille M.")
+        self.assertEqual(response.data["firstname"], "Camillette")
         self.user.refresh_from_db()
-        self.assertEqual(self.user.firstname, "Camille M.")
+        self.assertEqual(self.user.firstname, "Camillette")
 
     def test_patch_profile_unauthenticated(self):
         # Given an unauthenticated client
