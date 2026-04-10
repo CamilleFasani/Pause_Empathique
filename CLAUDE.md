@@ -8,9 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Pause Empathique** is a Django web app for Nonviolent Communication (NVC) self-empathy guidance. It walks users through a 3-step process: Observation → Feelings → Needs. Texts adapt grammatically to the user's declared gender (F/M). The project is also a certification training base (RNCP5-DWWM → RNCP6-CDA).
 
-**Project management** is described and documented in `docs/project_management.md`.
+**Project management** is described and documented in `docs/project-management.md`.
 
-**Session workflow:** At the start of each session, read `docs/sessions/next-session.md` for planned objectives. At the end, update `docs/sessions/session-log.md`, `docs/sessions/next-session.md`and `docs/project_management.md`.
+**Session workflow:** At the start of each session, read `docs/sessions/next-session.md` for planned objectives. At the end, update `docs/sessions/session-log.md`, `docs/sessions/next-session.md` and `docs/project_management.md`.
 
 ---
 
