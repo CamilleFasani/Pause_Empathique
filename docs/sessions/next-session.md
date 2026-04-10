@@ -5,68 +5,64 @@
 
 ---
 
-## Session #9 — 3 avril 2026
+## Session #10 — 10 avril 2026 ✅ COMPLÉTÉE
+
+### Bilan
+
+- [x] Objectif 1 — Ruff S106 débloqué : `per-file-ignores` dans `pyproject.toml`
+- [x] Objectif 2 — `UserMeAPITest` relu et validé (40 tests passent)
+- [x] Objectif 3 — `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT
+- [x] Objectif 4 — Couverture 87% (seuil 80% atteint)
+- [x] Merge `feature/authentication` → `dev` (CI verte requise)
+- [x] Branche `feature/pauses-api` créée
+
+---
+
+## Session #11 — prochaine session
 
 ### Contexte
 
-Session #8 (27 mars) écourtée. Ce qui a été accompli :
+Session #10 (10 avril) : socle auth API complet, testé, mergé dans `dev`.
 
-- Merge `chore/drf-setup` → `dev` ✅
-- Branche `feature/authentication` créée ✅
-- Squelette auth API en place : routing `api/v1/auth/` + `api/v1/users/`, serializers `RegisterSerializer` + `UserSerializer` ✅
-- **Mais :** `users/api/views.py` vide, placeholders `xxxx` dans les URL files, zéro test API
-
-CVE ouverte : `CVE-2026-4539` sur `pygments` (pas de correctif upstream disponible à ce jour).
+- `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT ✅
+- Couverture `users` : 87% (40 tests) ✅
+- `feature/authentication` mergée dans `dev` ✅
+- Branche `feature/pauses-api` créée ✅
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Vérifier la CVE pygments (rapide)
+#### Objectif 1 — Rédiger le plan de tests Pauses (dossier CDA)
 
-- [ ] Vérifier si un correctif a été publié pour `CVE-2026-4539` (pygments)
-- [ ] Si oui : mettre à jour la dépendance, régénérer le lock, valider le job `pip-audit` en CI
-- [ ] Si non : noter la date de vérification et passer à l'Objectif 2
+- [ ] Rédiger le plan de tests formalisé avant d'écrire le code
+- [ ] Couvrir : cas nominaux, cas limites, cas d'erreur pour list/create/retrieve/update/delete
+- [ ] Valider le plan avant implémentation
 
-#### Objectif 2 — Implémenter les endpoints auth JWT (priorité principale)
+#### Objectif 2 — Serializer Pause
 
-**Vues à implémenter dans `users/api/views.py` + brancher les URLs (remplacer les `xxxx`) :**
+- [ ] Créer `PauseSerializer` dans `pauses/api/serializers.py`
+- [ ] Champs : `id`, `title`, `created_at`, `feelings`, `needs`
+- [ ] Écrire les tests unitaires du serializer
 
-- [ ] `POST /api/v1/auth/register/` — inscription (RegisterView custom, utilise RegisterSerializer)
-- [ ] `POST /api/v1/auth/token/` — login, obtention access + refresh token (TokenObtainPairView de Simple JWT)
-- [ ] `POST /api/v1/auth/token/refresh/` — rafraîchissement du token (TokenRefreshView de Simple JWT)
-- [ ] `POST /api/v1/auth/token/blacklist/` — logout, blacklist du refresh token (TokenBlacklistView de Simple JWT)
-- [ ] `GET /api/v1/users/me/` — profil de l'utilisateur connecté (UserSerializer, permission IsAuthenticated)
-- [ ] `PUT/PATCH /api/v1/users/me/` — mise à jour du profil
-- [ ] `DELETE /api/v1/users/me/` — suppression de compte
+#### Objectif 3 — Endpoints Pauses
 
-#### Objectif 3 — Tests API auth
+- [ ] `GET /api/v1/pauses/` — liste des pauses de l'utilisateur connecté
+- [ ] `POST /api/v1/pauses/` — créer une pause
+- [ ] `GET /api/v1/pauses/<id>/` — détail d'une pause
+- [ ] `PATCH /api/v1/pauses/<id>/` — modifier une pause
+- [ ] `DELETE /api/v1/pauses/<id>/` — supprimer une pause
+- [ ] Vérifier l'isolation : un utilisateur ne peut pas accéder aux pauses d'un autre
 
-Pour chaque endpoint ci-dessus, écrire les tests :
+#### Objectif 4 — Tests d'intégration Pauses
 
-- [ ] Cas passant (status codes, payload retourné)
-- [ ] Cas d'erreur (payload invalide, credentials incorrects)
-- [ ] Vérification des permissions (accès sans token refusé sur les routes protégées)
-- [ ] Couverture maintenue ≥ 80 %
-
-#### Objectif 4 (si le temps le permet) — Vérifications de base API
-
-- [ ] Confirmer l'accès à `/api/v1/health/`, `/api/schema/`, `/api/docs/` en staging
-- [ ] Valider l'absence de régression sur les vues Django existantes
-
----
-
-### Ce qu'on ne fait PAS cette session
-
-- Reset mot de passe (flux email à définir — reporté)
-- Design system / templates Django
-- Endpoints métier (Pauses, Feelings, Needs)
+- [ ] Tests CRUD complets selon le plan de tests rédigé en Objectif 1
+- [ ] Couverture `pauses` maintenue ≥ 80%
 
 ---
 
 ### Rappels du chef de projet
 
-- 🔒 Sécuriser chaque endpoint dès le départ : JWT + `IsAuthenticated` + throttling déjà configuré
-- 🧪 Écrire les tests en même temps que les vues, pas après
-- ✅ Garder la V1 stable en production — travail sur `feature/authentication`
-- 🔀 Merge vers `dev` uniquement après CI verte et tests passants
+- Le plan de tests doit être rédigé **avant** le code (pas après)
+- Toujours tester l'isolation des données entre utilisateurs
+- CI verte obligatoire avant merge `feature/pauses-api` → `dev`
