@@ -5,6 +5,41 @@
 
 ---
 
+## Session #11 — 10 avril 2026
+
+**Objectifs prévus :** Brainstorm architecture endpoints pauses avant rédaction du plan de tests
+
+**Ce qui a été fait :**
+
+- ✅ Brainstorm architecture flux anonyme vs connecté pour les endpoints pauses
+- ✅ Décision : données de pause stockées dans `sessionStorage` côté client pendant la session (pas de sauvegarde progressive côté serveur)
+- ✅ Décision : 1 seul `POST /api/v1/pauses/` en fin de pause pour tous les utilisateurs (anonymes et connectés)
+- ✅ Décision : `POST /api/v1/pauses/anonymous` pour incrémenter un compteur statistique si l'utilisateur refuse de sauvegarder
+- ✅ Sauvegarde progressive (PATCH étape par étape) abandonnée — trop complexe, pas de valeur ajoutée étant donné que la fermeture navigateur = données perdues par conception
+
+**Ce qui reste :**
+
+- [ ] Trancher : sentiments genrés filtrés côté back (1 champ `label`) ou 2 champs envoyés au front (`feminine_name` + `masculine_name`) ?
+- [ ] Trancher : demander le genre en début de pause anonyme, ou genre neutre par défaut ?
+- [ ] Rédiger le plan de tests Pauses (dossier CDA) avant implémentation
+- [ ] Implémenter `PauseSerializer` + endpoints CRUD Pauses
+- [ ] Écrire les tests d'intégration Pauses
+
+**Décisions prises :**
+
+- Flux anonyme : sessionStorage côté front, aucune donnée intime envoyée au serveur sans consentement explicite
+- Fermeture navigateur en cours de pause = données perdues (comportement voulu)
+- Sauvegarde en fin de pause uniquement : 1 seule logique, 1 seul endpoint, pour anonymes et connectés
+- Récap de fin de pause construit depuis sessionStorage (pas besoin d'un appel serveur pour l'afficher)
+
+**Blocages / Points ouverts :**
+
+- Question genre / sentiments à trancher avant d'écrire le serializer (session #12)
+
+**Humeur de la session :** Brainstorm productif — architecture clarifiée avant l'implémentation, bonne décision de ne pas sauter dans le code.
+
+---
+
 ## Session #10 — 10 avril 2026
 
 **Objectifs prévus :** Débloquer les commits Ruff, valider UserMeAPITest, écrire tests login/logout, vérifier couverture
