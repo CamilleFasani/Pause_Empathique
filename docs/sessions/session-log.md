@@ -5,6 +5,120 @@
 
 ---
 
+## Session #10 — 10 avril 2026
+
+**Objectifs prévus :** Débloquer les commits Ruff, valider UserMeAPITest, écrire tests login/logout, vérifier couverture
+
+**Ce qui a été fait :**
+
+- ✅ Ruff S106 débloqué : `per-file-ignores` dans `pyproject.toml` (ignore S106 pour `*/tests/test_*.py`) — plus propre que `# noqa` ligne par ligne
+- ✅ `UserMeAPITest` relu et validé — tous les tests passent
+- ✅ `LoginAPITest` implémenté : cas nominal (access + refresh retournés), mauvais mdp, email inconnu
+- ✅ `LogoutAPITest` implémenté : blacklist d'un token valide + tentative avec token invalide (→ 401, pas 400)
+- ✅ Couverture `users` : 87% (40 tests) — seuil 80% largement atteint
+- ✅ Merge `feature/authentication` → `dev` (CI verte)
+- ✅ Branche `feature/pauses-api` créée
+
+**Ce qui reste :**
+
+- [ ] Rédiger le plan de tests Pauses (dossier CDA) avant d'écrire le code
+- [ ] Implémenter `PauseSerializer` + endpoints CRUD Pauses
+- [ ] Écrire les tests d'intégration Pauses
+
+**Décisions prises :**
+
+- `per-file-ignores` retenu pour la gestion des règles de sécurité dans les tests (scalable, pas de bruit `# noqa`)
+- `LogoutAPITest` séparé de `LoginAPITest` : flux distincts (login = obtenir des tokens, logout = invalider un token existant)
+- Simple JWT retourne 401 sur `token/blacklist/` avec un token invalide (rejette avant d'essayer de blacklister)
+- Plan de tests Pauses à rédiger pour le dossier CDA avant implémentation
+
+**Blocages / Points ouverts :**
+
+- Reset mot de passe toujours reporté (flux email à définir)
+
+**Humeur de la session :** Socle auth complet et mergé — bonne progression vers les endpoints métier.
+
+---
+
+## Session #9 — 3 avril 2026
+
+**Objectifs prévus :** Vérifier CVE pygments, implémenter les endpoints auth JWT, écrire les tests
+
+**Ce qui a été fait :**
+
+- ✅ CVE-2026-4539 (pygments) résolue : correctif 2.20.0 disponible, `poetry update pygments`, commit sur `feature/authentication` + cherry-pick vers `dev`, CI verte
+- ✅ Compréhension du mécanisme JWT (access/refresh/blacklist) et de leurs rôles respectifs
+- ✅ Implémentation des vues API auth : `RegisterAPIView`, `UserMeView` (GET/PATCH/DELETE)
+- ✅ Correction du serializer : `create()` surchargé pour utiliser `create_user()` et hasher le mot de passe
+- ✅ URLs nettoyées : placeholders `xxxx` supprimés, `/api/v1/users/me/` rationalisée (une seule URL, verbes HTTP)
+- ✅ Endpoints JWT Simple JWT branchés : `token/`, `token/refresh/`, `token/blacklist/`
+- ✅ Tests unitaires `RegisterSerializerTest` : hashage, write_only, données invalides
+- ✅ Tests d'intégration `RegisterAPITest` : cas nominal, email invalide, doublon, champs manquants
+- ✅ Tests d'intégration `UserMeAPITest` : GET/PATCH/DELETE authentifié + cas non authentifié
+- ⚠️ `LoginAPITest` non écrit (commenté)
+- ⚠️ Ruff signale les mots de passe en clair dans les fixtures de test (à corriger)
+
+**Ce qui reste :**
+
+- [ ] Corriger l'alerte Ruff sur les mots de passe en clair dans les tests (`# noqa: S106`)
+- [ ] Relire et valider `UserMeAPITest` (tests écrits mais pas encore passés en revue)
+- [ ] Implémenter `LoginAPITest` : cas nominal (access + refresh retournés), mauvais mdp, email inconnu
+- [ ] Décommenter et compléter les tests de logout (`token/blacklist/`)
+- [ ] Vérifier la couverture globale (seuil 80 %)
+
+**Décisions prises :**
+
+- Architecture tests : un dossier `tests/` par app (ex: `users/tests/`) — le dossier global sera supprimé quand l'ancien back sera retiré
+- `force_authenticate` utilisé dans les tests `UserMeAPITest` pour isoler la logique métier de la couche JWT
+- `PUT` retiré au profit de `PATCH` uniquement sur `UserMeView` (profil : modification partielle)
+- Soft delete non implémenté — décision reportée à la phase RGPD
+
+**Blocages / Points ouverts :**
+
+- Ruff bloque les commits : mots de passe en clair dans les fixtures de test → ajouter `# noqa: S106`
+- Flux reset mot de passe toujours non défini (reporté)
+
+**Humeur de la session :** Session dense et productive — socle auth API posé, tests en bonne voie.
+
+---
+
+## Session #8 — 27 mars 2026 (écourtée)
+
+**Objectifs prévus :** Merger `chore/drf-setup`, démarrer les endpoints auth JWT, stabiliser la base API
+
+**Ce qui a été fait :**
+
+- ✅ Merge de `chore/drf-setup` vers `dev` effectué
+- ✅ Vérification CI après merge : job `security` en échec (`pip-audit` détecte `CVE-2026-4539` sur `pygments`, pas de correctif publié à ce jour)
+- ✅ Branche `feature/authentication` créée
+- ✅ Squelette auth API posé : routing `api/v1/auth/`, `api/v1/users/`, serializers (`RegisterSerializer`, `UserSerializer`)
+- ⚠️ Vues API non implémentées — `users/api/views.py` vide, placeholders `xxxx` dans les URL files
+- ⚠️ Session écourtée avant implémentation des vues et des tests
+
+**Ce qui reste :**
+
+- [ ] Vérifier le déploiement staging post-merge `chore/drf-setup`
+- [ ] Surveiller la publication du correctif `CVE-2026-4539` (pygments) et mettre à jour dès disponibilité
+- [ ] Implémenter les vues API auth : register, login (TokenObtainPair), refresh, blacklist (logout)
+- [ ] Implémenter la vue profil : `GET/PUT /api/v1/users/me/` + suppression de compte
+- [ ] Implémenter reset mot de passe
+- [ ] Écrire les tests API auth (cas OK, permissions, erreurs payload)
+- [ ] Vérifier l'accès aux endpoints `/api/v1/health/`, `/api/schema/`, `/api/docs/`
+
+**Décisions prises :**
+
+- CVE pygments non bloquante à court terme (pas de fix dispo) ; à surveiller et corriger dès que possible
+- Squelette d'implémentation validé : réutiliser les vues Simple JWT fournies + créer RegisterView custom
+
+**Blocages / Points ouverts :**
+
+- `CVE-2026-4539` sur pygments : attente correctif upstream
+- Flux reset password à définir en détail (endpoints, envoi email, tokens)
+
+**Humeur de la session :** Session productive sur la structure mais écourtée avant l'implémentation réelle.
+
+---
+
 ## Session #7 — 20 mars 2026
 
 **Objectifs prévus :** Finaliser les merges de synchronisation, démarrer la phase DRF, cadrer la suite API

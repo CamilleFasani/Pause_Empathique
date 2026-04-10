@@ -16,7 +16,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-## État actuel — Mars 2026
+## État actuel — Avril 2026
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
@@ -27,12 +27,14 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Modèles : User, Pause, Feeling, Need
 - ✅ CRUD complet sur les pauses
 - ✅ Couverture de tests mesurée via `pytest-cov` (seuil 80 % à atteindre)
-- ⚠️ Audit de sécurité des dépendances en place, remédiation CVE à suivre
+- ✅ CVE-2026-4539 (pygments) corrigée — mise à jour 2.20.0 mergée sur `dev`
 - ✅ `pre-commit` local en place (Ruff + hooks qualité)
 - ✅ Outil de documentation API validé : `drf-spectacular`
 - ✅ Vérification des contrastes accessibilité (niveau AA) validée sur la palette actuelle
 - ✅ Captures d'écran réalisées pour le dossier projet
 - ✅ Stratégie de transition actée : V1 maintenue en production, V2 travaillée sur staging
+- ✅ Endpoints auth API implémentés : register, login, refresh, logout, profil (GET/PATCH/DELETE)
+- ✅ Tests API auth et login/logout écrits
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -62,6 +64,8 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 - [x] Ajouter un job CI `security` : `pip-audit`
 - [x] Résoudre les CVE critiques si détectées
+- [x] Corriger `CVE-2026-4539` (pygments) — mise à jour 2.20.0, CI verte sur `dev`
+- [ ] Valider que staging/prod utilisent des images de déploiement adaptées (runtime sans dépendances dev inutiles)
 
 #### 0.4 — Pre-commit hooks
 
@@ -105,21 +109,24 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - [x] Configurer DRF dans `settings.py` (authentification, permissions, pagination)
 - [x] Installer `drf-spectacular` et exposer les routes de documentation (`/api/schema/`, Swagger UI, Redoc)
 - [x] Installer `djangorestframework-simplejwt`
-- [ ] Configurer les endpoints JWT : `/api/token/`, `/api/token/refresh/`
+- [x] Configurer les endpoints JWT : `api/v1/auth/token/`, `api/v1/auth/token/refresh/`
 - [x] Configurer CORS (`django-cors-headers`) pour le futur front Vue.js
 
 #### 2.2 — Endpoints par ressource
 
 Pour chaque ressource, créer serializer + viewset + URL avant de migrer le front :
 
-- [ ] **Auth** : register, login (JWT), logout, profil, mise à jour, suppression
+- [x] **Auth** : register, login (JWT), logout, profil (GET/PATCH), suppression de compte — mergé dans `dev`
 - [ ] **Pauses** : list, create, retrieve, update, delete
 - [ ] **Feelings** : list (lecture seule, organisée par famille)
 - [ ] **Needs** : list (lecture seule)
 
 #### 2.3 — Tests API
 
-- [ ] Écrire les tests pour chaque endpoint (authentification, permissions, payloads)
+- [x] Tests auth : RegisterSerializerTest, RegisterAPITest, UserMeAPITest écrits
+- [x] Tests login/logout : LoginAPITest + LogoutAPITest écrits avec vrais tokens JWT — couverture users 87%
+- [ ] **Plan de tests Pauses** : rédiger un plan de tests formalisé (dossier CDA) avant d'implémenter les endpoints Pauses — couvrir les cas nominaux, limites et erreurs pour list/create/retrieve/update/delete
+- [ ] Tests Pauses, Feelings, Needs — après implémentation et validation du plan de tests
 - [ ] Couverture maintenue ≥ 80 %
 
 #### 2.4 — Documentation API

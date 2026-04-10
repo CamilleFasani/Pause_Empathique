@@ -5,47 +5,64 @@
 
 ---
 
-## Session #8 — Date prévue : 27 mars 2026
+## Session #10 — 10 avril 2026 ✅ COMPLÉTÉE
+
+### Bilan
+
+- [x] Objectif 1 — Ruff S106 débloqué : `per-file-ignores` dans `pyproject.toml`
+- [x] Objectif 2 — `UserMeAPITest` relu et validé (40 tests passent)
+- [x] Objectif 3 — `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT
+- [x] Objectif 4 — Couverture 87% (seuil 80% atteint)
+- [x] Merge `feature/authentication` → `dev` (CI verte requise)
+- [x] Branche `feature/pauses-api` créée
+
+---
+
+## Session #11 — prochaine session
 
 ### Contexte
 
-Session #7 (20 mars) : démarrage effectif de la phase DRF/JWT sur backend Dockerisé.
+Session #10 (10 avril) : socle auth API complet, testé, mergé dans `dev`.
 
-- Installation des dépendances API : DRF, Simple JWT, CORS headers, drf-spectacular
-- Configuration initiale DRF dans `settings.py` (JWT, permissions, throttling, schéma OpenAPI)
-- Ajout du routing API versionné et du premier endpoint `health`
-- Clarification de la stratégie : auth API d'abord (JWT), endpoints métier ensuite
+- `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT ✅
+- Couverture `users` : 87% (40 tests) ✅
+- `feature/authentication` mergée dans `dev` ✅
+- Branche `feature/pauses-api` créée ✅
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Finaliser le merge de setup DRF (priorité)
+#### Objectif 1 — Rédiger le plan de tests Pauses (dossier CDA)
 
-- [ ] Merger `chore/drf-setup` vers `dev`
-- [ ] Vérifier CI/CD après merge sur `dev`
-- [ ] Vérifier le déploiement staging post-merge
-- [ ] Créer une nouvelle branche dédiée auth API (ex: `feature/auth-api-jwt`)
+- [ ] Rédiger le plan de tests formalisé avant d'écrire le code
+- [ ] Couvrir : cas nominaux, cas limites, cas d'erreur pour list/create/retrieve/update/delete
+- [ ] Valider le plan avant implémentation
 
-#### Objectif 2 — Implémenter les endpoints d'authentification JWT
+#### Objectif 2 — Serializer Pause
 
-- [ ] Créer les routes auth API dans l'app `users` (namespace `api/v1/auth/`)
-- [ ] Implémenter : se connecter, se déconnecter, créer son compte
-- [ ] Implémenter : consulter son compte, supprimer son compte
-- [ ] Implémenter : reset mot de passe (forgot/reset)
-- [ ] Ajouter les tests API auth (permissions, cas OK/KO)
+- [ ] Créer `PauseSerializer` dans `pauses/api/serializers.py`
+- [ ] Champs : `id`, `title`, `created_at`, `feelings`, `needs`
+- [ ] Écrire les tests unitaires du serializer
 
-#### Objectif 3 — Stabiliser la base API et documentation
+#### Objectif 3 — Endpoints Pauses
 
-- [ ] Vérifier l'accès à `/api/v1/health/`, `/api/schema/`, `/api/docs/`
-- [ ] Documenter les endpoints auth dans le schéma OpenAPI
-- [ ] Valider l'absence de régression sur les vues Django existantes
+- [ ] `GET /api/v1/pauses/` — liste des pauses de l'utilisateur connecté
+- [ ] `POST /api/v1/pauses/` — créer une pause
+- [ ] `GET /api/v1/pauses/<id>/` — détail d'une pause
+- [ ] `PATCH /api/v1/pauses/<id>/` — modifier une pause
+- [ ] `DELETE /api/v1/pauses/<id>/` — supprimer une pause
+- [ ] Vérifier l'isolation : un utilisateur ne peut pas accéder aux pauses d'un autre
+
+#### Objectif 4 — Tests d'intégration Pauses
+
+- [ ] Tests CRUD complets selon le plan de tests rédigé en Objectif 1
+- [ ] Couverture `pauses` maintenue ≥ 80%
 
 ---
 
 ### Rappels du chef de projet
 
-- 🔀 Merger d'abord `chore/drf-setup` vers `dev`, puis créer une branche feature dédiée auth
-- ✅ Garder la V1 stable en production, travailler la V2/API sur staging
-- 🔒 Sécuriser les endpoints auth dès le départ (JWT + permissions + throttling + tests)
-- 🧩 Reporter les efforts design system front tant que le socle auth API n'est pas stabilisé
+- Le plan de tests doit être rédigé **avant** le code (pas après)
+- Toujours tester l'isolation des données entre utilisateurs
+- CI verte obligatoire avant merge `feature/pauses-api` → `dev`
