@@ -46,6 +46,29 @@ Cette fonctionnalité est accessible de deux manières :
 
 ---
 
+### 3.0 Tests unitaires — Serializers
+
+#### Sérialisation (lecture — on donne une instance au serializer, on vérifie le format de sortie)
+
+| ID | Description | Données d'entrée | Résultat attendu | Type |
+|---|---|---|---|---|
+| SER-01 | Structure `names` des feelings | Pause avec 1 feeling (`feminine_name: "submergée"`, `masculine_name: "submergé"`) | `feelings[0].names == {"f": "submergée", "m": "submergé"}` | Nominal |
+| SER-02 | Structure `name` des needs | Pause avec 1 need (`name: "sécurité"`) | `needs[0].name == "sécurité"` | Nominal |
+| SER-03 | Champ `user` absent de la réponse | Pause avec un user | La clé `user` n'apparaît pas dans `serializer.data` | Nominal |
+| SER-04 | _Supprimé — feelings et needs sont désormais requis_ | — | — | — |
+| SER-05 | Tous les champs attendus sont présents | Pause complète | La réponse contient exactement : `id`, `title`, `created_at`, `updated_at`, `empty_your_bag`, `observation`, `feelings`, `needs` | Nominal |
+
+#### Validation (écriture — on donne un `data={}`, on vérifie `is_valid()`)
+
+| ID | Description | Données d'entrée | Résultat attendu | Type |
+|---|---|---|---|---|
+| SER-06 | Données valides minimales | `feelings: [id]`, `needs: [id]` | `is_valid() == True` | Nominal |
+| SER-07 | Titre auto-généré si absent | Pas de `title` dans `data` | `is_valid() == True`, titre au format "Pause du JJ Mois AAAA" | Nominal |
+| SER-08 | Titre dépasse 200 caractères | `title` de 201 caractères | `is_valid() == False`, erreur sur `title` | Limite |
+| SER-09 | Feelings et needs absents → rejet | Ni `feelings` ni `needs` | `is_valid() == False`, erreur sur `feelings` et `needs` | Erreur |
+
+---
+
 ### 3.1 `GET /api/v1/pauses/` — Liste
 
 | ID | Description | Préconditions | Résultat attendu | Type |
