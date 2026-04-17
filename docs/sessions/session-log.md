@@ -5,6 +5,81 @@
 
 ---
 
+## Session #12 — 17 avril 2026
+
+**Objectifs prévus :** Trancher question genre sentiments, rédiger plan de tests Pauses, écrire serializer + tests, implémenter endpoints, écrire tests d'intégration
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 0 — Question du genre tranchée : **Option B** (l'API renvoie les deux formes sous `names: {"f", "m"}`, le front choisit). Pour l'utilisateur anonyme, le genre est demandé en début de pause et stocké côté client (`sessionStorage`).
+- ✅ Objectif 1 — Plan de tests Pauses rédigé : `docs/test-plan-pauses-api.md` (approche TDD, dossier CDA). Couvre les 6 endpoints + les tests unitaires du serializer (SER-01..SER-09).
+- ✅ Objectif 2 — Tests unitaires serializer écrits : `pauses/tests/test_serializers.py` (8 tests sur 9, SER-04 supprimé du plan car feelings/needs requis).
+- ✅ Objectif 4 — Tests d'intégration Pauses écrits : `pauses/tests/test_api_pauses.py` (28 tests, 5 classes : List/Create/Detail/Update/Delete).
+- ⚠️ Objectif 3 — Endpoints Pauses **non implémentés** : reporté à la session #13 (TDD, la phase "red" est posée, "green" à suivre).
+- ⚠️ ANO-01 / ANO-02 non écrits : la conception de `POST /api/v1/pauses/anonymous` n'est pas encore cadrée (persistance, contrat d'API, anti-spam) → reporté à la session #13.
+
+**Ce qui reste :**
+
+- [ ] Relire les tests rédigés (unitaires + intégration) avant d'implémenter
+- [ ] Implémenter le serializer Pause writable (actuellement `feelings`/`needs` en `read_only=True`) pour faire passer SER-06..SER-09
+- [ ] Implémenter les vues (ListCreate + RetrieveUpdateDestroy) avec isolation par `get_queryset` filtrant sur `request.user`
+- [ ] Câbler `pauses/api/pause_urls.py` (namespace `pauses`) et l'inclure depuis `pause_empathique/api/urls.py`
+- [ ] Concevoir l'endpoint anonyme (persistance du compteur, contrat, rate limiting) puis écrire ANO-01/ANO-02
+- [ ] Vérifier la couverture `pauses` ≥ 80 % une fois les endpoints verts
+
+**Décisions prises :**
+
+- Sentiments genrés : **Option B** retenue (structure imbriquée `names: {"f", "m"}`). Raison : logique d'affichage centralisée côté front dans un composable `useGender()` — pas de duplication, pas de requête serveur pour changer la forme affichée.
+- Genre anonyme : demandé en début de pause, stocké en `sessionStorage` (pas d'appel serveur).
+- Champs requis pour créer une pause : `feelings` **et** `needs` (au moins un de chaque). `title`, `empty_your_bag`, `observation` optionnels.
+- Isolation des pauses : renvoyer **404** (pas 403) quand un utilisateur tente d'accéder à la pause d'un autre — ne pas révéler l'existence de la ressource.
+- Organisation des tests : un fichier par couche (`test_serializers.py` pour les unitaires, `test_api_pauses.py` pour l'intégration HTTP).
+- CRE-02 splitté en deux tests distincts (`missing_feelings`, `missing_needs`) pour isoler les deux validations.
+
+**Blocages / Points ouverts :**
+
+- Conception de `POST /api/v1/pauses/anonymous` à cadrer avant d'écrire les tests (session #13)
+- Tous les tests écrits aujourd'hui sont en phase "red" — attendu en TDD, à passer au vert session #13
+
+**Humeur de la session :** TDD rigoureux — plan de tests rédigé **avant** le code (comme exigé par le dossier CDA), serializer et endpoints spécifiés par les tests plutôt que l'inverse. Prête pour la phase green.
+
+---
+
+## Session #11 — 10 avril 2026
+
+**Objectifs prévus :** Brainstorm architecture endpoints pauses avant rédaction du plan de tests
+
+**Ce qui a été fait :**
+
+- ✅ Brainstorm architecture flux anonyme vs connecté pour les endpoints pauses
+- ✅ Décision : données de pause stockées dans `sessionStorage` côté client pendant la session (pas de sauvegarde progressive côté serveur)
+- ✅ Décision : 1 seul `POST /api/v1/pauses/` en fin de pause pour tous les utilisateurs (anonymes et connectés)
+- ✅ Décision : `POST /api/v1/pauses/anonymous` pour incrémenter un compteur statistique si l'utilisateur refuse de sauvegarder
+- ✅ Sauvegarde progressive (PATCH étape par étape) abandonnée — trop complexe, pas de valeur ajoutée étant donné que la fermeture navigateur = données perdues par conception
+
+**Ce qui reste :**
+
+- [ ] Trancher : sentiments genrés filtrés côté back (1 champ `label`) ou 2 champs envoyés au front (`feminine_name` + `masculine_name`) ?
+- [ ] Trancher : demander le genre en début de pause anonyme, ou genre neutre par défaut ?
+- [ ] Rédiger le plan de tests Pauses (dossier CDA) avant implémentation
+- [ ] Implémenter `PauseSerializer` + endpoints CRUD Pauses
+- [ ] Écrire les tests d'intégration Pauses
+
+**Décisions prises :**
+
+- Flux anonyme : sessionStorage côté front, aucune donnée intime envoyée au serveur sans consentement explicite
+- Fermeture navigateur en cours de pause = données perdues (comportement voulu)
+- Sauvegarde en fin de pause uniquement : 1 seule logique, 1 seul endpoint, pour anonymes et connectés
+- Récap de fin de pause construit depuis sessionStorage (pas besoin d'un appel serveur pour l'afficher)
+
+**Blocages / Points ouverts :**
+
+- Question genre / sentiments à trancher avant d'écrire le serializer (session #12)
+
+**Humeur de la session :** Brainstorm productif — architecture clarifiée avant l'implémentation, bonne décision de ne pas sauter dans le code.
+
+---
+
 ## Session #10 — 10 avril 2026
 
 **Objectifs prévus :** Débloquer les commits Ruff, valider UserMeAPITest, écrire tests login/logout, vérifier couverture

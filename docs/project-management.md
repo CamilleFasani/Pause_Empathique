@@ -121,13 +121,22 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [ ] **Feelings** : list (lecture seule, organisée par famille)
 - [ ] **Needs** : list (lecture seule)
 
+**Décisions d'architecture API — Feelings/Needs (session #12, 17 avril 2026) :**
+
+- `Feeling` expose les deux formes genrées sous une structure imbriquée : `"names": {"f": "submergée", "m": "submergé"}` — le front choisit la forme à afficher selon le genre connu (connecté : profil utilisateur ; anonyme : choix en début de pause stocké en `sessionStorage`).
+- `Need` n'a pas de genre : un seul champ `name` dans le serializer.
+- La logique d'affichage genré est centralisée côté front dans un composable `useGender()` (voir Phase 3). Ne pas dupliquer cette logique dans les composants Vue.
+
 #### 2.3 — Tests API
 
 - [x] Tests auth : RegisterSerializerTest, RegisterAPITest, UserMeAPITest écrits
 - [x] Tests login/logout : LoginAPITest + LogoutAPITest écrits avec vrais tokens JWT — couverture users 87%
-- [ ] **Plan de tests Pauses** : rédiger un plan de tests formalisé (dossier CDA) avant d'implémenter les endpoints Pauses — couvrir les cas nominaux, limites et erreurs pour list/create/retrieve/update/delete
-- [ ] Tests Pauses, Feelings, Needs — après implémentation et validation du plan de tests
-- [ ] Couverture maintenue ≥ 80 %
+- [x] **Plan de tests Pauses** rédigé : `docs/test-plan-pauses-api.md` (6 endpoints + SER-01..SER-09) — session #12
+- [x] Tests unitaires serializer Pause : `pauses/tests/test_serializers.py` (8 tests) — session #12
+- [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red)
+- [ ] Tests anonymes (ANO-01, ANO-02) — après conception du compteur
+- [ ] Tests Feelings, Needs — après implémentation des endpoints
+- [ ] Couverture `pauses` ≥ 80 % après passage au vert (session #13)
 
 #### 2.4 — Documentation API
 
@@ -152,6 +161,14 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [ ] Configurer Tailwind CSS v4
 - [ ] Configurer le linter (ESLint + Prettier)
 - [ ] CI/CD : lint + build check
+
+#### 3.1.1 — Composable `useGender()`
+
+- [ ] Créer un composable `useGender()` qui centralise la résolution du genre à afficher
+  - Utilisateur connecté → genre depuis le store Pinia (profil)
+  - Utilisateur anonyme → genre depuis `sessionStorage` (choix en début de pause)
+- [ ] Ce composable est l'unique point d'accès au genre dans toute l'application Vue
+- [ ] Utilisation : `const label = feeling.names[gender]`
 
 #### 3.2 — Authentification
 

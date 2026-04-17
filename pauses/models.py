@@ -30,10 +30,10 @@ class Pause(models.Model):
     created_at = models.DateTimeField("Créée le", auto_now_add=True)
     updated_at = models.DateTimeField("Modifiée le", auto_now=True)
     empty_your_bag = models.TextField("Vide ton sac", blank=True, default="")
-    observation = models.TextField("Observation")
+    observation = models.TextField("Observation", blank=True, default="")
 
-    feelings = models.ManyToManyField("Feeling", related_name="pauses", blank=True)
-    needs = models.ManyToManyField("Need", related_name="pauses", blank=True)
+    feelings = models.ManyToManyField("Feeling", related_name="pauses")
+    needs = models.ManyToManyField("Need", related_name="pauses")
 
     class Meta:
         verbose_name = "Pause empathique"
