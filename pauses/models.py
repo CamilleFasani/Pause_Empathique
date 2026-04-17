@@ -32,8 +32,8 @@ class Pause(models.Model):
     empty_your_bag = models.TextField("Vide ton sac", blank=True, default="")
     observation = models.TextField("Observation", blank=True, default="")
 
-    feelings = models.ManyToManyField("Feeling", related_name="pauses", blank=True)
-    needs = models.ManyToManyField("Need", related_name="pauses", blank=True)
+    feelings = models.ManyToManyField("Feeling", related_name="pauses")
+    needs = models.ManyToManyField("Need", related_name="pauses")
 
     class Meta:
         verbose_name = "Pause empathique"
