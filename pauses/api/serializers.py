@@ -4,9 +4,17 @@ from pauses.models import Feeling, Need, Pause
 
 
 class FeelingSerializer(serializers.ModelSerializer):
+    names = serializers.SerializerMethodField()
+
+    def get_names(self, obj):
+        return {
+            "f": obj.feminine_name,
+            "m": obj.masculine_name,
+        }
+
     class Meta:
         model = Feeling
-        fields = ["id", "feeling_family", "feminine_name", "masculine_name"]
+        fields = ["id", "feeling_family", "names"]
 
 
 class NeedSerializer(serializers.ModelSerializer):
@@ -23,7 +31,6 @@ class PauseSerializer(serializers.ModelSerializer):
         model = Pause
         fields = [
             "id",
-            "user",
             "title",
             "created_at",
             "updated_at",
@@ -32,4 +39,4 @@ class PauseSerializer(serializers.ModelSerializer):
             "feelings",
             "needs",
         ]
-        read_only_fields = ["user", "created_at", "updated_at"]
+        read_only_fields = ["created_at", "updated_at"]
