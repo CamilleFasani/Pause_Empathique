@@ -55,43 +55,43 @@
 
 ---
 
-## Session #13 — 1er mai 2026
+## Session #13 — 22 mai 2026 ✅ COMPLÉTÉE
+
+### Bilan
+
+- [x] Objectif 1 — Tests relus et ajustés (pagination : `count` + `results` au lieu de `response.data` brut)
+- [x] Objectif 2 — Serializer writable : `PrimaryKeyRelatedField(many=True, allow_empty=False)` + `to_representation` pour la lecture imbriquée
+- [x] Objectif 3 — Vues + URLs implémentées : `PauseListCreateView`, `PauseDetailView`, câblage `pause_urls.py` → `api/urls.py`
+- [x] Optimisation N+1 : `prefetch_related("feelings", "needs")` dans les deux vues
+- [ ] Objectif 4 — Compteur anonyme : reporté à la session #14
+- [ ] Objectif 5 — Validation & merge : reporté à la session #14 (après ANO-01/ANO-02)
+
+### Décisions prises
+
+- **Pagination conservée** (décision produit) : un utilisateur peut accumuler beaucoup de pauses → pagination DRF globale maintenue. Tests ajustés en conséquence (`response.data["count"]` et `response.data["results"]`).
+- **`allow_empty=False`** sur `feelings` et `needs` : une liste vide `[]` est rejetée comme un champ absent.
+- **Pattern lecture/écriture** : `PrimaryKeyRelatedField` pour la validation en écriture, `to_representation` pour la sortie imbriquée — le serializer unique gère les deux cas.
+- **Isolation 404** : `get_queryset` filtrant sur `request.user` suffit — DRF renvoie 404 naturellement si l'objet n'est pas dans le queryset.
+
+---
+
+## Session #14 — 29 mai 2026
 
 ### Contexte
 
-Session #12 (17 avril) : plan de tests rédigé, tests unitaires et d'intégration écrits en TDD (phase "red"). Aujourd'hui : relire puis passer au vert.
+Session #13 (22 mai) : serializer writable + vues CRUD + URLs implémentés, tous les tests SER et LST/CRE/DET/UPD/DEL passent au vert. Reste à concevoir et implémenter le compteur anonyme, puis merger.
 
-- Plan de tests validé ✅
-- Tests serializer + intégration écrits ✅
-- Endpoints pauses **non implémentés** ❌
+- Serializer Pause writable ✅
+- Vues ListCreate + RetrieveUpdateDestroy ✅
+- Tests SER + CRUD au vert ✅
 - Compteur anonyme **non conçu** ❌
+- Merge `feature/pauses-api` → `dev` **en attente** ❌
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Relire les tests rédigés en session #12
-
-- [ ] Relire `pauses/tests/test_serializers.py` (8 tests SER-01..SER-09)
-- [ ] Relire `pauses/tests/test_api_pauses.py` (28 tests : LST/CRE/DET/UPD/DEL)
-- [ ] Valider ou ajuster avant d'implémenter (TDD : les tests figent la spec)
-
-#### Objectif 2 — Implémenter le serializer Pause (writable)
-
-- [ ] Rendre `feelings` et `needs` writable (remplacer `read_only=True` par des `PrimaryKeyRelatedField(many=True, queryset=...)`)
-- [ ] Rendre les deux champs requis (SER-09)
-- [ ] Vérifier que SER-01..SER-09 passent au vert
-
-#### Objectif 3 — Implémenter les vues + URLs
-
-- [ ] `PauseListCreateView` (`ListCreateAPIView`) — `GET /api/v1/pauses/`, `POST /api/v1/pauses/`
-- [ ] `PauseDetailView` (`RetrieveUpdateDestroyAPIView`) — `GET/PATCH/DELETE /api/v1/pauses/<id>/`
-- [ ] `get_queryset` filtrant par `request.user` (isolation → 404 naturel pour les pauses d'un autre)
-- [ ] `perform_create` injectant `user=self.request.user` (pas depuis le body)
-- [ ] Câbler `pauses/api/pause_urls.py` avec `app_name = "pauses"`, puis inclure le module depuis `pause_empathique/api/urls.py`
-- [ ] Vérifier que LST/CRE/DET/UPD/DEL passent au vert
-
-#### Objectif 4 — Concevoir le compteur anonyme `POST /api/v1/pauses/anonymous`
+#### Objectif 1 — Concevoir le compteur anonyme `POST /api/v1/pauses/anonymous`
 
 - [ ] Décider du mode de persistance (modèle `AnonymousPauseCounter` singleton, cache/Redis, autre ?)
 - [ ] Définir le contrat d'API : nom du champ retourné (`count` / `total` / …), forme du body (vide ? payload ?)
@@ -100,7 +100,7 @@ Session #12 (17 avril) : plan de tests rédigé, tests unitaires et d'intégrati
 - [ ] Écrire ANO-01 (incrément anonyme → 200) et ANO-02 (utilisateur connecté → 403)
 - [ ] Implémenter l'endpoint
 
-#### Objectif 5 — Validation & merge
+#### Objectif 2 — Validation & merge
 
 - [ ] Couverture `pauses` ≥ 80 %
 - [ ] Ruff + pip-audit + pytest verts en local
@@ -111,8 +111,6 @@ Session #12 (17 avril) : plan de tests rédigé, tests unitaires et d'intégrati
 
 ### Rappels du chef de projet
 
-- Relire **avant** d'implémenter (les tests figent la spec, y compris les erreurs éventuelles)
-- TDD strict : ne pas modifier un test pour qu'il passe sans en comprendre la raison
-- Toujours tester l'isolation des données entre utilisateurs
-- CI verte obligatoire avant merge `feature/pauses-api` → `dev`
 - Concevoir le compteur anonyme **avant** d'écrire ANO-01/ANO-02 (pas de tests contre une spec floue)
+- TDD strict : ne pas modifier un test pour qu'il passe sans en comprendre la raison
+- CI verte obligatoire avant merge `feature/pauses-api` → `dev`

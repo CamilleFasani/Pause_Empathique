@@ -5,6 +5,45 @@
 
 ---
 
+## Session #13 — 22 mai 2026
+
+**Objectifs prévus :** Relire les tests, implémenter le serializer writable, implémenter les vues + URLs, concevoir le compteur anonyme
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 — Tests relus et ajustés : pagination conservée (décision produit), tests adaptés avec `response.data["count"]` et `response.data["results"]`
+- ✅ Objectif 2 — Serializer Pause writable : `PrimaryKeyRelatedField(many=True, queryset=..., allow_empty=False)` + `to_representation` pour retourner la représentation imbriquée en lecture
+- ✅ Objectif 3 — Vues implémentées : `PauseListCreateView` (`ListCreateAPIView`) + `PauseDetailView` (`RetrieveUpdateDestroyAPIView`) avec `get_queryset` filtrant par `request.user` et `perform_create` injectant `user=self.request.user`
+- ✅ Optimisation N+1 : `prefetch_related("feelings", "needs")` dans les deux vues
+- ✅ URLs câblées : `pause_urls.py` (`app_name = "pauses"`) inclus depuis `pause_empathique/api/urls.py`
+- ✅ Tous les tests SER + LST/CRE/DET/UPD/DEL passent au vert
+- ⚠️ Objectif 4 (compteur anonyme) — reporté à la session #14
+- ⚠️ Objectif 5 (validation & merge) — reporté à la session #14
+
+**Ce qui reste :**
+
+- [ ] Concevoir `POST /api/v1/pauses/anonymous` (persistance, contrat, anti-spam)
+- [ ] Écrire ANO-01 et ANO-02
+- [ ] Implémenter l'endpoint anonyme
+- [ ] Couverture `pauses` ≥ 80 % + CI verte
+- [ ] Merge `feature/pauses-api` → `dev`
+
+**Décisions prises :**
+
+- **Pagination conservée** : décision produit (volume de pauses croissant), tests ajustés pour utiliser `count` (total toutes pages) et `results` (page courante)
+- **`allow_empty=False`** sur `feelings` et `needs` : `[]` est invalide au même titre qu'un champ absent
+- **Pattern lecture/écriture en un seul serializer** : `PrimaryKeyRelatedField` pour la validation en entrée, `to_representation` pour la sortie imbriquée (`FeelingSerializer` / `NeedSerializer`)
+- **Isolation 404** : `get_queryset` filtrant sur `request.user` — DRF renvoie 404 naturellement si l'objet n'appartient pas à l'utilisateur (ne révèle pas l'existence de la ressource)
+- **N+1 évité** avec `prefetch_related` : 1 requête pauses + 2 requêtes (feelings, needs) quelle que soit la taille de la liste
+
+**Blocages / Points ouverts :**
+
+- Compteur anonyme à concevoir avant d'écrire les tests (spec floue → tests invalides)
+
+**Humeur de la session :** TDD phase green réussie — tous les tests CRUD au vert, décisions d'architecture bien comprises et justifiées.
+
+---
+
 ## Session #12 — 17 avril 2026
 
 **Objectifs prévus :** Trancher question genre sentiments, rédiger plan de tests Pauses, écrire serializer + tests, implémenter endpoints, écrire tests d'intégration

@@ -117,7 +117,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 Pour chaque ressource, créer serializer + viewset + URL avant de migrer le front :
 
 - [x] **Auth** : register, login (JWT), logout, profil (GET/PATCH), suppression de compte — mergé dans `dev`
-- [ ] **Pauses** : list, create, retrieve, update, delete
+- [x] **Pauses** : list, create, retrieve, update, delete — mergé dans `feature/pauses-api` (session #13)
 - [ ] **Feelings** : list (lecture seule, organisée par famille)
 - [ ] **Needs** : list (lecture seule)
 
@@ -133,8 +133,8 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] Tests login/logout : LoginAPITest + LogoutAPITest écrits avec vrais tokens JWT — couverture users 87%
 - [x] **Plan de tests Pauses** rédigé : `docs/test-plan-pauses-api.md` (6 endpoints + SER-01..SER-09) — session #12
 - [x] Tests unitaires serializer Pause : `pauses/tests/test_serializers.py` (8 tests) — session #12
-- [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red)
-- [ ] Tests anonymes (ANO-01, ANO-02) — après conception du compteur
+- [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red) → **verts en session #13**
+- [ ] Tests anonymes (ANO-01, ANO-02) — après conception du compteur (session #14)
 - [ ] Tests Feelings, Needs — après implémentation des endpoints
 - [ ] Couverture `pauses` ≥ 80 % après passage au vert (session #13)
 
