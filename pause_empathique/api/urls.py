@@ -8,4 +8,5 @@ urlpatterns = [
     path("health/", HealthCheckView.as_view(), name="health"),
     path("users/", include("users.api.user_urls", namespace="users")),
     path("auth/", include("users.api.auth_urls", namespace="auth")),
+    path("pauses/", include("pauses.api.pause_urls", namespace="pauses")),
 ]

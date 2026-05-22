@@ -24,8 +24,22 @@ class NeedSerializer(serializers.ModelSerializer):
 
 
 class PauseSerializer(serializers.ModelSerializer):
-    feelings = FeelingSerializer(many=True, read_only=True)
-    needs = NeedSerializer(many=True, read_only=True)
+    # validation des ids de feelings et needs à la création ou mise à jour d'une pause
+    # donc en écriture
+    feelings = serializers.PrimaryKeyRelatedField(
+        many=True, allow_empty=False, queryset=Feeling.objects.all()
+    )
+    needs = serializers.PrimaryKeyRelatedField(
+        many=True, allow_empty=False, queryset=Need.objects.all()
+    )
+
+    # structuration des feelings et needs avec les champs nécessaires à l'affichage
+    # donc en lecture
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep["feelings"] = FeelingSerializer(instance.feelings.all(), many=True).data
+        rep["needs"] = NeedSerializer(instance.needs.all(), many=True).data
+        return rep
 
     class Meta:
         model = Pause
