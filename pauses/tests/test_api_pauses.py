@@ -39,7 +39,7 @@ class PauseListAPITest(APITestCase):
 
         # Then they get 200 with 3 pauses, each exposing the expected fields
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 3)
+        self.assertEqual(response.data["count"], 3)
         expected_keys = {
             "id",
             "title",
@@ -50,7 +50,7 @@ class PauseListAPITest(APITestCase):
             "feelings",
             "needs",
         }
-        for pause in response.data:
+        for pause in response.data["results"]:
             self.assertTrue(expected_keys.issubset(set(pause.keys())))
 
     def test_list_empty(self):
@@ -63,7 +63,7 @@ class PauseListAPITest(APITestCase):
 
         # Then they get 200 with an empty list
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [])
+        self.assertEqual(response.data["results"], [])
 
     def test_list_isolation_between_users(self):
         # LST-03
@@ -77,7 +77,7 @@ class PauseListAPITest(APITestCase):
 
         # Then user A sees none of user B's pauses
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [])
+        self.assertEqual(response.data["results"], [])
 
     def test_list_unauthenticated(self):
         # LST-04
