@@ -5,6 +5,159 @@
 
 ---
 
+## Session #14 — 29 mai 2026
+
+**Objectifs prévus :** Concevoir et implémenter le compteur anonyme, écrire ANO-01/ANO-02, valider et merger
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 — Compteur anonyme conçu : modèle `AnonymousPauseCounter` singleton (BDD), `204 No Content`, throttle `AnonRateThrottle` 10/minute
+- ✅ Plan de tests mis à jour : `docs/test-plan-pauses-api.md` section 3.6 complétée avec le contrat validé
+- ✅ Tests ANO-01 (incrément → 204, variante cumul) et ANO-02 (authentifié → 403) écrits et passants
+- ✅ Modèle `AnonymousPauseCounter` implémenté avec `increment()` (pattern `get_or_create` + `F()` anti race condition)
+- ✅ Migration `0007_anonymouspausecounter` générée et appliquée
+- ✅ Permission `IsAnonymousOnly` (custom `BasePermission`) implémentée
+- ✅ Vue `AnonymousCounterView` implémentée et câblée dans `pause_urls.py`
+- ✅ `conftest.py` créé : fixture `disable_throttling` `autouse=True` pour isoler les tests du throttle
+- ⚠️ Couverture `pauses` ≥ 80 % — non vérifiée, reportée à la session #15
+- ⚠️ Merge `feat/add-pauses-endpoints` → `dev` — reporté à la session #15
+
+**Ce qui reste :**
+
+- [ ] Vérifier couverture `pauses` ≥ 80 %
+- [ ] Ruff + pip-audit + CI verts
+- [ ] Merge `feat/add-pauses-endpoints` → `dev`
+
+**Décisions prises :**
+
+- **Modèle singleton** : `get_or_create(pk=1)` — simple, persistant entre redémarrages, pas de dépendance Redis
+- **`204 No Content`** : pas de données à retourner, code HTTP sémantiquement correct
+- **`models.F("count") + 1`** : incrément SQL direct, évite les race conditions
+- **Permission `IsAnonymousOnly` custom** : DRF n'a pas de permission intégrée pour les anonymes uniquement ; `AllowAny` accepte aussi les authentifiés
+- **`conftest.py` global** : désactivation du throttle via fixture `autouse=True` — les tests ne doivent jamais dépendre d'une limite de débit (le throttle global à 10/min cassait les tests auth qui faisaient >10 requêtes anonymes en une suite)
+
+**Blocages / Points ouverts :**
+
+- Migration générée par Docker en `root` → `PermissionError` au commit → réglé avec `sudo chown $USER`
+
+**Humeur de la session :** TDD bien maîtrisé, conception avant implémentation respectée. Bonne compréhension des permissions DRF et du pattern singleton.
+
+---
+
+## Session #13 — 22 mai 2026
+
+**Objectifs prévus :** Relire les tests, implémenter le serializer writable, implémenter les vues + URLs, concevoir le compteur anonyme
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 — Tests relus et ajustés : pagination conservée (décision produit), tests adaptés avec `response.data["count"]` et `response.data["results"]`
+- ✅ Objectif 2 — Serializer Pause writable : `PrimaryKeyRelatedField(many=True, queryset=..., allow_empty=False)` + `to_representation` pour retourner la représentation imbriquée en lecture
+- ✅ Objectif 3 — Vues implémentées : `PauseListCreateView` (`ListCreateAPIView`) + `PauseDetailView` (`RetrieveUpdateDestroyAPIView`) avec `get_queryset` filtrant par `request.user` et `perform_create` injectant `user=self.request.user`
+- ✅ Optimisation N+1 : `prefetch_related("feelings", "needs")` dans les deux vues
+- ✅ URLs câblées : `pause_urls.py` (`app_name = "pauses"`) inclus depuis `pause_empathique/api/urls.py`
+- ✅ Tous les tests SER + LST/CRE/DET/UPD/DEL passent au vert
+- ⚠️ Objectif 4 (compteur anonyme) — reporté à la session #14
+- ⚠️ Objectif 5 (validation & merge) — reporté à la session #14
+
+**Ce qui reste :**
+
+- [ ] Concevoir `POST /api/v1/pauses/anonymous` (persistance, contrat, anti-spam)
+- [ ] Écrire ANO-01 et ANO-02
+- [ ] Implémenter l'endpoint anonyme
+- [ ] Couverture `pauses` ≥ 80 % + CI verte
+- [ ] Merge `feature/pauses-api` → `dev`
+
+**Décisions prises :**
+
+- **Pagination conservée** : décision produit (volume de pauses croissant), tests ajustés pour utiliser `count` (total toutes pages) et `results` (page courante)
+- **`allow_empty=False`** sur `feelings` et `needs` : `[]` est invalide au même titre qu'un champ absent
+- **Pattern lecture/écriture en un seul serializer** : `PrimaryKeyRelatedField` pour la validation en entrée, `to_representation` pour la sortie imbriquée (`FeelingSerializer` / `NeedSerializer`)
+- **Isolation 404** : `get_queryset` filtrant sur `request.user` — DRF renvoie 404 naturellement si l'objet n'appartient pas à l'utilisateur (ne révèle pas l'existence de la ressource)
+- **N+1 évité** avec `prefetch_related` : 1 requête pauses + 2 requêtes (feelings, needs) quelle que soit la taille de la liste
+
+**Blocages / Points ouverts :**
+
+- Compteur anonyme à concevoir avant d'écrire les tests (spec floue → tests invalides)
+
+**Humeur de la session :** TDD phase green réussie — tous les tests CRUD au vert, décisions d'architecture bien comprises et justifiées.
+
+---
+
+## Session #12 — 17 avril 2026
+
+**Objectifs prévus :** Trancher question genre sentiments, rédiger plan de tests Pauses, écrire serializer + tests, implémenter endpoints, écrire tests d'intégration
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 0 — Question du genre tranchée : **Option B** (l'API renvoie les deux formes sous `names: {"f", "m"}`, le front choisit). Pour l'utilisateur anonyme, le genre est demandé en début de pause et stocké côté client (`sessionStorage`).
+- ✅ Objectif 1 — Plan de tests Pauses rédigé : `docs/test-plan-pauses-api.md` (approche TDD, dossier CDA). Couvre les 6 endpoints + les tests unitaires du serializer (SER-01..SER-09).
+- ✅ Objectif 2 — Tests unitaires serializer écrits : `pauses/tests/test_serializers.py` (8 tests sur 9, SER-04 supprimé du plan car feelings/needs requis).
+- ✅ Objectif 4 — Tests d'intégration Pauses écrits : `pauses/tests/test_api_pauses.py` (28 tests, 5 classes : List/Create/Detail/Update/Delete).
+- ⚠️ Objectif 3 — Endpoints Pauses **non implémentés** : reporté à la session #13 (TDD, la phase "red" est posée, "green" à suivre).
+- ⚠️ ANO-01 / ANO-02 non écrits : la conception de `POST /api/v1/pauses/anonymous` n'est pas encore cadrée (persistance, contrat d'API, anti-spam) → reporté à la session #13.
+
+**Ce qui reste :**
+
+- [ ] Relire les tests rédigés (unitaires + intégration) avant d'implémenter
+- [ ] Implémenter le serializer Pause writable (actuellement `feelings`/`needs` en `read_only=True`) pour faire passer SER-06..SER-09
+- [ ] Implémenter les vues (ListCreate + RetrieveUpdateDestroy) avec isolation par `get_queryset` filtrant sur `request.user`
+- [ ] Câbler `pauses/api/pause_urls.py` (namespace `pauses`) et l'inclure depuis `pause_empathique/api/urls.py`
+- [ ] Concevoir l'endpoint anonyme (persistance du compteur, contrat, rate limiting) puis écrire ANO-01/ANO-02
+- [ ] Vérifier la couverture `pauses` ≥ 80 % une fois les endpoints verts
+
+**Décisions prises :**
+
+- Sentiments genrés : **Option B** retenue (structure imbriquée `names: {"f", "m"}`). Raison : logique d'affichage centralisée côté front dans un composable `useGender()` — pas de duplication, pas de requête serveur pour changer la forme affichée.
+- Genre anonyme : demandé en début de pause, stocké en `sessionStorage` (pas d'appel serveur).
+- Champs requis pour créer une pause : `feelings` **et** `needs` (au moins un de chaque). `title`, `empty_your_bag`, `observation` optionnels.
+- Isolation des pauses : renvoyer **404** (pas 403) quand un utilisateur tente d'accéder à la pause d'un autre — ne pas révéler l'existence de la ressource.
+- Organisation des tests : un fichier par couche (`test_serializers.py` pour les unitaires, `test_api_pauses.py` pour l'intégration HTTP).
+- CRE-02 splitté en deux tests distincts (`missing_feelings`, `missing_needs`) pour isoler les deux validations.
+
+**Blocages / Points ouverts :**
+
+- Conception de `POST /api/v1/pauses/anonymous` à cadrer avant d'écrire les tests (session #13)
+- Tous les tests écrits aujourd'hui sont en phase "red" — attendu en TDD, à passer au vert session #13
+
+**Humeur de la session :** TDD rigoureux — plan de tests rédigé **avant** le code (comme exigé par le dossier CDA), serializer et endpoints spécifiés par les tests plutôt que l'inverse. Prête pour la phase green.
+
+---
+
+## Session #11 — 10 avril 2026
+
+**Objectifs prévus :** Brainstorm architecture endpoints pauses avant rédaction du plan de tests
+
+**Ce qui a été fait :**
+
+- ✅ Brainstorm architecture flux anonyme vs connecté pour les endpoints pauses
+- ✅ Décision : données de pause stockées dans `sessionStorage` côté client pendant la session (pas de sauvegarde progressive côté serveur)
+- ✅ Décision : 1 seul `POST /api/v1/pauses/` en fin de pause pour tous les utilisateurs (anonymes et connectés)
+- ✅ Décision : `POST /api/v1/pauses/anonymous` pour incrémenter un compteur statistique si l'utilisateur refuse de sauvegarder
+- ✅ Sauvegarde progressive (PATCH étape par étape) abandonnée — trop complexe, pas de valeur ajoutée étant donné que la fermeture navigateur = données perdues par conception
+
+**Ce qui reste :**
+
+- [ ] Trancher : sentiments genrés filtrés côté back (1 champ `label`) ou 2 champs envoyés au front (`feminine_name` + `masculine_name`) ?
+- [ ] Trancher : demander le genre en début de pause anonyme, ou genre neutre par défaut ?
+- [ ] Rédiger le plan de tests Pauses (dossier CDA) avant implémentation
+- [ ] Implémenter `PauseSerializer` + endpoints CRUD Pauses
+- [ ] Écrire les tests d'intégration Pauses
+
+**Décisions prises :**
+
+- Flux anonyme : sessionStorage côté front, aucune donnée intime envoyée au serveur sans consentement explicite
+- Fermeture navigateur en cours de pause = données perdues (comportement voulu)
+- Sauvegarde en fin de pause uniquement : 1 seule logique, 1 seul endpoint, pour anonymes et connectés
+- Récap de fin de pause construit depuis sessionStorage (pas besoin d'un appel serveur pour l'afficher)
+
+**Blocages / Points ouverts :**
+
+- Question genre / sentiments à trancher avant d'écrire le serializer (session #12)
+
+**Humeur de la session :** Brainstorm productif — architecture clarifiée avant l'implémentation, bonne décision de ne pas sauter dans le code.
+
+---
+
 ## Session #10 — 10 avril 2026
 
 **Objectifs prévus :** Débloquer les commits Ruff, valider UserMeAPITest, écrire tests login/logout, vérifier couverture

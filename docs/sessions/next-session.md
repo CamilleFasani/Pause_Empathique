@@ -3,66 +3,37 @@
 > Ce fichier est lu en priorité par Copilot au démarrage de chaque session.
 > Mis à jour en fin de session avec les objectifs suivants.
 
----
-
-## Session #10 — 10 avril 2026 ✅ COMPLÉTÉE
-
-### Bilan
-
-- [x] Objectif 1 — Ruff S106 débloqué : `per-file-ignores` dans `pyproject.toml`
-- [x] Objectif 2 — `UserMeAPITest` relu et validé (40 tests passent)
-- [x] Objectif 3 — `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT
-- [x] Objectif 4 — Couverture 87% (seuil 80% atteint)
-- [x] Merge `feature/authentication` → `dev` (CI verte requise)
-- [x] Branche `feature/pauses-api` créée
-
----
-
-## Session #11 — prochaine session
+## Session #15 — à planifier
 
 ### Contexte
 
-Session #10 (10 avril) : socle auth API complet, testé, mergé dans `dev`.
+Session #14 (29 mai) : compteur anonyme conçu, implémenté, testé. Tous les tests passent au vert. Reste la validation finale et le merge.
 
-- `LoginAPITest` + `LogoutAPITest` écrits avec vrais tokens JWT ✅
-- Couverture `users` : 87% (40 tests) ✅
-- `feature/authentication` mergée dans `dev` ✅
-- Branche `feature/pauses-api` créée ✅
+- Compteur anonyme `AnonymousPauseCounter` (singleton) ✅
+- Permission `IsAnonymousOnly` ✅
+- Endpoint `POST /api/v1/pauses/anonymous` → 204 ✅
+- Tests ANO-01 + ANO-02 au vert ✅
+- `conftest.py` — désactivation throttle en test ✅
+- Couverture `pauses` ≥ 80 % **non vérifiée** ❌
+- Merge `feat/add-pauses-endpoints` → `dev` **en attente** ❌
 
 ---
 
 ### Objectifs de la session
 
-#### Objectif 1 — Rédiger le plan de tests Pauses (dossier CDA)
+#### Objectif 1 — Validation
 
-- [ ] Rédiger le plan de tests formalisé avant d'écrire le code
-- [ ] Couvrir : cas nominaux, cas limites, cas d'erreur pour list/create/retrieve/update/delete
-- [ ] Valider le plan avant implémentation
+- [ ] Vérifier la couverture `pauses` ≥ 80 % (`pytest --cov=pauses`)
+- [ ] Ruff + pip-audit verts en local
+- [ ] CI verte sur `feat/add-pauses-endpoints`
 
-#### Objectif 2 — Serializer Pause
+#### Objectif 2 — Merge
 
-- [ ] Créer `PauseSerializer` dans `pauses/api/serializers.py`
-- [ ] Champs : `id`, `title`, `created_at`, `feelings`, `needs`
-- [ ] Écrire les tests unitaires du serializer
-
-#### Objectif 3 — Endpoints Pauses
-
-- [ ] `GET /api/v1/pauses/` — liste des pauses de l'utilisateur connecté
-- [ ] `POST /api/v1/pauses/` — créer une pause
-- [ ] `GET /api/v1/pauses/<id>/` — détail d'une pause
-- [ ] `PATCH /api/v1/pauses/<id>/` — modifier une pause
-- [ ] `DELETE /api/v1/pauses/<id>/` — supprimer une pause
-- [ ] Vérifier l'isolation : un utilisateur ne peut pas accéder aux pauses d'un autre
-
-#### Objectif 4 — Tests d'intégration Pauses
-
-- [ ] Tests CRUD complets selon le plan de tests rédigé en Objectif 1
-- [ ] Couverture `pauses` maintenue ≥ 80%
+- [ ] Merge `feat/add-pauses-endpoints` → `dev`
 
 ---
 
 ### Rappels du chef de projet
 
-- Le plan de tests doit être rédigé **avant** le code (pas après)
-- Toujours tester l'isolation des données entre utilisateurs
-- CI verte obligatoire avant merge `feature/pauses-api` → `dev`
+- TDD strict : ne pas modifier un test pour qu'il passe sans en comprendre la raison
+- CI verte obligatoire avant merge vers `dev`
