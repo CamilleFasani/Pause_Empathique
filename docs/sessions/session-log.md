@@ -5,6 +5,45 @@
 
 ---
 
+## Session #14 — 29 mai 2026
+
+**Objectifs prévus :** Concevoir et implémenter le compteur anonyme, écrire ANO-01/ANO-02, valider et merger
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 — Compteur anonyme conçu : modèle `AnonymousPauseCounter` singleton (BDD), `204 No Content`, throttle `AnonRateThrottle` 10/minute
+- ✅ Plan de tests mis à jour : `docs/test-plan-pauses-api.md` section 3.6 complétée avec le contrat validé
+- ✅ Tests ANO-01 (incrément → 204, variante cumul) et ANO-02 (authentifié → 403) écrits et passants
+- ✅ Modèle `AnonymousPauseCounter` implémenté avec `increment()` (pattern `get_or_create` + `F()` anti race condition)
+- ✅ Migration `0007_anonymouspausecounter` générée et appliquée
+- ✅ Permission `IsAnonymousOnly` (custom `BasePermission`) implémentée
+- ✅ Vue `AnonymousCounterView` implémentée et câblée dans `pause_urls.py`
+- ✅ `conftest.py` créé : fixture `disable_throttling` `autouse=True` pour isoler les tests du throttle
+- ⚠️ Couverture `pauses` ≥ 80 % — non vérifiée, reportée à la session #15
+- ⚠️ Merge `feat/add-pauses-endpoints` → `dev` — reporté à la session #15
+
+**Ce qui reste :**
+
+- [ ] Vérifier couverture `pauses` ≥ 80 %
+- [ ] Ruff + pip-audit + CI verts
+- [ ] Merge `feat/add-pauses-endpoints` → `dev`
+
+**Décisions prises :**
+
+- **Modèle singleton** : `get_or_create(pk=1)` — simple, persistant entre redémarrages, pas de dépendance Redis
+- **`204 No Content`** : pas de données à retourner, code HTTP sémantiquement correct
+- **`models.F("count") + 1`** : incrément SQL direct, évite les race conditions
+- **Permission `IsAnonymousOnly` custom** : DRF n'a pas de permission intégrée pour les anonymes uniquement ; `AllowAny` accepte aussi les authentifiés
+- **`conftest.py` global** : désactivation du throttle via fixture `autouse=True` — les tests ne doivent jamais dépendre d'une limite de débit (le throttle global à 10/min cassait les tests auth qui faisaient >10 requêtes anonymes en une suite)
+
+**Blocages / Points ouverts :**
+
+- Migration générée par Docker en `root` → `PermissionError` au commit → réglé avec `sudo chown $USER`
+
+**Humeur de la session :** TDD bien maîtrisé, conception avant implémentation respectée. Bonne compréhension des permissions DRF et du pattern singleton.
+
+---
+
 ## Session #13 — 22 mai 2026
 
 **Objectifs prévus :** Relire les tests, implémenter le serializer writable, implémenter les vues + URLs, concevoir le compteur anonyme
