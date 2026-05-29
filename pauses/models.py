@@ -101,3 +101,16 @@ class Need(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AnonymousPauseCounter(models.Model):
+    count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Compteur de pauses anonymes"
+
+    @classmethod
+    def increment(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        obj.count = models.F("count") + 1
+        obj.save(update_fields=["count"])

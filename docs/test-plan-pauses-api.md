@@ -135,9 +135,16 @@ Cette fonctionnalité est accessible de deux manières :
 
 ### 3.6 `POST /api/v1/pauses/anonymous` — Compteur anonyme
 
+**Contrat :**
+- Accès : non authentifié uniquement (utilisateur connecté → 403)
+- Body : vide
+- Succès : `204 No Content` (pas de body)
+- Persistance : modèle `AnonymousPauseCounter` (singleton, champ `count`)
+- Anti-spam : `AnonRateThrottle` DRF — 10 requêtes/minute par IP
+
 | ID | Description | Préconditions | Résultat attendu | Type |
 |---|---|---|---|---|
-| ANO-01 | Incrémenter le compteur anonyme | Pas d'authentification | 200, compteur incrémenté | Nominal |
+| ANO-01 | Incrémenter le compteur anonyme | Pas d'authentification | 204 No Content, compteur incrémenté en base | Nominal |
 | ANO-02 | Utilisateur connecté interdit | Token JWT valide | 403, accès refusé | Erreur |
 
 ---

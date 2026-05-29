@@ -1,7 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, permissions, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from pauses.models import Pause
+from pauses.models import AnonymousPauseCounter, Pause
 
 from .serializers import PauseSerializer
 
@@ -28,3 +30,16 @@ class PauseDetailView(generics.RetrieveUpdateDestroyAPIView):
         return Pause.objects.filter(user=self.request.user).prefetch_related(
             "feelings", "needs"
         )
+
+
+class IsAnonymousOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return not request.user.is_authenticated
+
+
+class AnonymousCounterView(APIView):
+    permission_classes = [IsAnonymousOnly]
+
+    def post(self, request):
+        AnonymousPauseCounter.increment()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -579,3 +579,55 @@ class PauseDeleteAPITest(APITestCase):
 
         # Then access is denied
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class AnonymousPauseCounterAPITest(APITestCase):
+    """POST /api/v1/pauses/anonymous — Compteur de pauses anonymes."""
+
+    def setUp(self):
+        self.url = reverse("api:pauses:anonymous")
+        self.user = User.objects.create_user(
+            email="aicha@test.fr",
+            password="motdepasse123",
+            firstname="Aicha",
+            gender="F",
+        )
+
+    def test_anonymous_increment(self):
+        # ANO-01
+        # Given an unauthenticated request
+
+        # When posting to the anonymous counter endpoint
+        response = self.client.post(self.url)
+
+        # Then we return 204 and the counter has been incremented in DB
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        from pauses.models import AnonymousPauseCounter
+
+        counter = AnonymousPauseCounter.objects.get()
+        self.assertEqual(counter.count, 1)
+
+    def test_anonymous_increment_cumulates(self):
+        # ANO-01 (variante cumul)
+        # Given two successive anonymous requests
+
+        # When posting twice
+        self.client.post(self.url)
+        self.client.post(self.url)
+
+        # Then the counter equals 2
+        from pauses.models import AnonymousPauseCounter
+
+        counter = AnonymousPauseCounter.objects.get()
+        self.assertEqual(counter.count, 2)
+
+    def test_authenticated_user_forbidden(self):
+        # ANO-02
+        # Given an authenticated user
+        self.client.force_authenticate(user=self.user)
+
+        # When posting to the anonymous counter endpoint
+        response = self.client.post(self.url)
+
+        # Then access is denied
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
