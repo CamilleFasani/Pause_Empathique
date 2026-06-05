@@ -1,16 +1,29 @@
 from rest_framework import generics, permissions, status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from pauses.models import AnonymousPauseCounter, Pause
+from pauses.models import AnonymousPauseCounter, Feeling, Need, Pause
 
-from .serializers import PauseSerializer
+from .serializers import FeelingSerializer, NeedSerializer, PauseSerializer
+
+
+class FeelingsListView(generics.ListAPIView):
+    queryset = Feeling.objects.all()
+    serializer_class = FeelingSerializer
+    permission_classes = [permissions.AllowAny]
+    pagination_class = None
+
+
+class NeedsListView(generics.ListAPIView):
+    queryset = Need.objects.all()
+    serializer_class = NeedSerializer
+    permission_classes = [permissions.AllowAny]
+    pagination_class = None
 
 
 class PauseListCreateView(generics.ListCreateAPIView):
     serializer_class = PauseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Pause.objects.filter(user=self.request.user).prefetch_related(
@@ -23,7 +36,7 @@ class PauseListCreateView(generics.ListCreateAPIView):
 
 class PauseDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PauseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ["get", "patch", "delete", "head", "options"]
 
     def get_queryset(self):
