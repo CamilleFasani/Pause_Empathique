@@ -631,3 +631,66 @@ class AnonymousPauseCounterAPITest(APITestCase):
 
         # Then access is denied
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class FeelingsListAPITest(APITestCase):
+    """GET /api/v1/feelings/ — Catalogue complet des sentiments."""
+
+    def setUp(self):
+        self.url = reverse("api:feelings:list")
+        Feeling.objects.create(
+            feeling_family=Feeling.FeelingFamily.AFFECTION,
+            feminine_name="Amoureuse",
+            masculine_name="Amoureux",
+        )
+        Feeling.objects.create(
+            feeling_family=Feeling.FeelingFamily.JOIE,
+            feminine_name="Joyeuse",
+            masculine_name="Joyeux",
+        )
+
+    def test_list_returns_all_feelings(self):
+        # FEE-01
+        # Given no authentication required
+        # When requesting the feelings list
+        response = self.client.get(self.url)
+
+        # Then all feelings are returned with expected structure
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+        first = response.data[0]
+        self.assertIn("id", first)
+        self.assertIn("feeling_family", first)
+        self.assertIn("names", first)
+        self.assertIn("f", first["names"])
+        self.assertIn("m", first["names"])
+
+
+class NeedsListAPITest(APITestCase):
+    """GET /api/v1/needs/ — Catalogue complet des besoins."""
+
+    def setUp(self):
+        self.url = reverse("api:needs:list")
+        Need.objects.create(
+            need_family=Need.NeedFamily.SURVIE,
+            name="Abri",
+        )
+        Need.objects.create(
+            need_family=Need.NeedFamily.RELATION,
+            name="Appartenance",
+        )
+
+    def test_list_returns_all_needs(self):
+        # NEE-01
+        # Given no authentication required
+        # When requesting the needs list
+        response = self.client.get(self.url)
+
+        # Then all needs are returned with expected structure
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(response.data)
+        self.assertEqual(len(response.data), 2)
+        first = response.data[0]
+        self.assertIn("id", first)
+        self.assertIn("need_family", first)
+        self.assertIn("name", first)

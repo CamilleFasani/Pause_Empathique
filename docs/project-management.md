@@ -81,7 +81,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 - [x] Définir la charte : couleurs, typographies, composants (base v1.0)
 - [x] Configurer Tailwind v4 avec les variables CSS natives dans `input.css`
-- [ ] Appliquer la charte uniquement sur des vues pilotes (pas de refonte complète des templates Django)
+- [x] Appliquer la charte uniquement sur des vues pilotes (pas de refonte complète des templates Django)
 - [ ] Responsive : vérifier mobile / desktop (le hook `user-agents` est déjà en place)
 - [ ] Accessibilité : contrastes validés, navigation clavier/focus visible/labels à finaliser
 - [x] Réaliser des captures d'écran pour le dossier projet
@@ -134,7 +134,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] **Plan de tests Pauses** rédigé : `docs/test-plan-pauses-api.md` (6 endpoints + SER-01..SER-09) — session #12
 - [x] Tests unitaires serializer Pause : `pauses/tests/test_serializers.py` (8 tests) — session #12
 - [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red) → **verts en session #13**
-- [ ] Tests anonymes (ANO-01, ANO-02) — après conception du compteur (session #14)
+- [x] Tests anonymes (ANO-01, ANO-02) — après conception du compteur (session #14)
 - [ ] Tests Feelings, Needs — après implémentation des endpoints
 - [ ] Couverture `pauses` ≥ 80 % après passage au vert (session #13)
 
@@ -156,7 +156,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 3.1 — Setup du repo front
 
-- [ ] Créer un nouveau repo GitHub `pause-empathique-front`
+- [x] Créer un nouveau repo GitHub `pause-empathique-front`
 - [ ] Initialiser avec Vite + Vue.js 3 + TypeScript
 - [ ] Configurer Tailwind CSS v4
 - [ ] Configurer le linter (ESLint + Prettier)
