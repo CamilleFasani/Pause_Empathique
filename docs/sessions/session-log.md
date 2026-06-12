@@ -5,6 +5,93 @@
 
 ---
 
+## Session #16 — 12 juin 2026
+
+**Objectifs prévus :** Vue Router, Pinia, premier appel API
+
+**Ce qui a été fait :**
+
+- ✅ Branche `feat/vue-router-pinia` créée
+- ✅ Vue Router 4 installé (`npm install vue-router@4`)
+- ✅ `src/router/index.ts` : routes `/` (HomeView), `/login` et `/register` (AuthView) configurées
+- ✅ Décision architecture auth : une seule `AuthView` + deux composants `LoginForm` / `RegisterForm` (toggle basé sur l'URL)
+- ✅ `App.vue` : coquille vide avec `<RouterView />`
+- ✅ `main.ts` : Pinia branché avant Router (`app.use(pinia).use(router)`)
+- ✅ `src/stores/auth.ts` : `useAuthStore` avec `isAuthenticated: false`, `user: User | null`, `actions: {}`
+- ✅ `src/api/client.ts` : instance axios configurée avec `VITE_API_URL` (variable d'environnement Vite)
+- ✅ Connexion front ↔ back validée : `GET /api/v1/health/` → `{ status: "ok" }` dans la console
+- ✅ `npm run type-check` + `npm run lint` verts
+- ✅ Commit sur `feat/vue-router-pinia`
+
+**Concepts appris :**
+
+- `useRoute()` vs `useRouter()` — lire la route vs naviguer
+- `computed()` pour dériver un état réactif depuis la route
+- `onMounted()` — hook de cycle de vie, exécuté au montage du composant
+- `async/await` + `try/catch` vs `.then/.catch` — ne pas mélanger les deux styles
+- Import nommé `{ x }` vs import par défaut — correspondance obligatoire avec l'export
+- Variables d'environnement Vite : préfixe `VITE_`, accès via `import.meta.env`
+- Types locaux vs `src/types/index.ts` — déplacer quand partagé entre 2+ fichiers
+- `as Type | null` pour annoter la valeur initiale `null` avec un type futur
+
+**Décisions prises :**
+
+- **Architecture auth** : une `AuthView` + deux composants (`LoginForm`, `RegisterForm`) — l'URL détermine le formulaire affiché, pas un état local
+- **URLs en anglais** : `/login`, `/register` (pas `/connexion`, `/inscription`)
+- **axios** retenu sur `fetch` : instance réutilisable, headers centralisés, intercepteurs JWT à venir
+- **Options API Pinia** retenue (`state/actions`) pour le store auth
+
+**Blocages / Points ouverts :**
+
+- Décision stockage JWT (localStorage vs httpOnly cookie) reportée à session #17
+
+**Humeur de la session :** Bonne session pédagogique — concepts Vue compris et appliqués par la développeuse elle-même. Architecture auth bien raisonnée avant le code.
+
+---
+
+## Session #15 — 5 juin 2026
+
+**Objectifs prévus :** Validation finale back, endpoints Feelings + Needs, initialisation repo front
+
+**Ce qui a été fait :**
+
+- ✅ Validation back : couverture **84 %** (81 tests au vert), `pauses` API **100 %**, CI verte sur `dev` confirmée
+- ✅ Merge `feat/add-pauses-endpoints` → `dev` confirmé
+- ✅ CVE `pyjwt` (PYSEC-2026-175/177/178/179) : mise à jour vers **2.13.0** (`poetry add "pyjwt>=2.13.0"`)
+- ✅ Endpoints `GET /api/v1/feelings/` et `GET /api/v1/needs/` implémentés (`FeelingsListView`, `NeedsListView` — `ListAPIView`, `AllowAny`, `pagination_class = None`)
+- ✅ Fichiers d'URLs dédiés `feeling_urls.py` et `need_urls.py` créés (namespaces indépendants `feelings` / `needs`)
+- ✅ Tests FEE-01/FEE-02 et NEE-01/NEE-02 écrits et verts dans `test_api_pauses.py`
+- ✅ Repo front initialisé : Vite + Vue 3 + TypeScript (`create-vite`, template `vue-ts`)
+- ✅ Tailwind CSS v4 configuré via plugin Vite (`@tailwindcss/vite`)
+- ✅ ESLint (flat config v9) + Prettier configurés ; scripts `lint`, `type-check`, `format` ajoutés
+- ✅ `.env.example` avec `VITE_API_URL`, `.gitignore` complété (WSL + secrets)
+- ✅ CI GitHub Actions front : lint + type-check + build sur push/PR `main`/`dev`
+- ✅ Branche `feat/front-setup` créée, CI verte
+
+**Ce qui reste :**
+
+- [x] Merge `feat/feelings-needs-endpoints` → `dev` (CI à vérifier)
+- [x] Merge `feat/front-setup` → `dev` front
+- [ ] Vue Router + Pinia (session #16)
+
+**Décisions prises :**
+
+- **Feelings/Needs : ressources indépendantes** — URLs `/api/v1/feelings/` et `/api/v1/needs/` (pas des sous-ressources de `/pauses/`). Le front en a besoin pour peupler les écrans de sélection avant toute création de pause
+- **`pagination_class = None`** sur les deux vues : catalogue statique (~100 entrées), le front charge tout en une fois — pas de pagination
+- **ESLint flat config (v9)** : nouveau format sans `.eslintrc`, couches empilées (`js` → `typescript` → `vue` → `prettier`)
+- **`eslint-config-prettier` en dernier** : désactive les règles ESLint qui entrent en conflit avec Prettier — chacun son rôle
+- **`npm ci` dans la CI** (pas `npm install`) : lit `package-lock.json` strictement, garantit une installation reproductible
+- **`VITE_API_URL` injectée via `env:` dans la CI** : le `.env` n'est pas commité, la CI doit avoir la variable pour que le build ne plante pas
+
+**Blocages / Points ouverts :**
+
+- Erreur SSL transiente sur `docker compose build` (DECRYPTION_FAILED_OR_BAD_RECORD_MAC) → résolu en relançant le build (problème réseau passager)
+- Erreur WSL sur `npm create vite` (native binding `rolldown`) → résolu avec `rm -rf node_modules package-lock.json && npm install`
+
+**Humeur de la session :** Back finalisé, front posé sur des bases solides. Bonne compréhension des outils front (Vite, ESLint flat config, variables d'environnement, CI Node).
+
+---
+
 ## Session #14 — 29 mai 2026
 
 **Objectifs prévus :** Concevoir et implémenter le compteur anonyme, écrire ANO-01/ANO-02, valider et merger

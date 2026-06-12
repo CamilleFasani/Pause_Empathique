@@ -117,9 +117,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
 Pour chaque ressource, créer serializer + viewset + URL avant de migrer le front :
 
 - [x] **Auth** : register, login (JWT), logout, profil (GET/PATCH), suppression de compte — mergé dans `dev`
-- [x] **Pauses** : list, create, retrieve, update, delete — mergé dans `feature/pauses-api` (session #13)
-- [ ] **Feelings** : list (lecture seule, organisée par famille)
-- [ ] **Needs** : list (lecture seule)
+- [x] **Pauses** : list, create, retrieve, update, delete — mergé dans `dev` (session #13)
+- [x] **Feelings** : `GET /api/v1/feelings/` — `FeelingsListView`, `AllowAny`, `pagination_class = None` — session #15
+- [x] **Needs** : `GET /api/v1/needs/` — `NeedsListView`, `AllowAny`, `pagination_class = None` — session #15
 
 **Décisions d'architecture API — Feelings/Needs (session #12, 17 avril 2026) :**
 
@@ -135,8 +135,8 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] Tests unitaires serializer Pause : `pauses/tests/test_serializers.py` (8 tests) — session #12
 - [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red) → **verts en session #13**
 - [x] Tests anonymes (ANO-01, ANO-02) — après conception du compteur (session #14)
-- [ ] Tests Feelings, Needs — après implémentation des endpoints
-- [ ] Couverture `pauses` ≥ 80 % après passage au vert (session #13)
+- [x] Tests Feelings, Needs — FEE-01/02 + NEE-01/02 dans `test_api_pauses.py` — session #15
+- [x] Couverture `pauses` ≥ 80 % — **100 %** — session #15
 
 #### 2.4 — Documentation API
 
@@ -157,10 +157,10 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 #### 3.1 — Setup du repo front
 
 - [x] Créer un nouveau repo GitHub `pause-empathique-front`
-- [ ] Initialiser avec Vite + Vue.js 3 + TypeScript
-- [ ] Configurer Tailwind CSS v4
-- [ ] Configurer le linter (ESLint + Prettier)
-- [ ] CI/CD : lint + build check
+- [x] Initialiser avec Vite + Vue.js 3 + TypeScript — session #15
+- [x] Configurer Tailwind CSS v4 — session #15
+- [x] Configurer le linter (ESLint + Prettier) — session #15
+- [x] CI/CD : lint + type-check + build check — session #15
 
 #### 3.1.1 — Composable `useGender()`
 
@@ -301,7 +301,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 | ----------------------------------------------------------- | ----------------------------- |
 | Détails de la nouvelle charte graphique (couleurs, typos)   | ⚠️ En cours de définition     |
 | Stratégie composants design system (maison + librairie)     | ✅ Validée (approche hybride) |
-| URL du repo front Vue.js                                    | ❌ À créer                    |
+| URL du repo front Vue.js                                    | ✅ Repo créé et initialisé    |
 | Contraintes de délai pour la formation CDA                  | ❌ À préciser                 |
 | Décision stockage JWT : `HttpOnly cookie` vs `localStorage` | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front |
 | Stack logs/monitoring retenue                               | ❌ À décider (phase 5)        |
