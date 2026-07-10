@@ -3,67 +3,50 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #17 — objectifs révisés pour finaliser la branche en cours
+## Session #18 — 17 juillet 2026 — Merge puis authentification sécurisée
 
 ### Contexte
 
-La reprise du suivi de la session #17, le 10 juillet 2026, confirme que les vues de
-connexion et d'inscription et leur branchement au store sont terminés. Le layout
-des vues d'authentification est réalisé, mais l'objectif global sur les layouts
-n'est que partiellement terminé.
+La session #17 a été clôturée le 10 juillet 2026. Les vues d'authentification, leur
+branchement au store et les choix de parcours depuis `WelcomeView` sont terminés.
+Les commandes `npm run type-check`, `npm run lint` et `npm run build` ont réussi.
 
-La branche front active est `feat/-base-layout-and-auth-views`. Elle contient aussi
-une première gestion JWT fonctionnelle avec refresh token dans `localStorage`.
-Cette stratégie est explicitement transitoire : la sécurisation par cookies fera
-l'objet de la branche suivante.
+La branche front `feat/-base-layout-and-auth-views` doit être finalisée et mergée
+au début de cette session. Elle contient une première gestion JWT fonctionnelle
+avec refresh token dans `localStorage` ; cette stratégie reste strictement
+transitoire et ne doit pas être prolongée dans les travaux suivants.
 
-### Objectif 1 — Page intermédiaire avant la pratique
+### Objectif 1 prioritaire — Finaliser et merger la branche actuelle
 
-- [ ] Créer une page intermédiaire accessible depuis le bouton « Commencer » de
-  `WelcomeView`.
-- [ ] Ajouter une route dédiée à cette page.
-- [ ] Proposer deux parcours clairement identifiables :
-  - aller vers `AuthView` pour se connecter ou créer un compte ;
-  - démarrer directement une pratique anonyme.
-- [ ] Relier le bouton « Commencer » de `WelcomeView` à cette nouvelle route.
-- [ ] Vérifier le comportement de navigation sur mobile et desktop.
+- [ ] Relire le diff et l'état Git de `feat/-base-layout-and-auth-views` pour
+  vérifier qu'aucun travail incomplet ou changement étranger n'est embarqué.
+- [ ] Vérifier manuellement le rendu, les interactions et la navigation de
+  `WelcomeView` sur mobile et desktop.
+- [ ] Finaliser des commits ciblés et pousser la branche.
+- [ ] Merger la branche dans `dev`, puis vérifier la CI et l'état final de `dev`.
 
-### Objectif 2 — Finaliser et merger la branche
+### Objectif 2 — Concevoir l'authentification sécurisée
 
-- [ ] Relire les changements de `feat/-base-layout-and-auth-views` et vérifier
-  qu'aucun travail incomplet non prévu n'est embarqué silencieusement.
-- [ ] Exécuter `npm run type-check`, `npm run lint` et `npm run build`.
-- [ ] Corriger les éventuelles erreurs détectées.
-- [ ] Merger la branche dans `dev` et vérifier la CI.
+- [ ] Créer une branche dédiée après le merge.
+- [ ] Définir le contrat de cookies entre Django/DRF et Vue avant de coder.
+- [ ] Traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh,
+  rotation, expiration et logout.
+- [ ] Remplacer le stockage persistant du refresh token dans `localStorage` par
+  la stratégie validée.
+- [ ] Adapter et tester le back-end, le client Axios et le store auth.
+- [ ] Vérifier le fonctionnement de bout en bout avant merge.
 
 ### Limites de cette session
 
-- Ne pas commencer la migration vers les cookies sur la branche actuelle.
+- Ne pas commencer la migration vers les cookies avant le merge de la branche
+  actuelle et la création d'une branche dédiée.
 - Ne pas reprendre le Dashboard ni les pages du parcours avant la session dédiée.
 - Ne pas considérer tous les layouts applicatifs comme terminés : seuls ceux liés
   à l'authentification sont validés à ce stade.
 
 ---
 
-## Étapes planifiées après le merge
-
-### Session #18 — 17 juillet 2026 — Authentification sécurisée
-
-Créer une nouvelle branche dédiée, puis :
-
-- définir le contrat de cookies entre Django/DRF et Vue ;
-- remplacer le stockage persistant du refresh token dans `localStorage` par une
-  stratégie fondée sur des cookies sécurisés ;
-- traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh, rotation,
-  expiration et logout ;
-- adapter le back-end, le client Axios et le store auth ;
-- écrire ou mettre à jour les tests back et front pertinents ;
-- vérifier le fonctionnement de bout en bout avant merge.
-
-La solution exacte devra être conçue et validée avant l'implémentation : « utiliser
-des cookies » ne suffit pas, à lui seul, à garantir une authentification sûre.
-
-### Objectif suivant — Dashboard et parcours de pratique
+## Objectif suivant — Dashboard et parcours de pratique
 
 Après sécurisation de l'authentification, créer une branche commune pour :
 

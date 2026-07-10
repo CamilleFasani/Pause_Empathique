@@ -39,8 +39,8 @@ L'objectif est double : livrer une application de qualité production ET acquér
   l'API
 - ✅ Vues de connexion et d'inscription réalisées et branchées au store auth
 - ✅ Page Welcome et layout d'authentification réalisés
-- 🚧 Page intermédiaire à créer entre Welcome et le choix
-  authentification/pratique anonyme
+- ✅ Choix authentification/pratique anonyme intégré directement à Welcome et
+  relié aux routes correspondantes
 - 🚧 Layouts applicatifs seulement partiellement réalisés
 - ⚠️ Gestion JWT front actuelle avec refresh token dans `localStorage`, solution
   transitoire à remplacer par une stratégie sécurisée par cookies
@@ -194,9 +194,9 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 3.2.1 — Entrée dans le parcours
 
-- [x] Créer la page publique Welcome avec l'action « Commencer »
-- [ ] Créer la page intermédiaire proposant authentification ou pratique anonyme
-- [ ] Relier Welcome à cette page, puis chaque choix à son parcours
+- [x] Créer la page publique Welcome
+- [x] Intégrer directement à Welcome les choix authentification ou pratique anonyme
+- [x] Relier chaque choix à son parcours par un lien Vue Router
 - [ ] Merger `feat/-base-layout-and-auth-views` dans `dev` après validation qualité
 
 **Décision d'architecture auth sécurisée — 17 juillet 2026 :**
@@ -246,7 +246,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 Pour chaque vue Django existante, créer le composant Vue équivalent :
 
-- [ ] Login / Register
+- [x] Login / Register
 - [ ] Dashboard
 - [ ] Observation (étape 1)
 - [ ] Feelings (étape 2)
@@ -257,7 +257,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 **Ordre de travail retenu en juillet 2026 :**
 
-1. terminer la page intermédiaire et merger la branche auth/layout actuelle ;
+1. effectuer la dernière validation et merger la branche auth/layout actuelle ;
 2. sécuriser l'authentification par cookies sur une nouvelle branche ;
 3. regrouper Dashboard, layouts applicatifs et parcours de pratique sur une même
    branche fonctionnelle.

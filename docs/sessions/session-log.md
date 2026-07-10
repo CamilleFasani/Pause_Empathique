@@ -26,25 +26,34 @@ et le parcours de pratique.
   refresh, logout et garde de route pour la page authentifiée.
 - ✅ La page d'accueil publique `WelcomeView` et les premiers éléments du layout
   général (header mobile, sidebar desktop, footer et logo) ont été réalisés.
+- ✅ L'entrée dans le parcours est désormais présentée directement sur
+  `WelcomeView` avec deux choix : pratique sans compte ou conservation d'une
+  trace avec compte. Le trajet animé est prolongé derrière ces choix et leurs
+  libellés secondaires suivent un arc SVG.
+- ✅ `WelcomeChoiceButton` est désormais un lien Vue Router réutilisable, avec une
+  destination typée par la prop `to` : « Libre comme l'air » ouvre le début de la
+  pratique anonyme et « Garder une trace » ouvre la connexion.
+- ✅ Les vérifications front `npm run type-check`, `npm run lint` et
+  `npm run build` ont réussi le 10 juillet 2026.
 - ⚠️ Le refresh token est actuellement conservé dans `localStorage`. Cette solution
   est transitoire et doit être remplacée par une stratégie sécurisée par cookies.
 
-**Ce qui reste sur la branche `feat/-base-layout-and-auth-views` :**
+**Ce qui reste avant intégration de `feat/-base-layout-and-auth-views` :**
 
-- [ ] Créer la page intermédiaire proposée après le clic sur « Commencer » depuis
-  `WelcomeView`.
-- [ ] Permettre depuis cette page de choisir entre l'authentification (`AuthView`)
-  et le démarrage direct d'une pratique anonyme.
-- [ ] Relier le bouton « Commencer » à cette nouvelle route.
-- [ ] Vérifier lint, type-check et build, puis merger la branche dans `dev`.
+- [ ] Effectuer une dernière relecture du diff et vérifier manuellement le rendu
+  et la navigation de `WelcomeView` sur mobile et desktop.
+- [ ] Finaliser les commits, merger la branche dans `dev` et vérifier la CI.
 - [ ] Finaliser ultérieurement les layouts des pages applicatives dans le contexte
   du Dashboard et du parcours de pratique.
 
 **Décisions prises :**
 
-- La page Welcome ne redirige pas directement vers l'authentification : une page
-  intermédiaire laisse le choix entre créer/se connecter à un compte et pratiquer
-  directement sans compte.
+- La page intermédiaire initialement prévue est abandonnée : `WelcomeView`
+  présente directement le choix entre créer/se connecter à un compte et pratiquer
+  sans compte.
+- Les choix sont des liens sémantiques fondés sur `RouterLink` et des routes
+  nommées. La navigation immédiate est retenue pour cette branche ; une animation
+  de sortie supplémentaire n'est pas un prérequis au merge.
 - La gestion actuelle des JWT côté navigateur est provisoire. Une branche dédiée
   traitera le transport par cookies et l'authentification sécurisée le 17 juillet
   2026.
@@ -55,18 +64,18 @@ et le parcours de pratique.
 
 **Blocages / Points ouverts :**
 
+- Aucun blocage technique identifié pour le merge de la branche front.
+- La vérification visuelle responsive reste à effectuer dans la relecture finale.
 - Définir précisément le contrat des cookies avec le back-end : cookies
   `HttpOnly`, attributs `Secure`/`SameSite`, protection CSRF, refresh, rotation et
   logout.
-- Définir le nom et l'URL définitifs de la page intermédiaire lors de son
-  implémentation.
 
-**État de la session :** En cours jusqu'à la création de la page intermédiaire et
-au merge de la branche dans `dev`.
+**État de la session :** Clôturée le 10 juillet 2026. La prochaine session
+commencera par la finalisation et le merge de la branche dans `dev`.
 
-**Humeur de la session :** Reprise du suivi après plusieurs sessions de travail ;
-le socle d'authentification front est fonctionnel et la trajectoire de sécurisation
-est maintenant clarifiée.
+**Humeur de la session :** La branche auth/layout est prête pour sa dernière
+relecture ; le socle d'authentification front fonctionne et la prochaine étape de
+sécurisation est clairement cadrée.
 
 ---
 
