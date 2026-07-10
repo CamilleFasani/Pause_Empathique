@@ -1,64 +1,74 @@
 # Prochaine session — Objectifs
 
-> Ce fichier est lu en priorité par Copilot au démarrage de chaque session.
-> Mis à jour en fin de session avec les objectifs suivants.
+> Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
+> chaque session.
 
-## Session #17 — prochaine session
+## Session #17 — objectifs révisés pour finaliser la branche en cours
 
 ### Contexte
 
-Session #16 (12 juin 2026) : Vue Router, Pinia, axios client posés. Connexion front ↔ back validée.
+La reprise du suivi de la session #17, le 10 juillet 2026, confirme que les vues de
+connexion et d'inscription et leur branchement au store sont terminés. Le layout
+des vues d'authentification est réalisé, mais l'objectif global sur les layouts
+n'est que partiellement terminé.
 
-- Vue Router 4 installé, routes `/`, `/login`, `/register` configurées ✅
-- Architecture `AuthView` + `LoginForm` / `RegisterForm` décidée (une page, deux composants) ✅
-- `App.vue` coquille vide avec `<RouterView />` ✅
-- Pinia installé, `useAuthStore` créé (`isAuthenticated`, `user: User | null`) ✅
-- `src/api/client.ts` : instance axios avec `VITE_API_URL` ✅
-- Connexion front ↔ back validée (`GET /api/v1/health/` → `{ status: "ok" }`) ✅
-- Merge `feat/vue-router-pinia` → `dev` front
+La branche front active est `feat/-base-layout-and-auth-views`. Elle contient aussi
+une première gestion JWT fonctionnelle avec refresh token dans `localStorage`.
+Cette stratégie est explicitement transitoire : la sécurisation par cookies fera
+l'objet de la branche suivante.
 
----
+### Objectif 1 — Page intermédiaire avant la pratique
 
-### Objectifs de la session
+- [ ] Créer une page intermédiaire accessible depuis le bouton « Commencer » de
+  `WelcomeView`.
+- [ ] Ajouter une route dédiée à cette page.
+- [ ] Proposer deux parcours clairement identifiables :
+  - aller vers `AuthView` pour se connecter ou créer un compte ;
+  - démarrer directement une pratique anonyme.
+- [ ] Relier le bouton « Commencer » de `WelcomeView` à cette nouvelle route.
+- [ ] Vérifier le comportement de navigation sur mobile et desktop.
 
-#### Objectif 1 — Layouts de base (début de session, ~20 min)
+### Objectif 2 — Finaliser et merger la branche
 
-Avant de construire les vues, poser le squelette commun à toutes les pages.
+- [ ] Relire les changements de `feat/-base-layout-and-auth-views` et vérifier
+  qu'aucun travail incomplet non prévu n'est embarqué silencieusement.
+- [ ] Exécuter `npm run type-check`, `npm run lint` et `npm run build`.
+- [ ] Corriger les éventuelles erreurs détectées.
+- [ ] Merger la branche dans `dev` et vérifier la CI.
 
-- [ ] Créer `src/layouts/AuthLayout.vue` : layout épuré pour login/register (logo centré, pas de navigation)
-- [ ] Créer `src/layouts/AppLayout.vue` : layout complet avec `<AppHeader />`, `<main><RouterView /></main>`, `<AppFooter />`
-- [ ] Créer `src/components/AppHeader.vue` et `src/components/AppFooter.vue` (squelettes vides pour l'instant)
-- [ ] Brancher `AuthLayout` dans `AuthView` et `AppLayout` dans `HomeView`
+### Limites de cette session
 
-#### Objectif 2 — Vues auth : LoginForm et RegisterForm
-
-Construire les deux formulaires d'authentification selon la maquette.
-
-- [ ] `LoginForm.vue` : champ email, champ mot de passe, bouton "Me connecter", lien "Mot de passe oublié ?"
-- [ ] `RegisterForm.vue` : champ prénom, email, mot de passe, confirmation, toggle genre, bouton "M'inscrire"
-- [ ] `AuthView.vue` : toggle "j'ai déjà un compte" / "je n'ai pas de compte" fonctionnel avec `useRoute` + `useRouter`
-- [ ] Valider le rendu visuel avec `npm run dev`
-
-#### Objectif 2 — Branchement auth store + appels API
-
-Connecter les formulaires au back via `useAuthStore` et `apiClient`.
-
-- [ ] Ajouter action `login(email, password)` dans `useAuthStore` : appel `POST /api/v1/auth/token/`, stockage access + refresh token
-- [ ] Ajouter action `register(data)` dans `useAuthStore` : appel `POST /api/v1/users/`
-- [ ] Décider du stockage des tokens : `localStorage` vs `httpOnly cookie` (à trancher)
-- [ ] Après login réussi : rediriger vers `/` via `router.push`
-
-#### Objectif 3 — Guards de navigation (si le temps le permet)
-
-Protéger les routes qui nécessitent d'être connectée.
-
-- [ ] Ajouter `meta: { requiresAuth: true }` sur les routes protégées
-- [ ] Créer un `router.beforeEach` qui redirige vers `/login` si non authentifiée
+- Ne pas commencer la migration vers les cookies sur la branche actuelle.
+- Ne pas reprendre le Dashboard ni les pages du parcours avant la session dédiée.
+- Ne pas considérer tous les layouts applicatifs comme terminés : seuls ceux liés
+  à l'authentification sont validés à ce stade.
 
 ---
 
-### Rappels du chef de projet
+## Étapes planifiées après le merge
 
-- CI verte obligatoire avant merge vers `dev`
-- Décision stockage JWT (localStorage vs httpOnly cookie) à prendre **avant** d'implémenter — ça impacte la sécurité
-- Ne pas implémenter les guards avant que le login soit fonctionnel
+### Session #18 — 17 juillet 2026 — Authentification sécurisée
+
+Créer une nouvelle branche dédiée, puis :
+
+- définir le contrat de cookies entre Django/DRF et Vue ;
+- remplacer le stockage persistant du refresh token dans `localStorage` par une
+  stratégie fondée sur des cookies sécurisés ;
+- traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh, rotation,
+  expiration et logout ;
+- adapter le back-end, le client Axios et le store auth ;
+- écrire ou mettre à jour les tests back et front pertinents ;
+- vérifier le fonctionnement de bout en bout avant merge.
+
+La solution exacte devra être conçue et validée avant l'implémentation : « utiliser
+des cookies » ne suffit pas, à lui seul, à garantir une authentification sûre.
+
+### Objectif suivant — Dashboard et parcours de pratique
+
+Après sécurisation de l'authentification, créer une branche commune pour :
+
+- reprendre et finaliser le Dashboard ;
+- finaliser le layout des pages applicatives ;
+- construire le parcours « vide ton sac » → observation → sentiments → besoins ;
+- définir les données et transitions entre les étapes ;
+- intégrer progressivement les endpoints API correspondants.

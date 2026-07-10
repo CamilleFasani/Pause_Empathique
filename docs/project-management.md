@@ -16,7 +16,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-## État actuel — Avril 2026
+## État actuel — Juillet 2026
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
@@ -35,6 +35,15 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Stratégie de transition actée : V1 maintenue en production, V2 travaillée sur staging
 - ✅ Endpoints auth API implémentés : register, login, refresh, logout, profil (GET/PATCH/DELETE)
 - ✅ Tests API auth et login/logout écrits
+- ✅ Socle du front Vue opérationnel : Router, Pinia, client Axios et connexion à
+  l'API
+- ✅ Vues de connexion et d'inscription réalisées et branchées au store auth
+- ✅ Page Welcome et layout d'authentification réalisés
+- 🚧 Page intermédiaire à créer entre Welcome et le choix
+  authentification/pratique anonyme
+- 🚧 Layouts applicatifs seulement partiellement réalisés
+- ⚠️ Gestion JWT front actuelle avec refresh token dans `localStorage`, solution
+  transitoire à remplacer par une stratégie sécurisée par cookies
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -150,7 +159,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 ---
 
-### Phase 3 — Frontend Vue.js + TypeScript ⏳ EN ATTENTE PHASE 2
+### Phase 3 — Frontend Vue.js + TypeScript 🚧 EN COURS
 
 > Objectif : SPA Vue.js 3 consommant l'API DRF, déployée séparément.
 
@@ -172,10 +181,23 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 3.2 — Authentification
 
-- [ ] Intégrer la gestion des tokens JWT (access + refresh)
-- [x] Décider du stockage : access token en mémoire front, refresh token en cookie `HttpOnly`
-- [ ] Guards de navigation (routes protégées)
-- [ ] Store Pinia pour l'état auth
+- [x] Créer les vues et formulaires de connexion/inscription avec validation
+- [x] Brancher connexion et inscription au store Pinia et à l'API
+- [x] Mettre en place une première gestion JWT (access, refresh, restauration de
+      session et logout)
+- [x] Ajouter une première garde de navigation pour les routes protégées
+- [ ] Remplacer le refresh token stocké dans `localStorage` par une stratégie de
+      cookies sécurisés — session dédiée prévue le 17 juillet 2026
+- [ ] Définir et documenter le contrat complet : `HttpOnly`, `Secure`, `SameSite`,
+      CSRF, rotation/expiration du refresh et logout
+- [ ] Adapter et tester le back-end DRF, Axios et le store Pinia selon ce contrat
+
+#### 3.2.1 — Entrée dans le parcours
+
+- [x] Créer la page publique Welcome avec l'action « Commencer »
+- [ ] Créer la page intermédiaire proposant authentification ou pratique anonyme
+- [ ] Relier Welcome à cette page, puis chaque choix à son parcours
+- [ ] Merger `feat/-base-layout-and-auth-views` dans `dev` après validation qualité
 
 **Décision d'architecture auth sécurisée — 17 juillet 2026 :**
 
@@ -199,7 +221,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - Pour cette étape, la protection CSRF des endpoints refresh/logout repose sur
   `SameSite=Lax`, sur un cookie limité au chemin `/api/v1/auth/`, et sur le fait
   que les endpoints métier restent authentifiés par `Authorization: Bearer
-  <access token>` plutôt que par cookie. `CSRF_TRUSTED_ORIGINS` reste nécessaire
+<access token>` plutôt que par cookie. `CSRF_TRUSTED_ORIGINS` reste nécessaire
   pour les flux Django soumis à la vérification CSRF, mais ne constitue pas seul
   une protection CSRF complète pour l'API JWT.
 - Un jeton CSRF dédié côté SPA n'est pas ajouté dans cette étape. Il devra être
@@ -232,6 +254,13 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [ ] Diary (liste des pauses)
 - [ ] Détail d'une pause
 - [ ] Profil utilisateur
+
+**Ordre de travail retenu en juillet 2026 :**
+
+1. terminer la page intermédiaire et merger la branche auth/layout actuelle ;
+2. sécuriser l'authentification par cookies sur une nouvelle branche ;
+3. regrouper Dashboard, layouts applicatifs et parcours de pratique sur une même
+   branche fonctionnelle.
 
 #### 3.4 — Mise à jour sécurité
 
@@ -297,14 +326,14 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ## Informations à collecter
 
-| Information                                                 | Statut                        |
-| ----------------------------------------------------------- | ----------------------------- |
-| Détails de la nouvelle charte graphique (couleurs, typos)   | ⚠️ En cours de définition     |
-| Stratégie composants design system (maison + librairie)     | ✅ Validée (approche hybride) |
-| URL du repo front Vue.js                                    | ✅ Repo créé et initialisé    |
-| Contraintes de délai pour la formation CDA                  | ❌ À préciser                 |
-| Décision stockage JWT : `HttpOnly cookie` vs `localStorage` | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front |
-| Stack logs/monitoring retenue                               | ❌ À décider (phase 5)        |
+| Information                                               | Statut                                                                    |
+| --------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Détails de la nouvelle charte graphique (couleurs, typos) | ⚠️ En cours de définition                                                 |
+| Stratégie composants design system (maison + librairie)   | ✅ Validée (approche hybride)                                             |
+| URL du repo front Vue.js                                  | ✅ Repo créé et initialisé                                                |
+| Contraintes de délai pour la formation CDA                | ❌ À préciser                                                             |
+| Orientation stockage JWT                                  | 🚧 Cookies sécurisés retenus ; contrat détaillé à concevoir le 17/07/2026 |
+| Stack logs/monitoring retenue                             | ❌ À décider (phase 5)                                                    |
 
 ---
 

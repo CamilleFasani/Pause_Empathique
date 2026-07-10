@@ -5,6 +5,71 @@
 
 ---
 
+## Session #17 — reprise du suivi le 10 juillet 2026
+
+**Objectifs prévus :** Poser les layouts de base, construire les vues de connexion
+et d'inscription, brancher l'authentification au store, puis préparer le Dashboard
+et le parcours de pratique.
+
+**Ce qui a été fait au cours des sessions intermédiaires :**
+
+- ⚠️ Objectif 1 partiellement terminé : le layout et l'intégration visuelle des
+  vues d'authentification sont réalisés ; les layouts et structures des autres
+  pages de l'application restent à finaliser.
+- ✅ Objectif 2 terminé : `LoginForm` et `RegisterForm` sont construits avec leurs
+  validations, leurs états d'erreur et l'affichage des mots de passe.
+- ✅ Le basculement connexion/inscription est piloté par les routes `/login` et
+  `/register` dans une `AuthView` commune.
+- ✅ Les formulaires sont branchés au store Pinia : inscription, connexion et
+  redirection après succès fonctionnent.
+- ✅ Une première gestion de session JWT est en place : restauration de session,
+  refresh, logout et garde de route pour la page authentifiée.
+- ✅ La page d'accueil publique `WelcomeView` et les premiers éléments du layout
+  général (header mobile, sidebar desktop, footer et logo) ont été réalisés.
+- ⚠️ Le refresh token est actuellement conservé dans `localStorage`. Cette solution
+  est transitoire et doit être remplacée par une stratégie sécurisée par cookies.
+
+**Ce qui reste sur la branche `feat/-base-layout-and-auth-views` :**
+
+- [ ] Créer la page intermédiaire proposée après le clic sur « Commencer » depuis
+  `WelcomeView`.
+- [ ] Permettre depuis cette page de choisir entre l'authentification (`AuthView`)
+  et le démarrage direct d'une pratique anonyme.
+- [ ] Relier le bouton « Commencer » à cette nouvelle route.
+- [ ] Vérifier lint, type-check et build, puis merger la branche dans `dev`.
+- [ ] Finaliser ultérieurement les layouts des pages applicatives dans le contexte
+  du Dashboard et du parcours de pratique.
+
+**Décisions prises :**
+
+- La page Welcome ne redirige pas directement vers l'authentification : une page
+  intermédiaire laisse le choix entre créer/se connecter à un compte et pratiquer
+  directement sans compte.
+- La gestion actuelle des JWT côté navigateur est provisoire. Une branche dédiée
+  traitera le transport par cookies et l'authentification sécurisée le 17 juillet
+  2026.
+- Le Dashboard et l'ensemble du parcours de pratique seront repris après cette
+  sécurisation et regroupés sur une même branche fonctionnelle.
+- Les documents transversaux du projet restent centralisés et versionnés dans le
+  dossier back-end `docs/`.
+
+**Blocages / Points ouverts :**
+
+- Définir précisément le contrat des cookies avec le back-end : cookies
+  `HttpOnly`, attributs `Secure`/`SameSite`, protection CSRF, refresh, rotation et
+  logout.
+- Définir le nom et l'URL définitifs de la page intermédiaire lors de son
+  implémentation.
+
+**État de la session :** En cours jusqu'à la création de la page intermédiaire et
+au merge de la branche dans `dev`.
+
+**Humeur de la session :** Reprise du suivi après plusieurs sessions de travail ;
+le socle d'authentification front est fonctionnel et la trajectoire de sécurisation
+est maintenant clarifiée.
+
+---
+
 ## Session #16 — 12 juin 2026
 
 **Objectifs prévus :** Vue Router, Pinia, premier appel API
@@ -13,7 +78,7 @@
 
 - ✅ Branche `feat/vue-router-pinia` créée
 - ✅ Vue Router 4 installé (`npm install vue-router@4`)
-- ✅ `src/router/index.ts` : routes `/` (HomeView), `/login` et `/register` (AuthView) configurées
+- ✅ `src/router/index.ts` : routes `/` (WelcomeView), `/login` et `/register` (AuthView) configurées
 - ✅ Décision architecture auth : une seule `AuthView` + deux composants `LoginForm` / `RegisterForm` (toggle basé sur l'URL)
 - ✅ `App.vue` : coquille vide avec `<RouterView />`
 - ✅ `main.ts` : Pinia branché avant Router (`app.use(pinia).use(router)`)
