@@ -7,8 +7,8 @@ from rest_framework.test import APITestCase
 from users.api.serializers import RegisterSerializer
 
 User = get_user_model()
-REFRESH_COOKIE_NAME = "refresh_token"
-REFRESH_COOKIE_PATH = "/api/v1/auth/"
+REFRESH_COOKIE_NAME = settings.REFRESH_COOKIE_NAME
+REFRESH_COOKIE_PATH = settings.REFRESH_COOKIE_PATH
 
 
 class RegisterSerializerTest(APITestCase):
