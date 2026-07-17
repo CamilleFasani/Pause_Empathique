@@ -44,6 +44,22 @@ class RegisterSerializerTest(APITestCase):
         # Then the password does not appear in the serialized output
         self.assertNotIn("password", serializer.data)
 
+    def test_common_password_is_rejected(self):
+        # Given registration data with a weak/common password
+        data = {
+            "email": "martin@test.fr",
+            "password": "password",
+            "firstname": "Martin",
+            "gender": "M",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected before creating a user
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
+
 
 class RegisterAPITest(APITestCase):
     def setUp(self):
