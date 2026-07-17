@@ -173,9 +173,45 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 #### 3.2 — Authentification
 
 - [ ] Intégrer la gestion des tokens JWT (access + refresh)
-- [ ] Décider du stockage : `httpOnly cookie` vs `localStorage` (à discuter)
+- [x] Décider du stockage : access token en mémoire front, refresh token en cookie `HttpOnly`
 - [ ] Guards de navigation (routes protégées)
 - [ ] Store Pinia pour l'état auth
+
+**Décision d'architecture auth sécurisée — 17 juillet 2026 :**
+
+- L'`access token` JWT est court, renvoyé dans la réponse JSON au login et au
+  refresh, puis conservé uniquement en mémoire côté Vue/Pinia.
+- Le `refresh token` JWT est long, sensible, et ne doit jamais être stocké dans
+  `localStorage` ni renvoyé au front dans le JSON après migration.
+- Le `refresh token` est stocké par Django dans un cookie `HttpOnly`, afin de le
+  rendre illisible par le JavaScript du navigateur et de réduire l'impact d'une
+  faille XSS.
+- Le cookie de refresh doit être configuré explicitement avec `HttpOnly`,
+  `Secure`, `SameSite`, une expiration alignée sur la durée de vie du refresh
+  token, et un `path` limité aux endpoints d'authentification si possible.
+- En staging et production, le cookie doit être envoyé uniquement en HTTPS
+  (`Secure=True`). En développement local, une configuration adaptée peut être
+  utilisée pour permettre les tests en HTTP.
+- Le choix `SameSite` dépend du déploiement front/API :
+  - `Lax` si le front et l'API restent dans un contexte same-site compatible ;
+  - `None; Secure` si le front et l'API sont considérés cross-site par le
+    navigateur.
+- Les endpoints utilisant le cookie de refresh doivent traiter explicitement le
+  risque CSRF. Le contrat final doit préciser si la protection repose sur
+  `SameSite`, sur un jeton CSRF dédié, ou sur une combinaison des deux.
+- Le refresh automatique est déclenché par le client Axios uniquement quand
+  l'`access token` a expiré ou qu'une requête protégée reçoit un `401`
+  récupérable.
+- Le client Axios doit éviter les boucles de refresh et coordonner les requêtes
+  concurrentes pour ne pas lancer plusieurs refresh simultanés.
+- Le logout doit invalider le refresh token côté serveur quand la blacklist
+  Simple JWT est disponible, supprimer le cookie de refresh côté navigateur, et
+  vider l'état auth côté front.
+- En cas de refresh expiré, absent, invalide ou blacklisté, le front doit
+  considérer la session terminée, vider son état local et rediriger vers le
+  parcours de connexion si la route demandée est protégée.
+- Le back-end reste l'autorité de sécurité : les guards Vue améliorent
+  l'expérience utilisateur mais ne remplacent jamais les permissions DRF.
 
 #### 3.3 — Migration vue par vue
 
@@ -260,7 +296,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 | Stratégie composants design system (maison + librairie)     | ✅ Validée (approche hybride) |
 | URL du repo front Vue.js                                    | ❌ À créer                    |
 | Contraintes de délai pour la formation CDA                  | ❌ À préciser                 |
-| Décision stockage JWT : `httpOnly cookie` vs `localStorage` | ❌ À décider (phase 3)        |
+| Décision stockage JWT : `HttpOnly cookie` vs `localStorage` | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front |
 | Stack logs/monitoring retenue                               | ❌ À décider (phase 5)        |
 
 ---
