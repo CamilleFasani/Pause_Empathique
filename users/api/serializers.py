@@ -4,6 +4,14 @@ from rest_framework import serializers
 from users.models import User
 
 
+class AccessTokenResponseSerializer(serializers.Serializer):
+    access = serializers.CharField()
+
+
+class AuthDetailResponseSerializer(serializers.Serializer):
+    detail = serializers.CharField()
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 

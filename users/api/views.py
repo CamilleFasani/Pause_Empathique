@@ -1,4 +1,5 @@
 from django.conf import settings
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -10,7 +11,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import (
+    AccessTokenResponseSerializer,
+    AuthDetailResponseSerializer,
+    RegisterSerializer,
+    UserSerializer,
+)
 
 
 class RegisterAPIView(APIView):
@@ -27,6 +33,22 @@ class RegisterAPIView(APIView):
 class CookieTokenObtainPairView(TokenObtainPairView):
     permission_classes = [AllowAny]
 
+    @extend_schema(
+        responses={
+            200: OpenApiResponse(
+                response=AccessTokenResponseSerializer,
+                description=(
+                    "Access token returned in JSON. The refresh token is set in "
+                    "an HttpOnly cookie and is not exposed in the response body."
+                ),
+            ),
+            401: OpenApiResponse(description="Invalid credentials."),
+        },
+        description=(
+            "Authenticate a user. On success, returns an access token and sets "
+            "the refresh token in the HttpOnly refresh cookie."
+        ),
+    )
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
 
@@ -50,6 +72,26 @@ class CookieTokenObtainPairView(TokenObtainPairView):
 class CookieTokenRefreshView(TokenRefreshView):
     permission_classes = [AllowAny]
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: OpenApiResponse(
+                response=AccessTokenResponseSerializer,
+                description=(
+                    "New access token returned in JSON. The refresh token is "
+                    "read from the HttpOnly refresh cookie."
+                ),
+            ),
+            401: OpenApiResponse(
+                response=AuthDetailResponseSerializer,
+                description="Missing, invalid, expired, or blacklisted refresh cookie.",
+            ),
+        },
+        description=(
+            "Refresh the access token using the HttpOnly refresh cookie. No "
+            "refresh token is expected in the request body."
+        ),
+    )
     def post(self, request, *args, **kwargs):
         refresh_token = request.COOKIES.get(settings.REFRESH_COOKIE_NAME)
         if not refresh_token:
@@ -85,6 +127,22 @@ class CookieTokenRefreshView(TokenRefreshView):
 class CookieTokenBlacklistView(TokenBlacklistView):
     permission_classes = [AllowAny]
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: OpenApiResponse(
+                description="Refresh token blacklisted and cookie deleted."
+            ),
+            401: OpenApiResponse(
+                response=AuthDetailResponseSerializer,
+                description="Missing, invalid, expired, or blacklisted refresh cookie.",
+            ),
+        },
+        description=(
+            "Log out using the HttpOnly refresh cookie. No refresh token is "
+            "expected in the request body."
+        ),
+    )
     def post(self, request, *args, **kwargs):
         refresh_token = request.COOKIES.get(settings.REFRESH_COOKIE_NAME)
         if not refresh_token:
