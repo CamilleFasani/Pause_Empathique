@@ -18,21 +18,21 @@ transitoire et ne doit pas être prolongée dans les travaux suivants.
 
 ### Objectif 1 prioritaire — Finaliser et merger la branche actuelle
 
-- [ ] Relire le diff et l'état Git de `feat/-base-layout-and-auth-views` pour
-  vérifier qu'aucun travail incomplet ou changement étranger n'est embarqué.
-- [ ] Vérifier manuellement le rendu, les interactions et la navigation de
-  `WelcomeView` sur mobile et desktop.
-- [ ] Finaliser des commits ciblés et pousser la branche.
-- [ ] Merger la branche dans `dev`, puis vérifier la CI et l'état final de `dev`.
+- [x] Relire le diff et l'état Git de `feat/-base-layout-and-auth-views` pour
+      vérifier qu'aucun travail incomplet ou changement étranger n'est embarqué.
+- [x] Vérifier manuellement le rendu, les interactions et la navigation de
+      `WelcomeView` sur mobile et desktop.
+- [x] Finaliser des commits ciblés et pousser la branche.
+- [x] Merger la branche dans `dev`, puis vérifier la CI et l'état final de `dev`.
 
 ### Objectif 2 — Concevoir l'authentification sécurisée
 
-- [ ] Créer une branche dédiée après le merge.
+- [x] Créer une branche dédiée après le merge.
 - [ ] Définir le contrat de cookies entre Django/DRF et Vue avant de coder.
 - [ ] Traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh,
-  rotation, expiration et logout.
+      rotation, expiration et logout.
 - [ ] Remplacer le stockage persistant du refresh token dans `localStorage` par
-  la stratégie validée.
+      la stratégie validée.
 - [ ] Adapter et tester le back-end, le client Axios et le store auth.
 - [ ] Vérifier le fonctionnement de bout en bout avant merge.
 
