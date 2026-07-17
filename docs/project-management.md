@@ -196,9 +196,16 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
   - `Lax` si le front et l'API restent dans un contexte same-site compatible ;
   - `None; Secure` si le front et l'API sont considérés cross-site par le
     navigateur.
-- Les endpoints utilisant le cookie de refresh doivent traiter explicitement le
-  risque CSRF. Le contrat final doit préciser si la protection repose sur
-  `SameSite`, sur un jeton CSRF dédié, ou sur une combinaison des deux.
+- Pour cette étape, la protection CSRF des endpoints refresh/logout repose sur
+  `SameSite=Lax`, sur un cookie limité au chemin `/api/v1/auth/`, et sur le fait
+  que les endpoints métier restent authentifiés par `Authorization: Bearer
+  <access token>` plutôt que par cookie. `CSRF_TRUSTED_ORIGINS` reste nécessaire
+  pour les flux Django soumis à la vérification CSRF, mais ne constitue pas seul
+  une protection CSRF complète pour l'API JWT.
+- Un jeton CSRF dédié côté SPA n'est pas ajouté dans cette étape. Il devra être
+  réévalué avant staging/production si le front et l'API imposent
+  `SameSite=None; Secure`, ou si des endpoints métier deviennent authentifiés par
+  cookie.
 - Le refresh automatique est déclenché par le client Axios uniquement quand
   l'`access token` a expiré ou qu'une requête protégée reçoit un `401`
   récupérable.
