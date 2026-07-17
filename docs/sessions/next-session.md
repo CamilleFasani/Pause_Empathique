@@ -3,69 +3,112 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #18 — 17 juillet 2026 — Merge puis authentification sécurisée
+## Session #19 — 24 juillet 2026 — Relecture auth sécurisée, tests et merges
 
 ### Contexte
 
-La session #17 a été clôturée le 10 juillet 2026. Les vues d'authentification, leur
-branchement au store et les choix de parcours depuis `WelcomeView` sont terminés.
-Les commandes `npm run type-check`, `npm run lint` et `npm run build` ont réussi.
+La session #18 du 17 juillet 2026 a finalisé l'objectif 1 du jour et avancé
+fortement l'objectif 2 d'authentification sécurisée.
 
-La branche front `feat/-base-layout-and-auth-views` doit être finalisée et mergée
-au début de cette session. Elle contient une première gestion JWT fonctionnelle
-avec refresh token dans `localStorage` ; cette stratégie reste strictement
-transitoire et ne doit pas être prolongée dans les travaux suivants.
+Côté back, la branche `feat/secure-authentication` implémente le refresh token en
+cookie `HttpOnly` : login avec `Set-Cookie`, refresh/logout via cookie, blacklist
+Simple JWT, expiration du cookie alignée sur le refresh token, configuration CORS
+avec credentials, documentation OpenAPI ajustée et tests auth ciblés verts.
 
-### Objectif 1 prioritaire — Finaliser et merger la branche actuelle
+Côté front, la branche `feat/secure-authentication` a été adaptée au nouveau
+contrat : Axios utilise `withCredentials`, les fonctions API auth ne manipulent
+plus de refresh token dans le body, le store Pinia ne stocke plus le refresh token
+dans `localStorage`, l'intercepteur Axios tente un refresh automatique sur `401`,
+le logout appelle le back sans body, et la garde de route attend
+l'initialisation auth avant de rediriger.
 
-- [x] Relire le diff et l'état Git de `feat/-base-layout-and-auth-views` pour
-      vérifier qu'aucun travail incomplet ou changement étranger n'est embarqué.
-- [x] Vérifier manuellement le rendu, les interactions et la navigation de
-      `WelcomeView` sur mobile et desktop.
-- [x] Finaliser des commits ciblés et pousser la branche.
-- [x] Merger la branche dans `dev`, puis vérifier la CI et l'état final de `dev`.
+La prochaine session doit commencer par une relecture pédagogique du travail front
+réalisé, puis par les arbitrages de review Copilot remontés sur la branche back.
+Les merges ne doivent venir qu'après cette relecture, les décisions de review et
+les tests manuels/end-to-end.
 
-### Objectif 2 — Concevoir l'authentification sécurisée
+### Objectif 1 prioritaire — Comprendre le travail front réalisé
 
-- [x] Créer une branche dédiée après le merge.
-- [x] Définir le contrat de cookies entre Django/DRF et Vue avant de coder.
-- [x] Traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh,
-      rotation, expiration et logout.
-- [ ] Remplacer le stockage persistant du refresh token dans `localStorage` par
-      la stratégie validée.
-- [ ] Adapter et tester le back-end, le client Axios et le store auth.
-- [ ] Vérifier le fonctionnement de bout en bout avant merge.
+- [ ] Relire le diff front de `feat/secure-authentication`.
+- [ ] Comprendre le rôle de `src/api/client.ts` :
+  - `withCredentials`;
+  - intercepteur request pour `Authorization`;
+  - intercepteur response sur `401`;
+  - `refreshPromise` pour éviter les refresh concurrents ;
+  - `skipAuthRefresh` pour éviter les boucles sur login/refresh/logout.
+- [ ] Comprendre le rôle de `src/api/auth.ts` :
+  - login/register/refresh/logout alignés avec le contrat back ;
+  - refresh/logout sans body ;
+  - réponse auth limitée à `{ access: string }`.
+- [ ] Comprendre le rôle de `src/stores/auth.ts` :
+  - access token en mémoire ;
+  - suppression du refresh token côté front ;
+  - restauration de session via cookie ;
+  - `isAuthReady` ;
+  - logout et nettoyage de session.
+- [ ] Comprendre le rôle de la garde Vue Router :
+  - attendre l'initialisation auth ;
+  - protéger les routes privées ;
+  - rediriger une utilisatrice déjà connectée hors de login/register.
 
-**Avancement au point intermédiaire :**
+### Objectif 2 — Arbitrer la review Copilot côté back
 
-- ✅ Partie back réalisée sur `feat/secure-authentication` : refresh token en
-  cookie `HttpOnly`, access token en JSON, refresh/logout via cookie, blacklist
-  Simple JWT, expiration du cookie alignée sur le refresh token.
-- ✅ Tests auth back ciblés verts : `users/tests/test_api_auth.py` — 22 tests.
-- ✅ Documentation du contrat et du choix CSRF mise à jour.
-- ⏳ Merge back dans `dev` en cours/à confirmer par la développeuse.
-- ⏳ Partie front restante dans le repo `pause_empathique_front` : adapter Axios,
-  Pinia et le parcours auth pour ne plus utiliser `localStorage` pour le refresh
-  token.
+- [ ] Relire les commentaires Copilot sur la branche back
+  `feat/secure-authentication`.
+- [ ] Classer chaque remarque :
+  - à corriger avant merge ;
+  - à documenter/assumer ;
+  - à reporter dans une étape dédiée.
+- [ ] Appliquer les corrections retenues côté back.
+- [ ] Relancer les vérifications back utiles :
+  - `poetry run ruff check ...` ;
+  - `pytest users/tests/test_api_auth.py` ;
+  - suite plus large si les corrections dépassent l'auth.
 
-### Limites de cette session
+### Objectif 3 — Tests front et end-to-end
 
-- Ne pas commencer la migration vers les cookies avant le merge de la branche
-  actuelle et la création d'une branche dédiée.
-- Ne pas reprendre le Dashboard ni les pages du parcours avant la session dédiée.
-- Ne pas considérer tous les layouts applicatifs comme terminés : seuls ceux liés
-  à l'authentification sont validés à ce stade.
-- Ne pas marquer l'objectif 2 comme terminé tant que l'intégration front et la
-  vérification end-to-end entre les deux repos ne sont pas réalisées.
+- [ ] Lancer le back et le front localement.
+- [ ] Vérifier au navigateur :
+  - login réussi ;
+  - cookie `refresh_token` présent, `HttpOnly`, limité au chemin `/api/v1/auth/` ;
+  - aucun refresh token dans `localStorage` ;
+  - access token non persistant côté navigateur ;
+  - rechargement de page avec restauration de session ;
+  - route protégée accessible après restauration ;
+  - refresh automatique après `401` ou expiration simulée de l'access token ;
+  - logout avec suppression du cookie ;
+  - route protégée inaccessible après logout ;
+  - mauvais identifiants sans boucle de refresh.
+- [ ] Relancer côté front :
+  - `npm run type-check` ;
+  - `npm run lint` ;
+  - `npm run build`.
 
----
+### Objectif 4 — Merges dans le bon ordre
 
-## Objectif suivant — Dashboard et parcours de pratique
+- [ ] Merger la branche back `feat/secure-authentication` dans `dev`.
+- [ ] Vérifier la CI back sur `dev`.
+- [ ] Rebaser la branche back docs `docs/project-management-and-read-me` sur
+  `dev`, résoudre les conflits éventuels, puis la merger dans `dev`.
+- [ ] Vérifier que les docs de session et de projet reflètent l'état réel.
+- [ ] Une fois back + docs verts, merger la branche front `feat/secure-authentication`.
+- [ ] Vérifier la CI front.
 
-Après sécurisation de l'authentification, créer une branche commune pour :
+### Objectif suivant — Dashboard et parcours de pratique
+
+Après sécurisation complète de l'authentification et merges validés, créer une
+branche front dédiée pour :
 
 - reprendre et finaliser le Dashboard ;
 - finaliser le layout des pages applicatives ;
 - construire le parcours « vide ton sac » → observation → sentiments → besoins ;
 - définir les données et transitions entre les étapes ;
 - intégrer progressivement les endpoints API correspondants.
+
+### Limites de la prochaine session
+
+- Ne pas merger la branche front avant validation du back, des docs et des tests
+  end-to-end.
+- Ne pas reprendre le Dashboard ni le parcours de pratique avant la fin de
+  l'authentification sécurisée.
+- Ne pas considérer l'objectif 2 comme terminé sans vérification navigateur.

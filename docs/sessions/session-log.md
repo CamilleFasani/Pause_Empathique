@@ -31,6 +31,10 @@ concevoir et démarrer l'authentification sécurisée par cookies.
 - ✅ Décision CSRF documentée : pour cette étape, protection par `SameSite=Lax`,
   cookie limité à `/api/v1/auth/`, et endpoints métier toujours authentifiés par
   header `Authorization: Bearer <access token>`.
+- ✅ Front Vue adapté au contrat cookie : `withCredentials`, fonctions API auth
+  sans refresh token dans le body, suppression du refresh token de `localStorage`,
+  access token conservé en mémoire, refresh automatique sur `401`, logout sans
+  body, garde de route avec état `isAuthReady`.
 
 **Vérifications réalisées :**
 
@@ -38,17 +42,22 @@ concevoir et démarrer l'authentification sécurisée par cookies.
 - `pytest users/tests/test_api_auth.py` : 22 tests verts.
 - `manage.py spectacular --validate` génère le schéma, avec des warnings/errors
   OpenAPI existants sur d'autres vues non traitées dans cette étape.
+- Côté front : `npm run type-check`, `npm run lint` et `npm run build` verts
+  après adaptation Axios/Pinia/router.
 
 **Ce qui reste pour terminer l'objectif 2 :**
 
+- [ ] Relire pédagogiquement le diff front pour bien comprendre les changements
+  Axios, API auth, store Pinia et router.
+- [ ] Arbitrer les remarques de review Copilot sur la branche back
+  `feat/secure-authentication`.
+- [ ] Vérifier le fonctionnement de bout en bout entre les deux repos dans le
+  navigateur avant merge de la partie front.
 - [ ] Merger la branche back `feat/secure-authentication` dans `dev` et vérifier
   la CI.
 - [ ] Rebaser/merger la branche documentation pour garder les docs alignées.
-- [ ] Adapter le repo front Vue : client Axios avec `withCredentials`, access
-  token en mémoire, suppression du refresh token de `localStorage`, refresh
-  automatique via cookie, logout, restauration de session et gestion des `401`.
-- [ ] Vérifier le fonctionnement de bout en bout entre les deux repos avant
-  merge de la partie front.
+- [ ] Merger la branche front `feat/secure-authentication` une fois back, docs et
+  tests end-to-end validés.
 
 **Décisions prises :**
 
@@ -61,9 +70,13 @@ concevoir et démarrer l'authentification sécurisée par cookies.
 - Un jeton CSRF dédié côté SPA n'est pas ajouté maintenant ; le sujet sera
   réévalué si le déploiement impose `SameSite=None; Secure` ou si des endpoints
   métier deviennent authentifiés par cookie.
+- Les merges seront faits dans l'ordre : back sécurisé, docs back, puis front
+  sécurisé après validation end-to-end.
 
-**État de la session :** En cours. La partie back de l'authentification sécurisée
-est prête à être intégrée ; la partie front reste l'étape principale suivante.
+**État de la session :** Mise en pause. Le code back et le code front de
+l'authentification sécurisée sont prêts pour relecture et tests manuels ; la
+prochaine session du 24 juillet 2026 commencera par la compréhension du diff
+front, les arbitrages de review Copilot côté back, puis les tests end-to-end.
 
 ---
 
