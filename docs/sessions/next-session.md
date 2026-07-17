@@ -28,13 +28,25 @@ transitoire et ne doit pas être prolongée dans les travaux suivants.
 ### Objectif 2 — Concevoir l'authentification sécurisée
 
 - [x] Créer une branche dédiée après le merge.
-- [ ] Définir le contrat de cookies entre Django/DRF et Vue avant de coder.
-- [ ] Traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh,
+- [x] Définir le contrat de cookies entre Django/DRF et Vue avant de coder.
+- [x] Traiter explicitement `HttpOnly`, `Secure`, `SameSite`, CSRF, refresh,
       rotation, expiration et logout.
 - [ ] Remplacer le stockage persistant du refresh token dans `localStorage` par
       la stratégie validée.
 - [ ] Adapter et tester le back-end, le client Axios et le store auth.
 - [ ] Vérifier le fonctionnement de bout en bout avant merge.
+
+**Avancement au point intermédiaire :**
+
+- ✅ Partie back réalisée sur `feat/secure-authentication` : refresh token en
+  cookie `HttpOnly`, access token en JSON, refresh/logout via cookie, blacklist
+  Simple JWT, expiration du cookie alignée sur le refresh token.
+- ✅ Tests auth back ciblés verts : `users/tests/test_api_auth.py` — 22 tests.
+- ✅ Documentation du contrat et du choix CSRF mise à jour.
+- ⏳ Merge back dans `dev` en cours/à confirmer par la développeuse.
+- ⏳ Partie front restante dans le repo `pause_empathique_front` : adapter Axios,
+  Pinia et le parcours auth pour ne plus utiliser `localStorage` pour le refresh
+  token.
 
 ### Limites de cette session
 
@@ -43,6 +55,8 @@ transitoire et ne doit pas être prolongée dans les travaux suivants.
 - Ne pas reprendre le Dashboard ni les pages du parcours avant la session dédiée.
 - Ne pas considérer tous les layouts applicatifs comme terminés : seuls ceux liés
   à l'authentification sont validés à ce stade.
+- Ne pas marquer l'objectif 2 comme terminé tant que l'intégration front et la
+  vérification end-to-end entre les deux repos ne sont pas réalisées.
 
 ---
 

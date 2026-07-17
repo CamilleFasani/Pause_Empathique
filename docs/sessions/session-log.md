@@ -5,6 +5,68 @@
 
 ---
 
+## Session #18 — point intermédiaire du 17 juillet 2026
+
+**Objectifs prévus :** Finaliser et merger la branche front auth/layout, puis
+concevoir et démarrer l'authentification sécurisée par cookies.
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 terminé côté front : la branche `feat/-base-layout-and-auth-views`
+  a été finalisée puis mergée dans `dev`.
+- ✅ Branche back dédiée `feat/secure-authentication` créée pour isoler la
+  sécurisation de l'authentification.
+- ✅ Contrat d'authentification validé et documenté : access token court conservé
+  en mémoire côté Vue/Pinia, refresh token sensible stocké dans un cookie
+  `HttpOnly` côté Django.
+- ✅ Back-end DRF adapté : login avec `Set-Cookie` du refresh token, refresh via
+  cookie, logout via cookie avec blacklist Simple JWT et suppression du cookie.
+- ✅ Configuration back ajoutée : `SIMPLE_JWT`, durée de vie du refresh token,
+  `REFRESH_COOKIE_MAX_AGE`, `Secure` selon environnement, `SameSite=Lax`,
+  `CORS_ALLOW_CREDENTIALS=True`.
+- ✅ Tests auth back mis à jour et verts : login, refresh, logout, absence de
+  refresh dans le JSON, cookie `HttpOnly`, expiration du cookie, blacklist.
+- ✅ Documentation OpenAPI auth ajustée pour ne plus annoncer un refresh token
+  dans le body des endpoints refresh/logout.
+- ✅ Décision CSRF documentée : pour cette étape, protection par `SameSite=Lax`,
+  cookie limité à `/api/v1/auth/`, et endpoints métier toujours authentifiés par
+  header `Authorization: Bearer <access token>`.
+
+**Vérifications réalisées :**
+
+- `poetry run ruff check ...` sur les fichiers back modifiés : vert.
+- `pytest users/tests/test_api_auth.py` : 22 tests verts.
+- `manage.py spectacular --validate` génère le schéma, avec des warnings/errors
+  OpenAPI existants sur d'autres vues non traitées dans cette étape.
+
+**Ce qui reste pour terminer l'objectif 2 :**
+
+- [ ] Merger la branche back `feat/secure-authentication` dans `dev` et vérifier
+  la CI.
+- [ ] Rebaser/merger la branche documentation pour garder les docs alignées.
+- [ ] Adapter le repo front Vue : client Axios avec `withCredentials`, access
+  token en mémoire, suppression du refresh token de `localStorage`, refresh
+  automatique via cookie, logout, restauration de session et gestion des `401`.
+- [ ] Vérifier le fonctionnement de bout en bout entre les deux repos avant
+  merge de la partie front.
+
+**Décisions prises :**
+
+- Le refresh token ne doit plus être exposé au JavaScript ni stocké dans
+  `localStorage`.
+- Le cookie de refresh est limité au chemin `/api/v1/auth/`, ce qui évite son
+  envoi aux endpoints métier comme les pauses.
+- L'access token reste le mécanisme d'authentification des requêtes protégées via
+  le header `Authorization`.
+- Un jeton CSRF dédié côté SPA n'est pas ajouté maintenant ; le sujet sera
+  réévalué si le déploiement impose `SameSite=None; Secure` ou si des endpoints
+  métier deviennent authentifiés par cookie.
+
+**État de la session :** En cours. La partie back de l'authentification sécurisée
+est prête à être intégrée ; la partie front reste l'étape principale suivante.
+
+---
+
 ## Session #17 — reprise du suivi le 10 juillet 2026
 
 **Objectifs prévus :** Poser les layouts de base, construire les vues de connexion
