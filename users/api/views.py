@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -10,11 +11,6 @@ from rest_framework_simplejwt.views import (
 )
 
 from .serializers import RegisterSerializer, UserSerializer
-
-REFRESH_COOKIE_NAME = "refresh_token"
-REFRESH_COOKIE_PATH = "/api/v1/auth/"
-REFRESH_COOKIE_SAMESITE = "Lax"
-REFRESH_COOKIE_SECURE = False
 
 
 class RegisterAPIView(APIView):
@@ -39,12 +35,13 @@ class CookieTokenObtainPairView(TokenObtainPairView):
 
         refresh_token = response.data.pop("refresh")
         response.set_cookie(
-            key=REFRESH_COOKIE_NAME,
+            key=settings.REFRESH_COOKIE_NAME,
             value=refresh_token,
             httponly=True,
-            secure=REFRESH_COOKIE_SECURE,
-            samesite=REFRESH_COOKIE_SAMESITE,
-            path=REFRESH_COOKIE_PATH,
+            secure=settings.REFRESH_COOKIE_SECURE,
+            samesite=settings.REFRESH_COOKIE_SAMESITE,
+            path=settings.REFRESH_COOKIE_PATH,
+            max_age=settings.REFRESH_COOKIE_MAX_AGE,
         )
 
         return response
@@ -54,7 +51,7 @@ class CookieTokenRefreshView(TokenRefreshView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.COOKIES.get(REFRESH_COOKIE_NAME)
+        refresh_token = request.COOKIES.get(settings.REFRESH_COOKIE_NAME)
         if not refresh_token:
             return Response(
                 {"detail": "Refresh token not provided."},
@@ -73,12 +70,13 @@ class CookieTokenRefreshView(TokenRefreshView):
         if "refresh" in response.data:
             new_refresh_token = response.data.pop("refresh")
             response.set_cookie(
-                key=REFRESH_COOKIE_NAME,
+                key=settings.REFRESH_COOKIE_NAME,
                 value=new_refresh_token,
                 httponly=True,
-                secure=REFRESH_COOKIE_SECURE,
-                samesite=REFRESH_COOKIE_SAMESITE,
-                path=REFRESH_COOKIE_PATH,
+                secure=settings.REFRESH_COOKIE_SECURE,
+                samesite=settings.REFRESH_COOKIE_SAMESITE,
+                path=settings.REFRESH_COOKIE_PATH,
+                max_age=settings.REFRESH_COOKIE_MAX_AGE,
             )
 
         return response
@@ -88,7 +86,7 @@ class CookieTokenBlacklistView(TokenBlacklistView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.COOKIES.get(REFRESH_COOKIE_NAME)
+        refresh_token = request.COOKIES.get(settings.REFRESH_COOKIE_NAME)
         if not refresh_token:
             return Response(
                 {"detail": "Refresh token not provided."},
@@ -103,7 +101,9 @@ class CookieTokenBlacklistView(TokenBlacklistView):
             raise InvalidToken(error.args[0]) from error
 
         response = Response(status=status.HTTP_200_OK)
-        response.delete_cookie(REFRESH_COOKIE_NAME, path=REFRESH_COOKIE_PATH)
+        response.delete_cookie(
+            settings.REFRESH_COOKIE_NAME, path=settings.REFRESH_COOKIE_PATH
+        )
 
         return response
 
