@@ -272,7 +272,7 @@ class LogoutAPITest(APITestCase):
         self.assertIn(REFRESH_COOKIE_NAME, response.cookies)
         deleted_cookie = response.cookies[REFRESH_COOKIE_NAME]
         self.assertEqual(deleted_cookie.value, "")
-        self.assertEqual(deleted_cookie["max-age"], "0")
+        self.assertEqual(deleted_cookie["max-age"], 0)
 
         # And the refresh token can no longer be used to get a new access token
         self.client.cookies[REFRESH_COOKIE_NAME] = refresh
