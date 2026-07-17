@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
@@ -158,6 +159,7 @@ class LoginAPITest(APITestCase):
         self.assertTrue(refresh_cookie.value)
         self.assertTrue(refresh_cookie["httponly"])
         self.assertEqual(refresh_cookie["path"], REFRESH_COOKIE_PATH)
+        self.assertEqual(refresh_cookie["max-age"], settings.REFRESH_COOKIE_MAX_AGE)
         self.assertIn(refresh_cookie["samesite"], ["Lax", "None"])
 
     def test_login_wrong_password(self):
