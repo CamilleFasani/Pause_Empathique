@@ -5,6 +5,54 @@
 
 ---
 
+## Session #19 — point intermédiaire du 24 juillet 2026
+
+**Objectifs prévus :** Comprendre et valider le flux d'authentification sécurisé
+côté front, arbitrer la review back, puis préparer les tests end-to-end et les
+merges.
+
+**Ce qui a été fait :**
+
+- ✅ Les commentaires de review Copilot côté back ont été relus, arbitrés et les
+  corrections jugées pertinentes ont été appliquées sur
+  `feat/secure-authentication`.
+- ✅ Le diff front sécurisé a été relu fichier par fichier : client Axios,
+  fonctions API auth, store Pinia et garde Vue Router.
+- ✅ Le flux complet login, restauration, ajout du Bearer token, refresh
+  automatique, rejeu de requête et logout a été reconstitué.
+- ✅ Trois redondances front ont été retirées : header `Authorization` géré
+  uniquement par l'intercepteur, restauration initiale gérée uniquement par la
+  garde Router, et nouveau Bearer token réinjecté par l'intercepteur lors du
+  rejeu.
+- ✅ Vérifications front après simplification : `npm run type-check`,
+  `npm run lint` et `npm run build` verts.
+
+**Ce qui reste :**
+
+- [ ] Relancer Ruff et les tests auth ciblés sur l'état final de la branche back.
+- [ ] Réaliser tous les scénarios navigateur prévus : cookie, restauration,
+  refresh automatique, absence de stockage persistant, logout et refus d'accès.
+- [ ] Effectuer les merges dans l'ordre prévu, avec vérification des CI.
+
+**Décisions prises :**
+
+- L'architecture front actuelle est conservée : fonctions HTTP dans `src/api`,
+  orchestration de session dans Pinia et décisions de navigation dans Vue Router.
+- L'access token a une seule source de vérité, le store Pinia en mémoire ;
+  l'intercepteur request est le seul responsable de sa traduction en header
+  `Authorization`.
+- La garde Router est le point unique de restauration de session au démarrage ;
+  `main.ts` reste limité à l'installation de Pinia et du Router.
+- Aucun framework de test front supplémentaire n'est ajouté dans cette étape :
+  les vérifications statiques sont vertes et la validation end-to-end prévue
+  reste le prochain prérequis au merge.
+
+**État de la session :** Point intermédiaire. La relecture pédagogique et la
+simplification front sont terminées ; les contrôles back finaux, les tests
+navigateur et les merges restent à réaliser.
+
+---
+
 ## Session #18 — point intermédiaire du 17 juillet 2026
 
 **Objectifs prévus :** Finaliser et merger la branche front auth/layout, puis

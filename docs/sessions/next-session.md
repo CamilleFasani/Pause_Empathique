@@ -29,37 +29,42 @@ les tests manuels/end-to-end.
 
 ### Objectif 1 prioritaire — Comprendre le travail front réalisé
 
-- [ ] Relire le diff front de `feat/secure-authentication`.
-- [ ] Comprendre le rôle de `src/api/client.ts` :
+- [x] Relire le diff front de `feat/secure-authentication`.
+- [x] Comprendre le rôle de `src/api/client.ts` :
   - `withCredentials`;
   - intercepteur request pour `Authorization`;
   - intercepteur response sur `401`;
   - `refreshPromise` pour éviter les refresh concurrents ;
   - `skipAuthRefresh` pour éviter les boucles sur login/refresh/logout.
-- [ ] Comprendre le rôle de `src/api/auth.ts` :
+- [x] Comprendre le rôle de `src/api/auth.ts` :
   - login/register/refresh/logout alignés avec le contrat back ;
   - refresh/logout sans body ;
   - réponse auth limitée à `{ access: string }`.
-- [ ] Comprendre le rôle de `src/stores/auth.ts` :
+- [x] Comprendre le rôle de `src/stores/auth.ts` :
   - access token en mémoire ;
   - suppression du refresh token côté front ;
   - restauration de session via cookie ;
   - `isAuthReady` ;
   - logout et nettoyage de session.
-- [ ] Comprendre le rôle de la garde Vue Router :
+- [x] Comprendre le rôle de la garde Vue Router :
   - attendre l'initialisation auth ;
   - protéger les routes privées ;
   - rediriger une utilisatrice déjà connectée hors de login/register.
 
+Le 24 juillet, la relecture a aussi supprimé trois redondances : initialisation
+auth retirée de `main.ts` au profit de la garde, gestion du header
+`Authorization` confiée uniquement à l'intercepteur request, et rejeu après
+refresh confié au même intercepteur.
+
 ### Objectif 2 — Arbitrer la review Copilot côté back
 
-- [ ] Relire les commentaires Copilot sur la branche back
+- [x] Relire les commentaires Copilot sur la branche back
   `feat/secure-authentication`.
-- [ ] Classer chaque remarque :
+- [x] Classer chaque remarque :
   - à corriger avant merge ;
   - à documenter/assumer ;
   - à reporter dans une étape dédiée.
-- [ ] Appliquer les corrections retenues côté back.
+- [x] Appliquer les corrections retenues côté back.
 - [ ] Relancer les vérifications back utiles :
   - `poetry run ruff check ...` ;
   - `pytest users/tests/test_api_auth.py` ;
@@ -79,7 +84,7 @@ les tests manuels/end-to-end.
   - logout avec suppression du cookie ;
   - route protégée inaccessible après logout ;
   - mauvais identifiants sans boucle de refresh.
-- [ ] Relancer côté front :
+- [x] Relancer côté front :
   - `npm run type-check` ;
   - `npm run lint` ;
   - `npm run build`.

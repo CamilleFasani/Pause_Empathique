@@ -42,8 +42,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Choix authentification/pratique anonyme intégré directement à Welcome et
   relié aux routes correspondantes
 - 🚧 Layouts applicatifs seulement partiellement réalisés
-- ⚠️ Gestion JWT front actuelle avec refresh token dans `localStorage`, solution
-  transitoire à remplacer par une stratégie sécurisée par cookies
+- 🚧 Authentification sécurisée implémentée sur les branches dédiées : access
+  token en mémoire côté front et refresh token en cookie `HttpOnly` côté back ;
+  validation navigateur et merges encore requis
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -188,7 +189,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] Ajouter une première garde de navigation pour les routes protégées
 - [ ] Remplacer le refresh token stocké dans `localStorage` par une stratégie de
       cookies sécurisés — session dédiée prévue le 17 juillet 2026
-- [ ] Définir et documenter le contrat complet : `HttpOnly`, `Secure`, `SameSite`,
+- [x] Définir et documenter le contrat complet : `HttpOnly`, `Secure`, `SameSite`,
       CSRF, rotation/expiration du refresh et logout
 - [ ] Adapter et tester le back-end DRF, Axios et le store Pinia selon ce contrat
 
