@@ -300,6 +300,13 @@ class LogoutAPITest(APITestCase):
         # Then we get a 401 (Simple JWT rejects the token as unauthorized)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
+        # And the unusable cookie is still removed from the browser
+        self.assertIn(REFRESH_COOKIE_NAME, response.cookies)
+        deleted_cookie = response.cookies[REFRESH_COOKIE_NAME]
+        self.assertEqual(deleted_cookie.value, "")
+        self.assertEqual(deleted_cookie["max-age"], 0)
+        self.assertEqual(deleted_cookie["path"], settings.REFRESH_COOKIE_PATH)
+
 
 class UserMeAPITest(APITestCase):
     def setUp(self):
