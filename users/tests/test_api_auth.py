@@ -63,6 +63,38 @@ class RegisterSerializerTest(APITestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn("password", serializer.errors)
 
+    def test_password_similar_to_email_is_rejected(self):
+        # Given registration data with a password identical to the email
+        data = {
+            "email": "unique-person-8472@example.com",
+            "password": "unique-person-8472@example.com",
+            "firstname": "Martin",
+            "gender": "M",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected as too similar to the email
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
+
+    def test_password_similar_to_firstname_is_rejected(self):
+        # Given registration data with a password identical to the firstname
+        data = {
+            "email": "zephyranthelia@test.fr",
+            "password": "Zéphyranthélia",
+            "firstname": "Zéphyranthélia",
+            "gender": "F",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected as too similar to the firstname
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
+
 
 class RegisterAPITest(APITestCase):
     def setUp(self):
