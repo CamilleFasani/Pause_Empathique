@@ -10,13 +10,13 @@
 Transformer **Pause Empathique** d'une application Django full stack en une architecture découplée :
 
 - **Back-end** : API REST Django (DRF) — repo actuel
-- **Front-end** : SPA Vue.js 3 + TypeScript — repo séparé (à créer)
+- **Front-end** : SPA Vue.js 3 + TypeScript — repo séparé
 
 L'objectif est double : livrer une application de qualité production ET acquérir les compétences du titre CDA.
 
 ---
 
-## État actuel — Avril 2026
+## État actuel — Juillet 2026
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
@@ -35,6 +35,16 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Stratégie de transition actée : V1 maintenue en production, V2 travaillée sur staging
 - ✅ Endpoints auth API implémentés : register, login, refresh, logout, profil (GET/PATCH/DELETE)
 - ✅ Tests API auth et login/logout écrits
+- ✅ Socle du front Vue opérationnel : Router, Pinia, client Axios et connexion à
+  l'API
+- ✅ Vues de connexion et d'inscription réalisées et branchées au store auth
+- ✅ Page Welcome et layout d'authentification réalisés
+- ✅ Choix authentification/pratique anonyme intégré directement à Welcome et
+  relié aux routes correspondantes
+- ✅ Authentification sécurisée validée et mergée : access token en mémoire côté
+  front, refresh token en cookie `HttpOnly` côté back, restauration de session,
+  refresh automatique et logout vérifiés manuellement
+- 🚧 Layouts applicatifs seulement partiellement réalisés
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -117,9 +127,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
 Pour chaque ressource, créer serializer + viewset + URL avant de migrer le front :
 
 - [x] **Auth** : register, login (JWT), logout, profil (GET/PATCH), suppression de compte — mergé dans `dev`
-- [x] **Pauses** : list, create, retrieve, update, delete — mergé dans `feature/pauses-api` (session #13)
-- [ ] **Feelings** : list (lecture seule, organisée par famille)
-- [ ] **Needs** : list (lecture seule)
+- [x] **Pauses** : list, create, retrieve, update, delete — mergé dans `dev` (session #13)
+- [x] **Feelings** : `GET /api/v1/feelings/` — `FeelingsListView`, `AllowAny`, `pagination_class = None` — session #15
+- [x] **Needs** : `GET /api/v1/needs/` — `NeedsListView`, `AllowAny`, `pagination_class = None` — session #15
 
 **Décisions d'architecture API — Feelings/Needs (session #12, 17 avril 2026) :**
 
@@ -135,8 +145,8 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] Tests unitaires serializer Pause : `pauses/tests/test_serializers.py` (8 tests) — session #12
 - [x] Tests d'intégration Pauses (CRUD) : `pauses/tests/test_api_pauses.py` (28 tests) — session #12 (TDD, phase red) → **verts en session #13**
 - [x] Tests anonymes (ANO-01, ANO-02) — après conception du compteur (session #14)
-- [ ] Tests Feelings, Needs — après implémentation des endpoints
-- [ ] Couverture `pauses` ≥ 80 % après passage au vert (session #13)
+- [x] Tests Feelings, Needs — FEE-01/02 + NEE-01/02 dans `test_api_pauses.py` — session #15
+- [x] Couverture `pauses` ≥ 80 % — **100 %** — session #15
 
 #### 2.4 — Documentation API
 
@@ -150,17 +160,17 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 ---
 
-### Phase 3 — Frontend Vue.js + TypeScript ⏳ EN ATTENTE PHASE 2
+### Phase 3 — Frontend Vue.js + TypeScript 🚧 EN COURS
 
 > Objectif : SPA Vue.js 3 consommant l'API DRF, déployée séparément.
 
 #### 3.1 — Setup du repo front
 
 - [x] Créer un nouveau repo GitHub `pause-empathique-front`
-- [ ] Initialiser avec Vite + Vue.js 3 + TypeScript
-- [ ] Configurer Tailwind CSS v4
-- [ ] Configurer le linter (ESLint + Prettier)
-- [ ] CI/CD : lint + build check
+- [x] Initialiser avec Vite + Vue.js 3 + TypeScript — session #15
+- [x] Configurer Tailwind CSS v4 — session #15
+- [x] Configurer le linter (ESLint + Prettier) — session #15
+- [x] CI/CD : lint + type-check + build check — session #15
 
 #### 3.1.1 — Composable `useGender()`
 
@@ -172,10 +182,23 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 3.2 — Authentification
 
-- [ ] Intégrer la gestion des tokens JWT (access + refresh)
-- [x] Décider du stockage : access token en mémoire front, refresh token en cookie `HttpOnly`
-- [ ] Guards de navigation (routes protégées)
-- [ ] Store Pinia pour l'état auth
+- [x] Créer les vues et formulaires de connexion/inscription avec validation
+- [x] Brancher connexion et inscription au store Pinia et à l'API
+- [x] Mettre en place une première gestion JWT (access, refresh, restauration de
+      session et logout)
+- [x] Ajouter une première garde de navigation pour les routes protégées
+- [x] Remplacer le refresh token stocké dans `localStorage` par une stratégie de
+      cookies sécurisés — session #19, validée et mergée
+- [x] Définir et documenter le contrat complet : `HttpOnly`, `Secure`, `SameSite`,
+      CSRF, rotation/expiration du refresh et logout
+- [x] Adapter et tester le back-end DRF, Axios et le store Pinia selon ce contrat
+
+#### 3.2.1 — Entrée dans le parcours
+
+- [x] Créer la page publique Welcome
+- [x] Intégrer directement à Welcome les choix authentification ou pratique anonyme
+- [x] Relier chaque choix à son parcours par un lien Vue Router
+- [x] Merger `feat/-base-layout-and-auth-views` dans `dev` après validation qualité
 
 **Décision d'architecture auth sécurisée — 17 juillet 2026 :**
 
@@ -199,7 +222,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - Pour cette étape, la protection CSRF des endpoints refresh/logout repose sur
   `SameSite=Lax`, sur un cookie limité au chemin `/api/v1/auth/`, et sur le fait
   que les endpoints métier restent authentifiés par `Authorization: Bearer
-  <access token>` plutôt que par cookie. `CSRF_TRUSTED_ORIGINS` reste nécessaire
+<access token>` plutôt que par cookie. `CSRF_TRUSTED_ORIGINS` reste nécessaire
   pour les flux Django soumis à la vérification CSRF, mais ne constitue pas seul
   une protection CSRF complète pour l'API JWT.
 - Un jeton CSRF dédié côté SPA n'est pas ajouté dans cette étape. Il devra être
@@ -224,7 +247,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 Pour chaque vue Django existante, créer le composant Vue équivalent :
 
-- [ ] Login / Register
+- [x] Login / Register
 - [ ] Dashboard
 - [ ] Observation (étape 1)
 - [ ] Feelings (étape 2)
@@ -232,6 +255,13 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [ ] Diary (liste des pauses)
 - [ ] Détail d'une pause
 - [ ] Profil utilisateur
+
+**Ordre de travail retenu en juillet 2026 :**
+
+1. finaliser le Dashboard et le layout applicatif ;
+2. construire le parcours de pratique : observation, sentiments, besoins ;
+3. consommer progressivement les endpoints API depuis les stores/composables
+   front appropriés.
 
 #### 3.4 — Mise à jour sécurité
 
@@ -297,14 +327,14 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ## Informations à collecter
 
-| Information                                                 | Statut                        |
-| ----------------------------------------------------------- | ----------------------------- |
-| Détails de la nouvelle charte graphique (couleurs, typos)   | ⚠️ En cours de définition     |
-| Stratégie composants design system (maison + librairie)     | ✅ Validée (approche hybride) |
-| URL du repo front Vue.js                                    | ❌ À créer                    |
-| Contraintes de délai pour la formation CDA                  | ❌ À préciser                 |
-| Décision stockage JWT : `HttpOnly cookie` vs `localStorage` | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front |
-| Stack logs/monitoring retenue                               | ❌ À décider (phase 5)        |
+| Information                                               | Statut                                                                    |
+| --------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Détails de la nouvelle charte graphique (couleurs, typos) | ⚠️ En cours de définition                                                 |
+| Stratégie composants design system (maison + librairie)   | ✅ Validée (approche hybride)                                             |
+| URL du repo front Vue.js                                  | ✅ Repo créé et initialisé                                                |
+| Contraintes de délai pour la formation CDA                | ❌ À préciser                                                             |
+| Orientation stockage JWT                                  | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front        |
+| Stack logs/monitoring retenue                             | ❌ À décider (phase 5)                                                    |
 
 ---
 

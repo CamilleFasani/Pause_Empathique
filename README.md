@@ -1,89 +1,66 @@
-##### Projet conçu et développé en solo pour le titre RNCP5 Développeur Web/Web Mobile   #####
+# Pause Empathique — Back-end
 
-# PAUSE EMPATHIQUE
-*Observer, Ressentir, Comprendre, Agir*
+> Projet conçu et développé en solo dans le cadre du titre RNCP6 Concepteur Développeur d'Applications.
 
-Une application web qui permet de pratiquer l'auto-empathie de façon guidée, inspirée par la Communication Non Violente (CNV).
-C'est un outil accessible et gratuit, pour affiner son discernement et apprendre à accueillir ses émotions. 
+API REST Django permettant de pratiquer l'auto-empathie de façon guidée, inspirée par la Communication Non Violente (CNV). Les utilisateurs peuvent créer et gérer des pauses empathiques en identifiant leurs sentiments et besoins.
 
-<img width="1252" height="735" alt="image" src="https://github.com/user-attachments/assets/4a22eb61-016d-4037-ae32-7033543c203e" />
+## Stack technique
 
+- **Python 3.13** / **Django 5.2** / **Django REST Framework**
+- **PostgreSQL 17**
+- **Simple JWT** — authentification par tokens
+- **Poetry** — gestion des dépendances
+- **Docker & Docker Compose** — environnement de développement
+- **pytest + pytest-cov** — tests et couverture
+- **Ruff** — linting et formatage
+- **GitHub Actions** — CI (lint, tests, audit sécurité)
 
-## ✨ Fonctionnalités
+## Lancer le projet en local
 
-- **Journal personnel** : Créez et gérez vos pauses empathiques
-- **Processus guidé** : Suivez les étapes de la CNV (Observation, Sentiments, Besoins)
-- **Suivi émotionnel** : Identifiez vos sentiments
-- **Identification des besoins** : Explorez vos besoins fondamentaux
-- **Interface responsive** : Optimisée pour mobile et desktop
+**Prérequis :** Docker, Docker Compose, Poetry
 
-## 🛠️ Technologies
+```bash
+# 1. Copier et remplir les variables d'environnement
+cp .env.example .env
 
-### Backend
-- **Django 5.2**
-- **PostgreSQL**
-- **Python 3.13** 
+# 2. Démarrer les conteneurs
+docker compose up -d
 
-### Frontend
-- **Tailwind CSS 4.1** 
-- **JavaScript Vanilla** 
-- **Templates Django**
+# 3. Appliquer les migrations
+docker compose exec web python manage.py migrate
 
-## 💻 Outils de développement
+# 4. (Optionnel) Charger les données de base
+docker compose exec web python manage.py loaddata pauses/fixtures/feelings.json
+docker compose exec web python manage.py loaddata pauses/fixtures/needs.json
+```
 
-- **Poetry**
-- **Docker & Docker Compose** 
-- **Node.js** (pour Tailwind CSS)
+L'API est accessible sur `http://localhost:8000`.
+La documentation interactive (Swagger) est disponible sur `http://localhost:8000/api/docs/`.
 
-## ⌚ A venir
+## Tests
 
-- [ ] Alpine JS
-- [ ] Visualisation de statistiques des données
-- [x] Mise en place de tests
-- [x] Déploiement avec Railway
-- [ ] Mise en place CI/CD
-      
-et + encore... ! 
+```bash
+# Lancer tous les tests
+docker compose exec web pytest
 
----
+# Avec rapport de couverture
+docker compose exec web pytest --cov
+```
 
-##### Project designed and developed solo for the RNCP5 Web/Mobile Web Developer certification #####
-# EMPATHIC PAUSE
-*Observe, Feel, Understand, Act*
+## Endpoints principaux
 
-A web application that enables guided self-empathy practice, inspired by Nonviolent Communication (NVC).
-It's an accessible and free tool to refine your discernment and learn to embrace your emotions.
+| Méthode            | URL                             | Description                 |
+| ------------------ | ------------------------------- | --------------------------- |
+| `GET`              | `/api/v1/health/`               | Santé de l'API              |
+| `POST`             | `/api/v1/users/`                | Inscription                 |
+| `POST`             | `/api/v1/auth/token/`           | Connexion (JWT)             |
+| `POST`             | `/api/v1/auth/token/refresh/`   | Rafraîchir le token         |
+| `POST`             | `/api/v1/auth/token/blacklist/` | Déconnexion                 |
+| `GET/PATCH/DELETE` | `/api/v1/users/me/`             | Profil utilisateur          |
+| `GET/POST`         | `/api/v1/pauses/`               | Liste et création de pauses |
+| `GET`              | `/api/v1/feelings/`             | Liste des sentiments        |
+| `GET`              | `/api/v1/needs/`                | Liste des besoins           |
 
-## ✨ Features
-- **Personal journal**: Create and manage your empathic pauses
-- **Guided process**: Follow NVC steps (Observation, Feelings, Needs)
-- **Emotional tracking**: Identify your feelings
-- **Needs identification**: Explore your fundamental needs
-- **Responsive interface**: Optimized for mobile and desktop
+## Front-end
 
-## 🛠️ Technologies
-### Backend
-- **Django 5.2**
-- **PostgreSQL**
-- **Python 3.13**
-
-### Frontend
-- **Tailwind CSS 4.1**
-- **Vanilla JavaScript**
-- **Django Templates**
-
-## 💻 Development Tools
-- **Poetry**
-- **Docker & Docker Compose**
-- **Node.js** (for Tailwind CSS)
-
-## ⌚ Coming Soon
-- [ ] Alpine JS
-- [ ] Data visualization and statistics
-- [x] Test implementation
-- [x] Railway deployment
-- [ ] CI/CD setup
-
-and much more...!
-
- P+E=🤍
+Le front-end Vue.js est dans un repo séparé : [`pause_empathique_front`](../pause_empathique_front/).

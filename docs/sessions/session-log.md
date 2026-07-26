@@ -5,6 +5,314 @@
 
 ---
 
+## Session #19 — 24 juillet 2026, clôturée le 26 juillet 2026
+
+**Objectifs prévus :** Comprendre et valider le flux d'authentification sécurisé
+côté front, arbitrer la review back, puis préparer les tests end-to-end et les
+merges.
+
+**Ce qui a été fait :**
+
+- ✅ Les commentaires de review Copilot côté back ont été relus, arbitrés et les
+  corrections jugées pertinentes ont été appliquées sur
+  `feat/secure-authentication`.
+- ✅ Le diff front sécurisé a été relu fichier par fichier : client Axios,
+  fonctions API auth, store Pinia et garde Vue Router.
+- ✅ Le flux complet login, restauration, ajout du Bearer token, refresh
+  automatique, rejeu de requête et logout a été reconstitué.
+- ✅ Trois redondances front ont été retirées : header `Authorization` géré
+  uniquement par l'intercepteur, restauration initiale gérée uniquement par la
+  garde Router, et nouveau Bearer token réinjecté par l'intercepteur lors du
+  rejeu.
+- ✅ Vérifications front après simplification : `npm run type-check`,
+  `npm run lint` et `npm run build` verts.
+- ✅ Les corrections back retenues ont été vérifiées : Ruff et tests auth ciblés
+  verts, puis suite `pytest` complète verte.
+- ✅ Les tests manuels navigateur ont validé le flux attendu : création du cookie
+  `refresh_token` `HttpOnly`, absence de refresh token côté JavaScript,
+  restauration de session, refresh automatique après expiration de l'access
+  token et logout.
+- ✅ Le problème local de refresh non envoyé au back a été diagnostiqué : le front
+  appelait directement `localhost:8000`, ce qui rendait le transport du cookie
+  fragile en développement. Le front utilise maintenant `/api/v1` avec proxy
+  Vite vers Django.
+- ✅ Les branches back et front `feat/secure-authentication` ont été mergées dans
+  `dev` après validation.
+- ✅ La branche documentation a été rebasée sur `dev` pour préparer le merge des
+  documents de suivi.
+
+**Ce qui reste :**
+
+- [ ] Merger cette branche documentation dans `dev`.
+- [ ] Ouvrir, au début de la prochaine session, une nouvelle branche de
+  documentation et une nouvelle branche front pour le Dashboard et le parcours de
+  pratique.
+
+**Décisions prises :**
+
+- L'architecture front actuelle est conservée : fonctions HTTP dans `src/api`,
+  orchestration de session dans Pinia et décisions de navigation dans Vue Router.
+- L'access token a une seule source de vérité, le store Pinia en mémoire ;
+  l'intercepteur request est le seul responsable de sa traduction en header
+  `Authorization`.
+- La garde Router est le point unique de restauration de session au démarrage ;
+  `main.ts` reste limité à l'installation de Pinia et du Router.
+- Aucun framework de test front supplémentaire n'est ajouté dans cette étape :
+  les vérifications statiques sont vertes et la validation end-to-end prévue
+  a été réalisée manuellement avant merge.
+- En développement local, le front appelle l'API via `/api/v1` et un proxy Vite
+  afin que le navigateur traite le refresh cookie dans un contexte same-origin
+  apparent. Le back reste l'autorité de validation du cookie.
+- La prochaine étape fonctionnelle regroupera Dashboard, layout applicatif et
+  parcours de pratique dans une branche front dédiée, avec une branche docs
+  séparée pour garder le suivi à jour.
+
+**État de la session :** Clôturée. Les objectifs 1 à 4 de la session du
+24 juillet sont réalisés ; l'authentification sécurisée est validée et mergée
+côté back et front. La documentation peut être mergée après cette mise à jour.
+
+**Humeur de la session :** Gros morceau de sécurité mené jusqu'au bout, avec une
+compréhension nettement plus solide du rôle exact du navigateur dans les cookies
+`HttpOnly`.
+
+---
+
+## Session #18 — point intermédiaire du 17 juillet 2026
+
+**Objectifs prévus :** Finaliser et merger la branche front auth/layout, puis
+concevoir et démarrer l'authentification sécurisée par cookies.
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 terminé côté front : la branche `feat/-base-layout-and-auth-views`
+  a été finalisée puis mergée dans `dev`.
+- ✅ Branche back dédiée `feat/secure-authentication` créée pour isoler la
+  sécurisation de l'authentification.
+- ✅ Contrat d'authentification validé et documenté : access token court conservé
+  en mémoire côté Vue/Pinia, refresh token sensible stocké dans un cookie
+  `HttpOnly` côté Django.
+- ✅ Back-end DRF adapté : login avec `Set-Cookie` du refresh token, refresh via
+  cookie, logout via cookie avec blacklist Simple JWT et suppression du cookie.
+- ✅ Configuration back ajoutée : `SIMPLE_JWT`, durée de vie du refresh token,
+  `REFRESH_COOKIE_MAX_AGE`, `Secure` selon environnement, `SameSite=Lax`,
+  `CORS_ALLOW_CREDENTIALS=True`.
+- ✅ Tests auth back mis à jour et verts : login, refresh, logout, absence de
+  refresh dans le JSON, cookie `HttpOnly`, expiration du cookie, blacklist.
+- ✅ Documentation OpenAPI auth ajustée pour ne plus annoncer un refresh token
+  dans le body des endpoints refresh/logout.
+- ✅ Décision CSRF documentée : pour cette étape, protection par `SameSite=Lax`,
+  cookie limité à `/api/v1/auth/`, et endpoints métier toujours authentifiés par
+  header `Authorization: Bearer <access token>`.
+- ✅ Front Vue adapté au contrat cookie : `withCredentials`, fonctions API auth
+  sans refresh token dans le body, suppression du refresh token de `localStorage`,
+  access token conservé en mémoire, refresh automatique sur `401`, logout sans
+  body, garde de route avec état `isAuthReady`.
+
+**Vérifications réalisées :**
+
+- `poetry run ruff check ...` sur les fichiers back modifiés : vert.
+- `pytest users/tests/test_api_auth.py` : 22 tests verts.
+- `manage.py spectacular --validate` génère le schéma, avec des warnings/errors
+  OpenAPI existants sur d'autres vues non traitées dans cette étape.
+- Côté front : `npm run type-check`, `npm run lint` et `npm run build` verts
+  après adaptation Axios/Pinia/router.
+
+**Ce qui reste pour terminer l'objectif 2 :**
+
+- [ ] Relire pédagogiquement le diff front pour bien comprendre les changements
+  Axios, API auth, store Pinia et router.
+- [ ] Arbitrer les remarques de review Copilot sur la branche back
+  `feat/secure-authentication`.
+- [ ] Vérifier le fonctionnement de bout en bout entre les deux repos dans le
+  navigateur avant merge de la partie front.
+- [ ] Merger la branche back `feat/secure-authentication` dans `dev` et vérifier
+  la CI.
+- [ ] Rebaser/merger la branche documentation pour garder les docs alignées.
+- [ ] Merger la branche front `feat/secure-authentication` une fois back, docs et
+  tests end-to-end validés.
+
+**Décisions prises :**
+
+- Le refresh token ne doit plus être exposé au JavaScript ni stocké dans
+  `localStorage`.
+- Le cookie de refresh est limité au chemin `/api/v1/auth/`, ce qui évite son
+  envoi aux endpoints métier comme les pauses.
+- L'access token reste le mécanisme d'authentification des requêtes protégées via
+  le header `Authorization`.
+- Un jeton CSRF dédié côté SPA n'est pas ajouté maintenant ; le sujet sera
+  réévalué si le déploiement impose `SameSite=None; Secure` ou si des endpoints
+  métier deviennent authentifiés par cookie.
+- Les merges seront faits dans l'ordre : back sécurisé, docs back, puis front
+  sécurisé après validation end-to-end.
+
+**État de la session :** Mise en pause. Le code back et le code front de
+l'authentification sécurisée sont prêts pour relecture et tests manuels ; la
+prochaine session du 24 juillet 2026 commencera par la compréhension du diff
+front, les arbitrages de review Copilot côté back, puis les tests end-to-end.
+
+---
+
+## Session #17 — reprise du suivi le 10 juillet 2026
+
+**Objectifs prévus :** Poser les layouts de base, construire les vues de connexion
+et d'inscription, brancher l'authentification au store, puis préparer le Dashboard
+et le parcours de pratique.
+
+**Ce qui a été fait au cours des sessions intermédiaires :**
+
+- ⚠️ Objectif 1 partiellement terminé : le layout et l'intégration visuelle des
+  vues d'authentification sont réalisés ; les layouts et structures des autres
+  pages de l'application restent à finaliser.
+- ✅ Objectif 2 terminé : `LoginForm` et `RegisterForm` sont construits avec leurs
+  validations, leurs états d'erreur et l'affichage des mots de passe.
+- ✅ Le basculement connexion/inscription est piloté par les routes `/login` et
+  `/register` dans une `AuthView` commune.
+- ✅ Les formulaires sont branchés au store Pinia : inscription, connexion et
+  redirection après succès fonctionnent.
+- ✅ Une première gestion de session JWT est en place : restauration de session,
+  refresh, logout et garde de route pour la page authentifiée.
+- ✅ La page d'accueil publique `WelcomeView` et les premiers éléments du layout
+  général (header mobile, sidebar desktop, footer et logo) ont été réalisés.
+- ✅ L'entrée dans le parcours est désormais présentée directement sur
+  `WelcomeView` avec deux choix : pratique sans compte ou conservation d'une
+  trace avec compte. Le trajet animé est prolongé derrière ces choix et leurs
+  libellés secondaires suivent un arc SVG.
+- ✅ `WelcomeChoiceButton` est désormais un lien Vue Router réutilisable, avec une
+  destination typée par la prop `to` : « Libre comme l'air » ouvre le début de la
+  pratique anonyme et « Garder une trace » ouvre la connexion.
+- ✅ Les vérifications front `npm run type-check`, `npm run lint` et
+  `npm run build` ont réussi le 10 juillet 2026.
+- ⚠️ Le refresh token est actuellement conservé dans `localStorage`. Cette solution
+  est transitoire et doit être remplacée par une stratégie sécurisée par cookies.
+
+**Ce qui reste avant intégration de `feat/-base-layout-and-auth-views` :**
+
+- [ ] Effectuer une dernière relecture du diff et vérifier manuellement le rendu
+  et la navigation de `WelcomeView` sur mobile et desktop.
+- [ ] Finaliser les commits, merger la branche dans `dev` et vérifier la CI.
+- [ ] Finaliser ultérieurement les layouts des pages applicatives dans le contexte
+  du Dashboard et du parcours de pratique.
+
+**Décisions prises :**
+
+- La page intermédiaire initialement prévue est abandonnée : `WelcomeView`
+  présente directement le choix entre créer/se connecter à un compte et pratiquer
+  sans compte.
+- Les choix sont des liens sémantiques fondés sur `RouterLink` et des routes
+  nommées. La navigation immédiate est retenue pour cette branche ; une animation
+  de sortie supplémentaire n'est pas un prérequis au merge.
+- La gestion actuelle des JWT côté navigateur est provisoire. Une branche dédiée
+  traitera le transport par cookies et l'authentification sécurisée le 17 juillet
+  2026.
+- Le Dashboard et l'ensemble du parcours de pratique seront repris après cette
+  sécurisation et regroupés sur une même branche fonctionnelle.
+- Les documents transversaux du projet restent centralisés et versionnés dans le
+  dossier back-end `docs/`.
+
+**Blocages / Points ouverts :**
+
+- Aucun blocage technique identifié pour le merge de la branche front.
+- La vérification visuelle responsive reste à effectuer dans la relecture finale.
+- Définir précisément le contrat des cookies avec le back-end : cookies
+  `HttpOnly`, attributs `Secure`/`SameSite`, protection CSRF, refresh, rotation et
+  logout.
+
+**État de la session :** Clôturée le 10 juillet 2026. La prochaine session
+commencera par la finalisation et le merge de la branche dans `dev`.
+
+**Humeur de la session :** La branche auth/layout est prête pour sa dernière
+relecture ; le socle d'authentification front fonctionne et la prochaine étape de
+sécurisation est clairement cadrée.
+
+---
+
+## Session #16 — 12 juin 2026
+
+**Objectifs prévus :** Vue Router, Pinia, premier appel API
+
+**Ce qui a été fait :**
+
+- ✅ Branche `feat/vue-router-pinia` créée
+- ✅ Vue Router 4 installé (`npm install vue-router@4`)
+- ✅ `src/router/index.ts` : routes `/` (WelcomeView), `/login` et `/register` (AuthView) configurées
+- ✅ Décision architecture auth : une seule `AuthView` + deux composants `LoginForm` / `RegisterForm` (toggle basé sur l'URL)
+- ✅ `App.vue` : coquille vide avec `<RouterView />`
+- ✅ `main.ts` : Pinia branché avant Router (`app.use(pinia).use(router)`)
+- ✅ `src/stores/auth.ts` : `useAuthStore` avec `isAuthenticated: false`, `user: User | null`, `actions: {}`
+- ✅ `src/api/client.ts` : instance axios configurée avec `VITE_API_URL` (variable d'environnement Vite)
+- ✅ Connexion front ↔ back validée : `GET /api/v1/health/` → `{ status: "ok" }` dans la console
+- ✅ `npm run type-check` + `npm run lint` verts
+- ✅ Commit sur `feat/vue-router-pinia`
+
+**Concepts appris :**
+
+- `useRoute()` vs `useRouter()` — lire la route vs naviguer
+- `computed()` pour dériver un état réactif depuis la route
+- `onMounted()` — hook de cycle de vie, exécuté au montage du composant
+- `async/await` + `try/catch` vs `.then/.catch` — ne pas mélanger les deux styles
+- Import nommé `{ x }` vs import par défaut — correspondance obligatoire avec l'export
+- Variables d'environnement Vite : préfixe `VITE_`, accès via `import.meta.env`
+- Types locaux vs `src/types/index.ts` — déplacer quand partagé entre 2+ fichiers
+- `as Type | null` pour annoter la valeur initiale `null` avec un type futur
+
+**Décisions prises :**
+
+- **Architecture auth** : une `AuthView` + deux composants (`LoginForm`, `RegisterForm`) — l'URL détermine le formulaire affiché, pas un état local
+- **URLs en anglais** : `/login`, `/register` (pas `/connexion`, `/inscription`)
+- **axios** retenu sur `fetch` : instance réutilisable, headers centralisés, intercepteurs JWT à venir
+- **Options API Pinia** retenue (`state/actions`) pour le store auth
+
+**Blocages / Points ouverts :**
+
+- Décision stockage JWT (localStorage vs httpOnly cookie) reportée à session #17
+
+**Humeur de la session :** Bonne session pédagogique — concepts Vue compris et appliqués par la développeuse elle-même. Architecture auth bien raisonnée avant le code.
+
+---
+
+## Session #15 — 5 juin 2026
+
+**Objectifs prévus :** Validation finale back, endpoints Feelings + Needs, initialisation repo front
+
+**Ce qui a été fait :**
+
+- ✅ Validation back : couverture **84 %** (81 tests au vert), `pauses` API **100 %**, CI verte sur `dev` confirmée
+- ✅ Merge `feat/add-pauses-endpoints` → `dev` confirmé
+- ✅ CVE `pyjwt` (PYSEC-2026-175/177/178/179) : mise à jour vers **2.13.0** (`poetry add "pyjwt>=2.13.0"`)
+- ✅ Endpoints `GET /api/v1/feelings/` et `GET /api/v1/needs/` implémentés (`FeelingsListView`, `NeedsListView` — `ListAPIView`, `AllowAny`, `pagination_class = None`)
+- ✅ Fichiers d'URLs dédiés `feeling_urls.py` et `need_urls.py` créés (namespaces indépendants `feelings` / `needs`)
+- ✅ Tests FEE-01/FEE-02 et NEE-01/NEE-02 écrits et verts dans `test_api_pauses.py`
+- ✅ Repo front initialisé : Vite + Vue 3 + TypeScript (`create-vite`, template `vue-ts`)
+- ✅ Tailwind CSS v4 configuré via plugin Vite (`@tailwindcss/vite`)
+- ✅ ESLint (flat config v9) + Prettier configurés ; scripts `lint`, `type-check`, `format` ajoutés
+- ✅ `.env.example` avec `VITE_API_URL`, `.gitignore` complété (WSL + secrets)
+- ✅ CI GitHub Actions front : lint + type-check + build sur push/PR `main`/`dev`
+- ✅ Branche `feat/front-setup` créée, CI verte
+
+**Ce qui reste :**
+
+- [x] Merge `feat/feelings-needs-endpoints` → `dev` (CI à vérifier)
+- [x] Merge `feat/front-setup` → `dev` front
+- [ ] Vue Router + Pinia (session #16)
+
+**Décisions prises :**
+
+- **Feelings/Needs : ressources indépendantes** — URLs `/api/v1/feelings/` et `/api/v1/needs/` (pas des sous-ressources de `/pauses/`). Le front en a besoin pour peupler les écrans de sélection avant toute création de pause
+- **`pagination_class = None`** sur les deux vues : catalogue statique (~100 entrées), le front charge tout en une fois — pas de pagination
+- **ESLint flat config (v9)** : nouveau format sans `.eslintrc`, couches empilées (`js` → `typescript` → `vue` → `prettier`)
+- **`eslint-config-prettier` en dernier** : désactive les règles ESLint qui entrent en conflit avec Prettier — chacun son rôle
+- **`npm ci` dans la CI** (pas `npm install`) : lit `package-lock.json` strictement, garantit une installation reproductible
+- **`VITE_API_URL` injectée via `env:` dans la CI** : le `.env` n'est pas commité, la CI doit avoir la variable pour que le build ne plante pas
+
+**Blocages / Points ouverts :**
+
+- Erreur SSL transiente sur `docker compose build` (DECRYPTION_FAILED_OR_BAD_RECORD_MAC) → résolu en relançant le build (problème réseau passager)
+- Erreur WSL sur `npm create vite` (native binding `rolldown`) → résolu avec `rm -rf node_modules package-lock.json && npm install`
+
+**Humeur de la session :** Back finalisé, front posé sur des bases solides. Bonne compréhension des outils front (Vite, ESLint flat config, variables d'environnement, CI Node).
+
+---
+
 ## Session #14 — 29 mai 2026
 
 **Objectifs prévus :** Concevoir et implémenter le compteur anonyme, écrire ANO-01/ANO-02, valider et merger
