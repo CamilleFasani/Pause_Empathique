@@ -5,7 +5,7 @@
 
 ---
 
-## Session #19 — point intermédiaire du 24 juillet 2026
+## Session #19 — 24 juillet 2026, clôturée le 26 juillet 2026
 
 **Objectifs prévus :** Comprendre et valider le flux d'authentification sécurisé
 côté front, arbitrer la review back, puis préparer les tests end-to-end et les
@@ -26,13 +26,27 @@ merges.
   rejeu.
 - ✅ Vérifications front après simplification : `npm run type-check`,
   `npm run lint` et `npm run build` verts.
+- ✅ Les corrections back retenues ont été vérifiées : Ruff et tests auth ciblés
+  verts, puis suite `pytest` complète verte.
+- ✅ Les tests manuels navigateur ont validé le flux attendu : création du cookie
+  `refresh_token` `HttpOnly`, absence de refresh token côté JavaScript,
+  restauration de session, refresh automatique après expiration de l'access
+  token et logout.
+- ✅ Le problème local de refresh non envoyé au back a été diagnostiqué : le front
+  appelait directement `localhost:8000`, ce qui rendait le transport du cookie
+  fragile en développement. Le front utilise maintenant `/api/v1` avec proxy
+  Vite vers Django.
+- ✅ Les branches back et front `feat/secure-authentication` ont été mergées dans
+  `dev` après validation.
+- ✅ La branche documentation a été rebasée sur `dev` pour préparer le merge des
+  documents de suivi.
 
 **Ce qui reste :**
 
-- [ ] Relancer Ruff et les tests auth ciblés sur l'état final de la branche back.
-- [ ] Réaliser tous les scénarios navigateur prévus : cookie, restauration,
-  refresh automatique, absence de stockage persistant, logout et refus d'accès.
-- [ ] Effectuer les merges dans l'ordre prévu, avec vérification des CI.
+- [ ] Merger cette branche documentation dans `dev`.
+- [ ] Ouvrir, au début de la prochaine session, une nouvelle branche de
+  documentation et une nouvelle branche front pour le Dashboard et le parcours de
+  pratique.
 
 **Décisions prises :**
 
@@ -45,11 +59,21 @@ merges.
   `main.ts` reste limité à l'installation de Pinia et du Router.
 - Aucun framework de test front supplémentaire n'est ajouté dans cette étape :
   les vérifications statiques sont vertes et la validation end-to-end prévue
-  reste le prochain prérequis au merge.
+  a été réalisée manuellement avant merge.
+- En développement local, le front appelle l'API via `/api/v1` et un proxy Vite
+  afin que le navigateur traite le refresh cookie dans un contexte same-origin
+  apparent. Le back reste l'autorité de validation du cookie.
+- La prochaine étape fonctionnelle regroupera Dashboard, layout applicatif et
+  parcours de pratique dans une branche front dédiée, avec une branche docs
+  séparée pour garder le suivi à jour.
 
-**État de la session :** Point intermédiaire. La relecture pédagogique et la
-simplification front sont terminées ; les contrôles back finaux, les tests
-navigateur et les merges restent à réaliser.
+**État de la session :** Clôturée. Les objectifs 1 à 4 de la session du
+24 juillet sont réalisés ; l'authentification sécurisée est validée et mergée
+côté back et front. La documentation peut être mergée après cette mise à jour.
+
+**Humeur de la session :** Gros morceau de sécurité mené jusqu'au bout, avec une
+compréhension nettement plus solide du rôle exact du navigateur dans les cookies
+`HttpOnly`.
 
 ---
 

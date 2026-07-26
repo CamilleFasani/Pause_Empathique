@@ -3,117 +3,80 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #19 — 24 juillet 2026 — Relecture auth sécurisée, tests et merges
+## Session #20 — 31 juillet 2026 — Dashboard et parcours de pratique
 
 ### Contexte
 
-La session #18 du 17 juillet 2026 a finalisé l'objectif 1 du jour et avancé
-fortement l'objectif 2 d'authentification sécurisée.
+La session #19 du 24 juillet 2026, clôturée le 26 juillet, a terminé la
+sécurisation de l'authentification :
 
-Côté back, la branche `feat/secure-authentication` implémente le refresh token en
-cookie `HttpOnly` : login avec `Set-Cookie`, refresh/logout via cookie, blacklist
-Simple JWT, expiration du cookie alignée sur le refresh token, configuration CORS
-avec credentials, documentation OpenAPI ajustée et tests auth ciblés verts.
+- le back `feat/secure-authentication` est mergé dans `dev` ;
+- le front `feat/secure-authentication` est mergé dans `dev` ;
+- le refresh token est stocké en cookie `HttpOnly` côté Django ;
+- l'access token reste en mémoire côté Vue/Pinia ;
+- le refresh automatique, la restauration de session et le logout ont été
+  vérifiés manuellement ;
+- le développement local utilise `/api/v1` avec proxy Vite vers Django pour
+  éviter les problèmes de transport du cookie entre origins.
 
-Côté front, la branche `feat/secure-authentication` a été adaptée au nouveau
-contrat : Axios utilise `withCredentials`, les fonctions API auth ne manipulent
-plus de refresh token dans le body, le store Pinia ne stocke plus le refresh token
-dans `localStorage`, l'intercepteur Axios tente un refresh automatique sur `401`,
-le logout appelle le back sans body, et la garde de route attend
-l'initialisation auth avant de rediriger.
+La prochaine session démarre une nouvelle étape fonctionnelle : reprendre le
+Dashboard et construire progressivement le parcours de pratique.
 
-La prochaine session doit commencer par une relecture pédagogique du travail front
-réalisé, puis par les arbitrages de review Copilot remontés sur la branche back.
-Les merges ne doivent venir qu'après cette relecture, les décisions de review et
-les tests manuels/end-to-end.
+### Objectif 0 — Préparer les branches
 
-### Objectif 1 prioritaire — Comprendre le travail front réalisé
+- [ ] Créer une nouvelle branche documentation côté back depuis `dev`.
+- [ ] Créer une nouvelle branche front depuis `dev` pour le Dashboard et le
+  parcours de pratique.
+- [ ] Vérifier que les deux dépôts sont bien à jour avec `dev` avant de coder.
 
-- [x] Relire le diff front de `feat/secure-authentication`.
-- [x] Comprendre le rôle de `src/api/client.ts` :
-  - `withCredentials`;
-  - intercepteur request pour `Authorization`;
-  - intercepteur response sur `401`;
-  - `refreshPromise` pour éviter les refresh concurrents ;
-  - `skipAuthRefresh` pour éviter les boucles sur login/refresh/logout.
-- [x] Comprendre le rôle de `src/api/auth.ts` :
-  - login/register/refresh/logout alignés avec le contrat back ;
-  - refresh/logout sans body ;
-  - réponse auth limitée à `{ access: string }`.
-- [x] Comprendre le rôle de `src/stores/auth.ts` :
-  - access token en mémoire ;
-  - suppression du refresh token côté front ;
-  - restauration de session via cookie ;
-  - `isAuthReady` ;
-  - logout et nettoyage de session.
-- [x] Comprendre le rôle de la garde Vue Router :
-  - attendre l'initialisation auth ;
-  - protéger les routes privées ;
-  - rediriger une utilisatrice déjà connectée hors de login/register.
+### Objectif 1 — Cadrer le Dashboard
 
-Le 24 juillet, la relecture a aussi supprimé trois redondances : initialisation
-auth retirée de `main.ts` au profit de la garde, gestion du header
-`Authorization` confiée uniquement à l'intercepteur request, et rejeu après
-refresh confié au même intercepteur.
+- [ ] Relire l'état actuel des vues et composants front existants.
+- [ ] Définir le rôle exact du Dashboard dans la V2 :
+  - accueil authentifié ;
+  - accès au parcours de pratique ;
+  - accès futur au journal des pauses ;
+  - état vide pour une utilisatrice sans pause.
+- [ ] Identifier les données nécessaires côté API et ce qui peut rester statique
+  dans cette première itération.
+- [ ] Définir les routes protégées attendues.
 
-### Objectif 2 — Arbitrer la review Copilot côté back
+### Objectif 2 — Finaliser le layout applicatif
 
-- [x] Relire les commentaires Copilot sur la branche back
-  `feat/secure-authentication`.
-- [x] Classer chaque remarque :
-  - à corriger avant merge ;
-  - à documenter/assumer ;
-  - à reporter dans une étape dédiée.
-- [x] Appliquer les corrections retenues côté back.
-- [ ] Relancer les vérifications back utiles :
-  - `poetry run ruff check ...` ;
-  - `pytest users/tests/test_api_auth.py` ;
-  - suite plus large si les corrections dépassent l'auth.
+- [ ] Stabiliser le layout des pages connectées : header, sidebar, footer et
+  contenu principal.
+- [ ] Vérifier les comportements mobile et desktop.
+- [ ] S'assurer que les routes protégées utilisent le bon layout.
+- [ ] Garder les composants centrés sur le rendu, avec la logique partagée dans
+  stores/composables si nécessaire.
 
-### Objectif 3 — Tests front et end-to-end
+### Objectif 3 — Démarrer le parcours de pratique
 
-- [ ] Lancer le back et le front localement.
-- [ ] Vérifier au navigateur :
-  - login réussi ;
-  - cookie `refresh_token` présent, `HttpOnly`, limité au chemin `/api/v1/auth/` ;
-  - aucun refresh token dans `localStorage` ;
-  - access token non persistant côté navigateur ;
-  - rechargement de page avec restauration de session ;
-  - route protégée accessible après restauration ;
-  - refresh automatique après `401` ou expiration simulée de l'access token ;
-  - logout avec suppression du cookie ;
-  - route protégée inaccessible après logout ;
-  - mauvais identifiants sans boucle de refresh.
-- [x] Relancer côté front :
-  - `npm run type-check` ;
-  - `npm run lint` ;
-  - `npm run build`.
+- [ ] Reprendre le parcours depuis l'entrée Welcome : pratique anonyme ou
+  pratique avec compte.
+- [ ] Construire l'étape Dashboard → début de pratique.
+- [ ] Créer ou compléter les premières vues du parcours :
+  - observation ;
+  - sentiments ;
+  - besoins.
+- [ ] Préparer la circulation des données entre étapes sans dupliquer les règles
+  métier du back.
+- [ ] Identifier précisément quand les endpoints Feelings/Needs et Pauses sont
+  consommés.
 
-### Objectif 4 — Merges dans le bon ordre
+### Objectif 4 — Vérifications
 
-- [ ] Merger la branche back `feat/secure-authentication` dans `dev`.
-- [ ] Vérifier la CI back sur `dev`.
-- [ ] Rebaser la branche back docs `docs/project-management-and-read-me` sur
-  `dev`, résoudre les conflits éventuels, puis la merger dans `dev`.
-- [ ] Vérifier que les docs de session et de projet reflètent l'état réel.
-- [ ] Une fois back + docs verts, merger la branche front `feat/secure-authentication`.
-- [ ] Vérifier la CI front.
-
-### Objectif suivant — Dashboard et parcours de pratique
-
-Après sécurisation complète de l'authentification et merges validés, créer une
-branche front dédiée pour :
-
-- reprendre et finaliser le Dashboard ;
-- finaliser le layout des pages applicatives ;
-- construire le parcours « vide ton sac » → observation → sentiments → besoins ;
-- définir les données et transitions entre les étapes ;
-- intégrer progressivement les endpoints API correspondants.
+- [ ] Lancer `npm run type-check`.
+- [ ] Lancer `npm run lint`.
+- [ ] Lancer `npm run build`.
+- [ ] Vérifier manuellement les routes principales sur mobile et desktop.
+- [ ] Mettre à jour les documents de session en fin de travail.
 
 ### Limites de la prochaine session
 
-- Ne pas merger la branche front avant validation du back, des docs et des tests
-  end-to-end.
-- Ne pas reprendre le Dashboard ni le parcours de pratique avant la fin de
-  l'authentification sécurisée.
-- Ne pas considérer l'objectif 2 comme terminé sans vérification navigateur.
+- Ne pas ajouter de nouvelle logique métier durable côté front si elle appartient
+  au back.
+- Ne pas démarrer le journal complet des pauses avant d'avoir stabilisé le
+  Dashboard et le début du parcours.
+- Ne pas créer de nouvelle abstraction générique tant que le besoin n'est pas
+  visible dans au moins deux écrans.

@@ -10,7 +10,7 @@
 Transformer **Pause Empathique** d'une application Django full stack en une architecture découplée :
 
 - **Back-end** : API REST Django (DRF) — repo actuel
-- **Front-end** : SPA Vue.js 3 + TypeScript — repo séparé (à créer)
+- **Front-end** : SPA Vue.js 3 + TypeScript — repo séparé
 
 L'objectif est double : livrer une application de qualité production ET acquérir les compétences du titre CDA.
 
@@ -41,10 +41,10 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Page Welcome et layout d'authentification réalisés
 - ✅ Choix authentification/pratique anonyme intégré directement à Welcome et
   relié aux routes correspondantes
+- ✅ Authentification sécurisée validée et mergée : access token en mémoire côté
+  front, refresh token en cookie `HttpOnly` côté back, restauration de session,
+  refresh automatique et logout vérifiés manuellement
 - 🚧 Layouts applicatifs seulement partiellement réalisés
-- 🚧 Authentification sécurisée implémentée sur les branches dédiées : access
-  token en mémoire côté front et refresh token en cookie `HttpOnly` côté back ;
-  validation navigateur et merges encore requis
 - ❌ Charte graphique définitive non appliquée
 
 ---
@@ -187,18 +187,18 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 - [x] Mettre en place une première gestion JWT (access, refresh, restauration de
       session et logout)
 - [x] Ajouter une première garde de navigation pour les routes protégées
-- [ ] Remplacer le refresh token stocké dans `localStorage` par une stratégie de
-      cookies sécurisés — session dédiée prévue le 17 juillet 2026
+- [x] Remplacer le refresh token stocké dans `localStorage` par une stratégie de
+      cookies sécurisés — session #19, validée et mergée
 - [x] Définir et documenter le contrat complet : `HttpOnly`, `Secure`, `SameSite`,
       CSRF, rotation/expiration du refresh et logout
-- [ ] Adapter et tester le back-end DRF, Axios et le store Pinia selon ce contrat
+- [x] Adapter et tester le back-end DRF, Axios et le store Pinia selon ce contrat
 
 #### 3.2.1 — Entrée dans le parcours
 
 - [x] Créer la page publique Welcome
 - [x] Intégrer directement à Welcome les choix authentification ou pratique anonyme
 - [x] Relier chaque choix à son parcours par un lien Vue Router
-- [ ] Merger `feat/-base-layout-and-auth-views` dans `dev` après validation qualité
+- [x] Merger `feat/-base-layout-and-auth-views` dans `dev` après validation qualité
 
 **Décision d'architecture auth sécurisée — 17 juillet 2026 :**
 
@@ -258,10 +258,10 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 **Ordre de travail retenu en juillet 2026 :**
 
-1. effectuer la dernière validation et merger la branche auth/layout actuelle ;
-2. sécuriser l'authentification par cookies sur une nouvelle branche ;
-3. regrouper Dashboard, layouts applicatifs et parcours de pratique sur une même
-   branche fonctionnelle.
+1. finaliser le Dashboard et le layout applicatif ;
+2. construire le parcours de pratique : observation, sentiments, besoins ;
+3. consommer progressivement les endpoints API depuis les stores/composables
+   front appropriés.
 
 #### 3.4 — Mise à jour sécurité
 
@@ -333,7 +333,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 | Stratégie composants design system (maison + librairie)   | ✅ Validée (approche hybride)                                             |
 | URL du repo front Vue.js                                  | ✅ Repo créé et initialisé                                                |
 | Contraintes de délai pour la formation CDA                | ❌ À préciser                                                             |
-| Orientation stockage JWT                                  | 🚧 Cookies sécurisés retenus ; contrat détaillé à concevoir le 17/07/2026 |
+| Orientation stockage JWT                                  | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front        |
 | Stack logs/monitoring retenue                             | ❌ À décider (phase 5)                                                    |
 
 ---
