@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
@@ -6,6 +7,8 @@ from rest_framework.test import APITestCase
 from users.api.serializers import RegisterSerializer
 
 User = get_user_model()
+REFRESH_COOKIE_NAME = settings.REFRESH_COOKIE_NAME
+REFRESH_COOKIE_PATH = settings.REFRESH_COOKIE_PATH
 
 
 class RegisterSerializerTest(APITestCase):
@@ -43,6 +46,54 @@ class RegisterSerializerTest(APITestCase):
 
         # Then the password does not appear in the serialized output
         self.assertNotIn("password", serializer.data)
+
+    def test_common_password_is_rejected(self):
+        # Given registration data with a weak/common password
+        data = {
+            "email": "martin@test.fr",
+            "password": "password",
+            "firstname": "Martin",
+            "gender": "M",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected before creating a user
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
+
+    def test_password_similar_to_email_is_rejected(self):
+        # Given registration data with a password identical to the email
+        data = {
+            "email": "unique-person-8472@example.com",
+            "password": "unique-person-8472@example.com",
+            "firstname": "Martin",
+            "gender": "M",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected as too similar to the email
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
+
+    def test_password_similar_to_firstname_is_rejected(self):
+        # Given registration data with a password identical to the firstname
+        data = {
+            "email": "zephyranthelia@test.fr",
+            "password": "Zéphyranthélia",
+            "firstname": "Zéphyranthélia",
+            "gender": "F",
+        }
+
+        # When the serializer validates the data
+        serializer = RegisterSerializer(data=data)
+
+        # Then the password is rejected as too similar to the firstname
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("password", serializer.errors)
 
 
 class RegisterAPITest(APITestCase):
@@ -129,10 +180,19 @@ class LoginAPITest(APITestCase):
         # When the user logs in
         response = self.client.post(self.url, payload, format="json")
 
-        # Then we get 200 with both tokens
+        # Then we get 200 with the access token in the JSON response
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("access", response.data)
-        self.assertIn("refresh", response.data)
+        self.assertNotIn("refresh", response.data)
+
+        # And the refresh token is stored in an HttpOnly cookie
+        self.assertIn(REFRESH_COOKIE_NAME, response.cookies)
+        refresh_cookie = response.cookies[REFRESH_COOKIE_NAME]
+        self.assertTrue(refresh_cookie.value)
+        self.assertTrue(refresh_cookie["httponly"])
+        self.assertEqual(refresh_cookie["path"], REFRESH_COOKIE_PATH)
+        self.assertEqual(refresh_cookie["max-age"], settings.REFRESH_COOKIE_MAX_AGE)
+        self.assertIn(refresh_cookie["samesite"], ["Lax", "None"])
 
     def test_login_wrong_password(self):
         # Given wrong password
@@ -141,8 +201,9 @@ class LoginAPITest(APITestCase):
         # When the user tries to log in
         response = self.client.post(self.url, payload, format="json")
 
-        # Then access is denied
+        # Then access is denied and no refresh cookie is created
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn(REFRESH_COOKIE_NAME, response.cookies)
 
     def test_login_unknown_email(self):
         # Given an email that doesn't exist in the database
@@ -150,6 +211,61 @@ class LoginAPITest(APITestCase):
 
         # When the user tries to log in
         response = self.client.post(self.url, payload, format="json")
+
+        # Then access is denied and no refresh cookie is created
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn(REFRESH_COOKIE_NAME, response.cookies)
+
+
+class RefreshTokenAPITest(APITestCase):
+    def setUp(self):
+        self.login_url = reverse("api:auth:login")
+        self.refresh_url = reverse("api:auth:token_refresh")
+        self.user = User.objects.create_user(
+            email="magda@test.fr",
+            password="motdepasse456",
+            firstname="Magdalena",
+            gender="F",
+        )
+
+    def _login(self):
+        """Helper : login and keep the refresh cookie in the test client."""
+        return self.client.post(
+            self.login_url,
+            {"email": "magda@test.fr", "password": "motdepasse456"},
+            format="json",
+        )
+
+    def test_refresh_uses_cookie_and_returns_access_token(self):
+        # Given a logged-in user with a refresh token stored in an HttpOnly cookie
+        login_response = self._login()
+        self.assertIn(REFRESH_COOKIE_NAME, login_response.cookies)
+
+        # When the client refreshes the access token without sending a JSON body
+        response = self.client.post(self.refresh_url, format="json")
+
+        # Then a new access token is returned
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("access", response.data)
+
+        # And the refresh token is not exposed in the JSON response
+        self.assertNotIn("refresh", response.data)
+
+    def test_refresh_without_cookie_is_rejected(self):
+        # Given an unauthenticated client without a refresh cookie
+
+        # When the client tries to refresh the access token
+        response = self.client.post(self.refresh_url, format="json")
+
+        # Then access is denied
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_refresh_invalid_cookie_is_rejected(self):
+        # Given a client with an invalid refresh cookie
+        self.client.cookies[REFRESH_COOKIE_NAME] = "tokeninvalide"
+
+        # When the client tries to refresh the access token
+        response = self.client.post(self.refresh_url, format="json")
 
         # Then access is denied
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -167,42 +283,61 @@ class LogoutAPITest(APITestCase):
             gender="F",
         )
 
-    def _get_tokens(self):
-        """Helper : login et retourne (access, refresh)."""
-        response = self.client.post(
+    def _login(self):
+        """Helper : login and keep the refresh cookie in the test client."""
+        return self.client.post(
             self.login_url,
             {"email": "magda@test.fr", "password": "motdepasse456"},
             format="json",
         )
-        return response.data["access"], response.data["refresh"]
 
-    def test_logout_blacklists_token(self):
-        # Given a logged-in user with a valid refresh token
-        _, refresh = self._get_tokens()
+    def test_logout_blacklists_refresh_cookie_token(self):
+        # Given a logged-in user with a valid refresh token in an HttpOnly cookie
+        login_response = self._login()
+        refresh = login_response.cookies[REFRESH_COOKIE_NAME].value
 
         # When they log out
-        response = self.client.post(
-            self.logout_url, {"refresh": refresh}, format="json"
-        )
+        response = self.client.post(self.logout_url, format="json")
 
-        # Then the blacklist call succeeds
+        # Then the logout succeeds
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # And the token can no longer be used to get a new access token
-        refresh_response = self.client.post(
-            self.refresh_url, {"refresh": refresh}, format="json"
-        )
+        # And the refresh cookie is deleted by the response
+        self.assertIn(REFRESH_COOKIE_NAME, response.cookies)
+        deleted_cookie = response.cookies[REFRESH_COOKIE_NAME]
+        self.assertEqual(deleted_cookie.value, "")
+        self.assertEqual(deleted_cookie["max-age"], 0)
+
+        # And the refresh token can no longer be used to get a new access token
+        self.client.cookies[REFRESH_COOKIE_NAME] = refresh
+        refresh_response = self.client.post(self.refresh_url, format="json")
         self.assertEqual(refresh_response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_logout_invalid_token(self):
-        # Given a malformed / invalid refresh token
-        payload = {"refresh": "tokeninvalide"}
+    def test_logout_without_cookie_is_rejected(self):
+        # Given an unauthenticated client without a refresh cookie
+
+        # When they try to log out
+        response = self.client.post(self.logout_url, format="json")
+
+        # Then access is denied
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_logout_invalid_cookie_token(self):
+        # Given a client with a malformed / invalid refresh cookie
+        self.client.cookies[REFRESH_COOKIE_NAME] = "tokeninvalide"
 
         # When we try to blacklist it
-        response = self.client.post(self.logout_url, payload, format="json")
+        response = self.client.post(self.logout_url, format="json")
 
         # Then we get a 401 (Simple JWT rejects the token as unauthorized)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # And the unusable cookie is still removed from the browser
+        self.assertIn(REFRESH_COOKIE_NAME, response.cookies)
+        deleted_cookie = response.cookies[REFRESH_COOKIE_NAME]
+        self.assertEqual(deleted_cookie.value, "")
+        self.assertEqual(deleted_cookie["max-age"], 0)
+        self.assertEqual(deleted_cookie["path"], settings.REFRESH_COOKIE_PATH)
 
 
 class UserMeAPITest(APITestCase):

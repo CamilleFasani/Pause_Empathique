@@ -21,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     gender = models.CharField(
+        max_length=1,
         choices=Gender.choices,
         verbose_name="Je préfère lire les textes au",
         help_text="Préférence de genre pour les textes",
