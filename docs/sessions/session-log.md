@@ -5,6 +5,81 @@
 
 ---
 
+## Session #20 — 31 juillet 2026
+
+**Objectifs prévus :** Cadrer le parcours de pratique mobile-first, définir
+l'état front partagé entre les étapes, puis préparer la consommation des
+endpoints Feelings, Needs et Pauses.
+
+**Ce qui a été fait :**
+
+- ✅ Le parcours cible a été clarifié : les données sont conservées dans Pinia
+  pendant les étapes, puis envoyées uniquement depuis `PauseView`.
+- ✅ Le parcours anonyme conserve également son brouillon pendant l'inscription ;
+  après la connexion automatique, la pause peut être envoyée et l'utilisateur
+  est redirigé vers le Journal.
+- ✅ Le rôle de la fin de pratique anonyme a été distingué : le contenu n'est
+  pas envoyé au serveur ; l'endpoint de compteur anonyme peut être appelé.
+- ✅ Le titre modifiable a été ajouté au contrat de création de pause et au
+  brouillon front.
+- ✅ Le module API front `src/api/practice.ts` a été créé avec les types
+  `Feeling`, `Need`, `PauseCreatePayload` et `PauseResponse`, ainsi que les
+  appels aux catalogues, à la création d'une pause et au compteur anonyme.
+- ✅ Le store Pinia `src/stores/practice.ts` a été créé avec le brouillon, le
+  mode de pratique, les sélections d'identifiants, les états d'envoi, les
+  erreurs, la reprise après authentification et la remise à zéro du parcours.
+- ✅ Les vérifications `npm run type-check` et `npm run lint` sont vertes.
+- ✅ La roadmap précise l'alerte `beforeunload` à prévoir si un brouillon
+  contient des données avant un rechargement de page.
+
+**Ce qui reste :**
+
+- [ ] Brancher `EmptyYourBagView` et `ObservationView` au brouillon Pinia.
+- [ ] Remplacer les zones de texte de Sentiments et Besoins par des boutons de
+  sélection alimentés par les endpoints API.
+- [ ] Ajouter les états de chargement, d'erreur et la résolution genrée des
+  labels de sentiments.
+- [ ] Transformer `PauseView` en page de résumé et de soumission avec titre
+  modifiable.
+- [ ] Préserver le brouillon lors du passage par l'inscription et rediriger
+  après création vers le Journal.
+- [ ] Ajouter le Journal et le lien vers la pause créée.
+- [ ] Implémenter l'alerte avant rechargement et vider le brouillon après succès
+  ou fin anonyme explicite.
+- [ ] Ajouter les tests du store et du parcours, puis lancer aussi
+  `npm run build`.
+
+**Décisions prises :**
+
+- Le brouillon de pratique est conservé en mémoire dans Pinia uniquement ; il
+  n'est pas persisté dans `localStorage` ou `sessionStorage` pour le moment.
+- Les types et appels liés à l'API de pratique restent regroupés dans
+  `src/api/practice.ts`. Le brouillon propre à l'interface reste dans le store.
+- Le payload API utilise les noms Django (`empty_your_bag`, `feelings`, `needs`)
+  tandis que le brouillon front utilise des noms adaptés à Vue (`emptyYourBag`,
+  `feelingIds`, `needIds`).
+- La création d'une pause doit retourner sa réponse complète, notamment son
+  identifiant, afin de permettre le lien depuis le Journal.
+- Le message de perte au rechargement reposera sur la confirmation native
+  `beforeunload` du navigateur ; son texte ne sera pas personnalisé.
+
+**Blocages / Points ouverts :**
+
+- Le parcours complet n'est pas encore branché aux vues ; les écrans Sentiments
+  et Besoins restent visuels/provisoires.
+- Le comportement exact du retour depuis l'inscription doit être intégré aux
+  formulaires d'authentification actuels, qui redirigent encore vers Home.
+- Le Journal et ses routes n'existent pas encore côté front.
+
+**État de la session :** Socle API et Pinia préparé, intégration des vues à
+reprendre lors de la prochaine session.
+
+**Humeur de la session :** Bonne compréhension progressive de TypeScript, de
+Pinia, des contrats API et de la séparation entre brouillon front et données
+envoyées au back.
+
+---
+
 ## Session #19 — 24 juillet 2026, clôturée le 26 juillet 2026
 
 **Objectifs prévus :** Comprendre et valider le flux d'authentification sécurisé

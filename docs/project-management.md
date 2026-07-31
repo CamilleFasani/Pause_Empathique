@@ -256,12 +256,43 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [ ] Détail d'une pause
 - [ ] Profil utilisateur
 
-**Ordre de travail retenu en juillet 2026 :**
+**Ordre de travail ajusté le 30 juillet 2026 :**
 
-1. finaliser le Dashboard et le layout applicatif ;
-2. construire le parcours de pratique : observation, sentiments, besoins ;
-3. consommer progressivement les endpoints API depuis les stores/composables
-   front appropriés.
+1. construire d'abord les vues mobile-first du parcours de pratique :
+   observation, sentiments, besoins ;
+2. consommer progressivement les endpoints API depuis les stores/composables
+   front appropriés ;
+3. finaliser ensuite le Dashboard et le layout applicatif à partir du parcours
+   réellement stabilisé ;
+4. reporter l'adaptation desktop complète à une étape ultérieure pour réduire le
+   périmètre immédiat.
+
+**Conservation du brouillon pendant la pratique :**
+
+- [ ] Conserver les données saisies dans le store Pinia pendant la navigation entre
+      les étapes, sans persistance dans `localStorage` ou `sessionStorage` pour le
+      moment.
+- [ ] Prévenir l'utilisateur avant un rechargement de page lorsque le brouillon
+      contient des données, au moyen de l'événement navigateur `beforeunload`.
+      Le navigateur affichera alors sa propre confirmation native ; le texte de
+      cette confirmation ne peut pas être personnalisé de manière fiable.
+- [ ] Vider le brouillon après l'enregistrement réussi de la pause, ou après la
+      fin explicite d'une pratique anonyme sans sauvegarde.
+
+**Socle du parcours de pratique — session #20 :**
+
+- [x] Définir le contrat front des catalogues Feelings/Needs et de la création
+      d'une pause dans `src/api/practice.ts`.
+- [x] Ajouter le titre optionnel au payload de création afin de permettre sa
+      modification depuis `PauseView` tout en conservant le titre par défaut du
+      back lorsqu'il est absent.
+- [x] Créer le store Pinia `src/stores/practice.ts` avec le brouillon, le mode
+      anonyme/authentifié, les identifiants sélectionnés, les états d'envoi et
+      la reprise après authentification.
+- [ ] Brancher les vues du parcours au store et implémenter la soumission finale
+      depuis `PauseView`.
+- [ ] Implémenter la reprise après inscription, la redirection vers le Journal
+      et la fin explicite d'une pratique anonyme.
 
 #### 3.4 — Mise à jour sécurité
 

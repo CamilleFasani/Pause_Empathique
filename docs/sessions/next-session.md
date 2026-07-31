@@ -3,80 +3,92 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #20 — 31 juillet 2026 — Dashboard et parcours de pratique
+## Session #21 — 21 août 2026 — Intégration du parcours de pratique
 
 ### Contexte
 
-La session #19 du 24 juillet 2026, clôturée le 26 juillet, a terminé la
-sécurisation de l'authentification :
+La session #20 du 31 juillet 2026 a préparé le socle front du parcours de
+pratique :
 
-- le back `feat/secure-authentication` est mergé dans `dev` ;
-- le front `feat/secure-authentication` est mergé dans `dev` ;
-- le refresh token est stocké en cookie `HttpOnly` côté Django ;
-- l'access token reste en mémoire côté Vue/Pinia ;
-- le refresh automatique, la restauration de session et le logout ont été
-  vérifiés manuellement ;
-- le développement local utilise `/api/v1` avec proxy Vite vers Django pour
-  éviter les problèmes de transport du cookie entre origins.
+- le parcours anonyme et le parcours authentifié ont été clarifiés ;
+- le brouillon est conservé dans Pinia pendant la navigation, sans persistance
+  navigateur pour le moment ;
+- le module API `src/api/practice.ts` regroupe les types et appels liés aux
+  catalogues Feelings/Needs, à la création de pauses et au compteur anonyme ;
+- le store `src/stores/practice.ts` contient le brouillon, les sélections, le
+  titre, le mode de pratique, les états d'envoi et la reprise après
+  authentification ;
+- `npm run type-check` et `npm run lint` sont verts ;
+- la confirmation native `beforeunload` à prévoir en cas de rechargement avec un
+  brouillon est documentée dans la roadmap.
 
-La prochaine session démarre une nouvelle étape fonctionnelle : reprendre le
-Dashboard et construire progressivement le parcours de pratique.
+La prochaine session reprend le plan d'intégration page par page. Le Dashboard
+et l'adaptation desktop restent volontairement en dehors du périmètre immédiat.
 
-### Objectif 0 — Préparer les branches
+### Objectif 1 — Brancher les premières étapes au store
 
-- [ ] Créer une nouvelle branche documentation côté back depuis `dev`.
-- [ ] Créer une nouvelle branche front depuis `dev` pour le Dashboard et le
-  parcours de pratique.
-- [ ] Vérifier que les deux dépôts sont bien à jour avec `dev` avant de coder.
+- [ ] Relier `EmptyYourBagView` à `draft.emptyYourBag`.
+- [ ] Relier `ObservationView` à `draft.observation`.
+- [ ] Vérifier que le retour en arrière conserve les valeurs saisies.
+- [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
+      démarré.
 
-### Objectif 1 — Cadrer le Dashboard
+### Objectif 2 — Implémenter Sentiments et Besoins
 
-- [ ] Relire l'état actuel des vues et composants front existants.
-- [ ] Définir le rôle exact du Dashboard dans la V2 :
-  - accueil authentifié ;
-  - accès au parcours de pratique ;
-  - accès futur au journal des pauses ;
-  - état vide pour une utilisatrice sans pause.
-- [ ] Identifier les données nécessaires côté API et ce qui peut rester statique
-  dans cette première itération.
-- [ ] Définir les routes protégées attendues.
+- [ ] Charger les catalogues via `getFeelings()` et `getNeeds()`.
+- [ ] Remplacer les `textarea` provisoires par des boutons de sélection multiple.
+- [ ] Stocker uniquement les identifiants sélectionnés dans Pinia.
+- [ ] Afficher les états de chargement, d'erreur et d'absence de données.
+- [ ] Brancher `useGender()` pour choisir le label genré des sentiments.
+- [ ] Empêcher la progression sans au moins un sentiment et un besoin.
 
-### Objectif 2 — Finaliser le layout applicatif
+### Objectif 3 — Finaliser `PauseView`
 
-- [ ] Stabiliser le layout des pages connectées : header, sidebar, footer et
-  contenu principal.
-- [ ] Vérifier les comportements mobile et desktop.
-- [ ] S'assurer que les routes protégées utilisent le bon layout.
-- [ ] Garder les composants centrés sur le rendu, avec la logique partagée dans
-  stores/composables si nécessaire.
+- [ ] Transformer `PauseView` en page de résumé du brouillon.
+- [ ] Ajouter le champ de titre modifiable et gérer le titre par défaut du back
+      lorsqu'il est laissé vide.
+- [ ] Pour un utilisateur connecté, envoyer le payload via `createPause()`.
+- [ ] Pour un utilisateur anonyme, proposer la création d'un compte pour
+      enregistrer la pause.
+- [ ] Conserver le brouillon lors de l'inscription et de la connexion
+      automatique.
+- [ ] Reprendre l'envoi après authentification et empêcher les doubles envois.
+- [ ] Prévoir une fin anonyme explicite avec appel du compteur sans envoyer le
+      contenu de la pause.
+- [ ] Conserver le brouillon en cas d'erreur API et permettre un nouvel essai.
+- [ ] Vider le brouillon uniquement après succès ou fin anonyme explicite.
 
-### Objectif 3 — Démarrer le parcours de pratique
+### Objectif 4 — Ajouter le Journal
 
-- [ ] Reprendre le parcours depuis l'entrée Welcome : pratique anonyme ou
-  pratique avec compte.
-- [ ] Construire l'étape Dashboard → début de pratique.
-- [ ] Créer ou compléter les premières vues du parcours :
-  - observation ;
-  - sentiments ;
-  - besoins.
-- [ ] Préparer la circulation des données entre étapes sans dupliquer les règles
-  métier du back.
-- [ ] Identifier précisément quand les endpoints Feelings/Needs et Pauses sont
-  consommés.
+- [ ] Ajouter les fonctions API de liste des pauses et, si nécessaire, de détail.
+- [ ] Créer la route et la vue Journal protégées par authentification.
+- [ ] Afficher les pauses créées avec leur titre et leur date.
+- [ ] Afficher un lien vers le détail de chaque pause.
+- [ ] Rediriger vers le Journal après création réussie depuis `PauseView`.
 
-### Objectif 4 — Vérifications
+### Objectif 5 — Prévenir la perte du brouillon
 
+- [ ] Ajouter `beforeunload` uniquement lorsqu'un brouillon contient des données.
+- [ ] Vérifier le comportement sur un rechargement mobile et desktop.
+- [ ] Ne pas ajouter de persistance `localStorage` ou `sessionStorage` dans cette
+      étape.
+
+### Objectif 6 — Vérifications
+
+- [ ] Ajouter les tests ciblés du store : sélection, validation, réinitialisation,
+      soumission authentifiée, soumission anonyme et conservation après erreur.
 - [ ] Lancer `npm run type-check`.
 - [ ] Lancer `npm run lint`.
 - [ ] Lancer `npm run build`.
-- [ ] Vérifier manuellement les routes principales sur mobile et desktop.
+- [ ] Vérifier manuellement le parcours anonyme sur mobile.
+- [ ] Vérifier manuellement le parcours création de compte → sauvegarde → Journal.
 - [ ] Mettre à jour les documents de session en fin de travail.
 
 ### Limites de la prochaine session
 
-- Ne pas ajouter de nouvelle logique métier durable côté front si elle appartient
-  au back.
-- Ne pas démarrer le journal complet des pauses avant d'avoir stabilisé le
-  Dashboard et le début du parcours.
-- Ne pas créer de nouvelle abstraction générique tant que le besoin n'est pas
-  visible dans au moins deux écrans.
+- Ne pas finaliser le Dashboard avant la stabilisation du parcours de pratique.
+- Ne pas ajouter de logique métier durable côté front si elle appartient au back.
+- Ne pas persister le brouillon dans `localStorage` ou `sessionStorage`.
+- Ne pas viser l'adaptation desktop complète au-delà de la vérification du
+  parcours.
+- Ne pas créer d'abstraction générique sans besoin observé dans plusieurs vues.
