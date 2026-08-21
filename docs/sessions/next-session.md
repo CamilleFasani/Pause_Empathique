@@ -3,44 +3,46 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #21 — 21 août 2026 — Intégration du parcours de pratique
+## Session #22 — Date à planifier — Finalisation du parcours de pratique
 
 ### Contexte
 
-La session #20 du 31 juillet 2026 a préparé le socle front du parcours de
+La session #21 du 21 août 2026 a intégré les premières étapes du parcours de
 pratique :
 
-- le parcours anonyme et le parcours authentifié ont été clarifiés ;
-- le brouillon est conservé dans Pinia pendant la navigation, sans persistance
-  navigateur pour le moment ;
-- le module API `src/api/practice.ts` regroupe les types et appels liés aux
-  catalogues Feelings/Needs, à la création de pauses et au compteur anonyme ;
-- le store `src/stores/practice.ts` contient le brouillon, les sélections, le
-  titre, le mode de pratique, les états d'envoi et la reprise après
-  authentification ;
-- `npm run type-check` et `npm run lint` sont verts ;
-- la confirmation native `beforeunload` à prévoir en cas de rechargement avec un
-  brouillon est documentée dans la roadmap.
+- `EmptyYourBagView` et `ObservationView` sont reliées au brouillon Pinia ;
+- `FeelingsView` et `NeedsView` chargent leurs catalogues via l'API front ;
+- les sentiments et besoins utilisent une sélection multiple par familles ;
+- seules les listes d'identifiants `feelingIds` et `needIds` sont stockées dans
+  Pinia ;
+- les états de chargement, d'erreur et d'absence de données sont affichés ;
+- la progression est bloquée tant qu'aucune sélection n'a été faite dans l'étape
+  courante ;
+- un changement local non committé dans `pauses/api/serializers.py` expose les
+  familles sous le champ `family`, attendu par le front.
 
-La prochaine session reprend le plan d'intégration page par page. Le Dashboard
-et l'adaptation desktop restent volontairement en dehors du périmètre immédiat.
+La prochaine session doit d'abord isoler et committer proprement le changement
+back Feelings/Needs dans une branche back dédiée, puis reprendre la fin du
+parcours front. Le Dashboard et l'adaptation desktop restent volontairement en
+dehors du périmètre immédiat.
 
-### Objectif 1 — Brancher les premières étapes au store
+### Objectif 1 — Stabiliser le contrat Feelings/Needs côté back
 
-- [ ] Relier `EmptyYourBagView` à `draft.emptyYourBag`.
-- [ ] Relier `ObservationView` à `draft.observation`.
-- [ ] Vérifier que le retour en arrière conserve les valeurs saisies.
+- [ ] Créer une branche back dédiée pour le changement de serializers
+      Feelings/Needs.
+- [ ] Vérifier que `FeelingSerializer` expose `id`, `family`, `names`.
+- [ ] Vérifier que `NeedSerializer` expose `id`, `family`, `name`.
+- [ ] Ajouter ou adapter les tests back du contrat Feelings/Needs si nécessaire.
+- [ ] Lancer les tests back ciblés sur les endpoints Feelings/Needs.
+- [ ] Committer le changement back dans cette branche dédiée.
+
+### Objectif 2 — Terminer Sentiments et Besoins côté front
+
+- [ ] Brancher `useGender()` pour choisir le label genré des sentiments.
+- [ ] Vérifier que le retour en arrière conserve les textes et les sélections.
 - [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
       démarré.
-
-### Objectif 2 — Implémenter Sentiments et Besoins
-
-- [ ] Charger les catalogues via `getFeelings()` et `getNeeds()`.
-- [ ] Remplacer les `textarea` provisoires par des boutons de sélection multiple.
-- [ ] Stocker uniquement les identifiants sélectionnés dans Pinia.
-- [ ] Afficher les états de chargement, d'erreur et d'absence de données.
-- [ ] Brancher `useGender()` pour choisir le label genré des sentiments.
-- [ ] Empêcher la progression sans au moins un sentiment et un besoin.
+- [ ] Vérifier le comportement d'erreur lorsque les catalogues ne chargent pas.
 
 ### Objectif 3 — Finaliser `PauseView`
 
@@ -77,6 +79,8 @@ et l'adaptation desktop restent volontairement en dehors du périmètre immédia
 
 - [ ] Ajouter les tests ciblés du store : sélection, validation, réinitialisation,
       soumission authentifiée, soumission anonyme et conservation après erreur.
+- [ ] Ajouter des tests ciblés pour les comportements directs de vues si un outil
+      de test front adapté est déjà en place.
 - [ ] Lancer `npm run type-check`.
 - [ ] Lancer `npm run lint`.
 - [ ] Lancer `npm run build`.

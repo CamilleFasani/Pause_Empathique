@@ -16,7 +16,7 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-## État actuel — Juillet 2026
+## État actuel — Août 2026
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
@@ -44,6 +44,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Authentification sécurisée validée et mergée : access token en mémoire côté
   front, refresh token en cookie `HttpOnly` côté back, restauration de session,
   refresh automatique et logout vérifiés manuellement
+- 🚧 Parcours de pratique front en cours : `EmptyYourBagView`,
+  `ObservationView`, `FeelingsView` et `NeedsView` sont reliées au brouillon
+  Pinia et aux catalogues API pour les sentiments/besoins
 - 🚧 Layouts applicatifs seulement partiellement réalisés
 - ❌ Charte graphique définitive non appliquée
 
@@ -269,9 +272,10 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 **Conservation du brouillon pendant la pratique :**
 
-- [ ] Conserver les données saisies dans le store Pinia pendant la navigation entre
-      les étapes, sans persistance dans `localStorage` ou `sessionStorage` pour le
-      moment.
+- [x] Conserver les données saisies dans le store Pinia pendant la navigation des
+      premières étapes (`EmptyYourBagView`, `ObservationView`,
+      `FeelingsView`, `NeedsView`), sans persistance dans `localStorage` ou
+      `sessionStorage` pour le moment.
 - [ ] Prévenir l'utilisateur avant un rechargement de page lorsque le brouillon
       contient des données, au moyen de l'événement navigateur `beforeunload`.
       Le navigateur affichera alors sa propre confirmation native ; le texte de
@@ -289,8 +293,12 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Créer le store Pinia `src/stores/practice.ts` avec le brouillon, le mode
       anonyme/authentifié, les identifiants sélectionnés, les états d'envoi et
       la reprise après authentification.
-- [ ] Brancher les vues du parcours au store et implémenter la soumission finale
-      depuis `PauseView`.
+- [x] Brancher `EmptyYourBagView` et `ObservationView` au brouillon Pinia.
+- [x] Implémenter `FeelingsView` et `NeedsView` avec chargement des catalogues,
+      sélection multiple par familles, états de chargement/erreur/vide et
+      stockage des identifiants sélectionnés dans Pinia.
+- [ ] Brancher `useGender()` pour résoudre le libellé genré des sentiments.
+- [ ] Finaliser `PauseView` et implémenter la soumission finale.
 - [ ] Implémenter la reprise après inscription, la redirection vers le Journal
       et la fin explicite d'une pratique anonyme.
 

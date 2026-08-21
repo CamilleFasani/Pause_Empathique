@@ -5,6 +5,81 @@
 
 ---
 
+## Session #21 — 21 août 2026
+
+**Objectifs prévus :** Intégrer progressivement le parcours de pratique côté
+front : premières étapes reliées au brouillon Pinia, écrans Sentiments/Besoins
+alimentés par l'API, puis préparation de `PauseView`, du Journal, de
+`beforeunload` et des vérifications.
+
+**Ce qui a été fait :**
+
+- ✅ `EmptyYourBagView` est reliée à `draft.emptyYourBag` via le store Pinia.
+- ✅ `ObservationView` est reliée à `draft.observation` via le store Pinia.
+- ✅ `FeelingsView` charge les sentiments via `getFeelings()`.
+- ✅ `NeedsView` charge les besoins via `getNeeds()`.
+- ✅ Les `textarea` provisoires de Sentiments et Besoins ont été remplacées par
+  une sélection multiple par familles.
+- ✅ Les identifiants sélectionnés sont stockés dans Pinia via `feelingIds` et
+  `needIds`.
+- ✅ Les états de chargement, d'erreur et d'absence de données sont affichés sur
+  les écrans Sentiments et Besoins.
+- ✅ La progression depuis Sentiments et Besoins est bloquée tant qu'aucune
+  sélection n'a été faite dans l'étape courante.
+- ✅ Un ajustement back non committé a été préparé dans
+  `pauses/api/serializers.py` pour exposer les familles Feelings/Needs sous les
+  champs `family` attendus par le front.
+
+**Ce qui reste :**
+
+- [ ] Créer une branche back dédiée et y committer l'ajustement des serializers
+  Feelings/Needs.
+- [ ] Ajouter ou mettre à jour les tests back liés au contrat Feelings/Needs si
+  nécessaire.
+- [ ] Brancher `useGender()` pour choisir le label genré des sentiments au lieu
+  d'utiliser directement la forme féminine.
+- [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
+  démarré.
+- [ ] Transformer `PauseView` en page de résumé, de titre modifiable et de
+  soumission.
+- [ ] Finaliser les parcours authentifié et anonyme depuis `PauseView`, y compris
+  reprise après inscription, prévention des doubles envois, conservation après
+  erreur et remise à zéro après succès ou fin anonyme explicite.
+- [ ] Ajouter le Journal, ses appels API, sa route protégée et la redirection
+  après création réussie.
+- [ ] Ajouter `beforeunload` lorsqu'un brouillon contient des données.
+- [ ] Ajouter les tests ciblés du store/parcours et relancer
+  `npm run type-check`, `npm run lint` et `npm run build`.
+
+**Décisions prises :**
+
+- Le front consomme les libellés de familles via un champ stable `family`, plutôt
+  que les champs modèles Django `feeling_family` et `need_family`.
+- Le changement de contrat Feelings/Needs côté back sera repris proprement dans
+  une branche back lors de la prochaine session, afin de garder l'historique Git
+  lisible.
+- `PauseView` reste volontairement hors périmètre terminé de cette session : la
+  soumission finale doit être traitée comme une étape distincte, car elle touche
+  l'authentification, le Journal et la remise à zéro du brouillon.
+
+**Blocages / Points ouverts :**
+
+- Le changement back sur les serializers est présent localement mais pas encore
+  committé.
+- Les vérifications automatiques front et back de fin de parcours n'ont pas été
+  relancées dans cette mise à jour documentaire.
+- Le Journal et la gestion `beforeunload` restent à implémenter.
+
+**État de la session :** Les liaisons principales de l'objectif 1 et une grande
+partie de l'objectif 2 sont réalisées. La prochaine session doit commencer par
+isoler le changement back Feelings/Needs, puis reprendre `useGender()` et
+`PauseView`.
+
+**Humeur de la session :** Bonne avancée concrète sur l'intégration front, avec
+un point d'attention utile sur l'alignement exact du contrat API.
+
+---
+
 ## Session #20 — 31 juillet 2026
 
 **Objectifs prévus :** Cadrer le parcours de pratique mobile-first, définir
