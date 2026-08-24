@@ -660,7 +660,8 @@ class FeelingsListAPITest(APITestCase):
         self.assertEqual(len(response.data), 2)
         first = response.data[0]
         self.assertIn("id", first)
-        self.assertIn("feeling_family", first)
+        self.assertIn("family", first)
+        self.assertNotIn("feeling_family", first)
         self.assertIn("names", first)
         self.assertIn("f", first["names"])
         self.assertIn("m", first["names"])
@@ -688,9 +689,9 @@ class NeedsListAPITest(APITestCase):
 
         # Then all needs are returned with expected structure
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.data)
         self.assertEqual(len(response.data), 2)
         first = response.data[0]
         self.assertIn("id", first)
-        self.assertIn("need_family", first)
+        self.assertIn("family", first)
+        self.assertNotIn("need_family", first)
         self.assertIn("name", first)

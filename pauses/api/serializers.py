@@ -5,6 +5,10 @@ from pauses.models import Feeling, Need, Pause
 
 class FeelingSerializer(serializers.ModelSerializer):
     names = serializers.SerializerMethodField()
+    family = serializers.CharField(
+        source="get_feeling_family_display",
+        read_only=True,
+    )
 
     def get_names(self, obj):
         return {
@@ -14,13 +18,15 @@ class FeelingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Feeling
-        fields = ["id", "feeling_family", "names"]
+        fields = ["id", "family", "names"]
 
 
 class NeedSerializer(serializers.ModelSerializer):
+    family = serializers.CharField(source="get_need_family_display", read_only=True)
+
     class Meta:
         model = Need
-        fields = ["id", "need_family", "name"]
+        fields = ["id", "family", "name"]
 
 
 class PauseSerializer(serializers.ModelSerializer):
