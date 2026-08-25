@@ -5,6 +5,65 @@
 
 ---
 
+## Session #22 — 24 août 2026
+
+**Objectifs prévus :** Reprendre `PauseView` avec les composants existants du
+parcours et avancer la finalisation de la soumission.
+
+**Ce qui a été fait :**
+
+- ✅ `PauseView` utilise maintenant `AppLayout`, `PracticeStepHeader` et
+  `PracticeSelectionCard` au lieu d'un layout local ad hoc.
+- ✅ `PauseView` affiche le récapitulatif du brouillon : titre modifiable, vide
+  ton sac, observation, sentiments et besoins sélectionnés.
+- ✅ Les libellés des sentiments du récapitulatif passent par `useGender()`.
+- ✅ Un utilisateur authentifié peut envoyer la pause via le store, qui délègue
+  à `createPause()`.
+- ✅ Un utilisateur anonyme peut choisir entre créer un compte, se connecter ou
+  terminer sans enregistrer.
+- ✅ Le passage par connexion/inscription conserve le brouillon en mémoire et
+  redirige vers `PauseView` lorsque l'authentification a été lancée depuis le
+  récapitulatif.
+- ✅ La fin anonyme appelle le compteur sans envoyer le contenu de la pause.
+- ✅ Les boutons d'envoi sont désactivés pendant la soumission, et le brouillon
+  n'est vidé qu'après succès ou fin anonyme explicite.
+
+**Ce qui reste :**
+
+- [ ] Décider si la reprise après authentification doit déclencher
+  automatiquement l'envoi ou simplement ramener l'utilisateur sur le
+  récapitulatif pour validation.
+- [ ] Ajouter le Journal, ses appels API, sa route protégée et la redirection
+  après création réussie.
+- [ ] Ajouter les tests ciblés du store/parcours.
+- [ ] Vérifier manuellement les parcours complet anonyme et création de compte →
+  sauvegarde.
+
+**Vérifications :**
+
+- ✅ `npm run type-check`
+- ✅ `npm run lint`
+- ✅ `npm run build`
+
+**Décisions prises :**
+
+- `PauseView` reste une vue de coordination : l'envoi et les erreurs
+  utilisateur restent centralisés dans le store de pratique.
+- Après inscription ou connexion lancée depuis `PauseView`, l'utilisateur revient
+  sur le récapitulatif afin de garder une validation explicite avant
+  sauvegarde.
+
+**Blocages / Points ouverts :**
+
+- Le Journal n'existe pas encore ; après création authentifiée, la redirection
+  reste provisoirement vers `home`.
+- Les tests automatisés front du store/parcours restent à écrire.
+
+**Humeur de la session :** Bonne consolidation du parcours : moins de layout
+isolé, plus de logique portée par les frontières prévues.
+
+---
+
 ## Session #21 — 21 août 2026
 
 **Objectifs prévus :** Intégrer progressivement le parcours de pratique côté

@@ -28,17 +28,19 @@ dehors du périmètre immédiat.
 
 ### Objectif 1 — Stabiliser le contrat Feelings/Needs côté back
 
-- [ ] Créer une branche back dédiée pour le changement de serializers
+- [x] Créer une branche back dédiée pour le changement de serializers
       Feelings/Needs.
-- [ ] Vérifier que `FeelingSerializer` expose `id`, `family`, `names`.
-- [ ] Vérifier que `NeedSerializer` expose `id`, `family`, `name`.
-- [ ] Ajouter ou adapter les tests back du contrat Feelings/Needs si nécessaire.
-- [ ] Lancer les tests back ciblés sur les endpoints Feelings/Needs.
-- [ ] Committer le changement back dans cette branche dédiée.
+- [x] Vérifier que `FeelingSerializer` expose `id`, `family`, `names`.
+- [x] Vérifier que `NeedSerializer` expose `id`, `family`, `name`.
+- [x] Ajouter ou adapter les tests back du contrat Feelings/Needs si nécessaire.
+- [x] Lancer les tests back ciblés sur les endpoints Feelings/Needs.
+- [x] Committer le changement back dans cette branche dédiée.
 
 ### Objectif 2 — Terminer Sentiments et Besoins côté front
 
-- [ ] Brancher `useGender()` pour choisir le label genré des sentiments.
+- [x] Brancher `useGender()` pour choisir le label genré des sentiments.
+- [ ] Ajouter une modale au début du parcours anonyme pour définir
+      `ANONYMOUS_GENDER_STORAGE_KEY`.
 - [ ] Vérifier que le retour en arrière conserve les textes et les sélections.
 - [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
       démarré.
@@ -46,19 +48,21 @@ dehors du périmètre immédiat.
 
 ### Objectif 3 — Finaliser `PauseView`
 
-- [ ] Transformer `PauseView` en page de résumé du brouillon.
-- [ ] Ajouter le champ de titre modifiable et gérer le titre par défaut du back
+- [x] Transformer `PauseView` en page de résumé du brouillon.
+- [x] Ajouter le champ de titre modifiable et gérer le titre par défaut du back
       lorsqu'il est laissé vide.
-- [ ] Pour un utilisateur connecté, envoyer le payload via `createPause()`.
-- [ ] Pour un utilisateur anonyme, proposer la création d'un compte pour
+- [x] Pour un utilisateur connecté, envoyer le payload via `createPause()`.
+- [x] Pour un utilisateur anonyme, proposer la création d'un compte pour
       enregistrer la pause.
-- [ ] Conserver le brouillon lors de l'inscription et de la connexion
+- [x] Conserver le brouillon lors de l'inscription et de la connexion
       automatique.
-- [ ] Reprendre l'envoi après authentification et empêcher les doubles envois.
-- [ ] Prévoir une fin anonyme explicite avec appel du compteur sans envoyer le
+- [ ] Vérifier manuellement la reprise après authentification avec retour sur le
+      récapitulatif pour validation explicite.
+- [x] Empêcher les doubles envois pendant la soumission.
+- [x] Prévoir une fin anonyme explicite avec appel du compteur sans envoyer le
       contenu de la pause.
-- [ ] Conserver le brouillon en cas d'erreur API et permettre un nouvel essai.
-- [ ] Vider le brouillon uniquement après succès ou fin anonyme explicite.
+- [x] Conserver le brouillon en cas d'erreur API et permettre un nouvel essai.
+- [x] Vider le brouillon uniquement après succès ou fin anonyme explicite.
 
 ### Objectif 4 — Ajouter le Journal
 
