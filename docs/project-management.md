@@ -44,9 +44,16 @@ L'objectif est double : livrer une application de qualité production ET acquér
 - ✅ Authentification sécurisée validée et mergée : access token en mémoire côté
   front, refresh token en cookie `HttpOnly` côté back, restauration de session,
   refresh automatique et logout vérifiés manuellement
-- 🚧 Parcours de pratique front en cours : `EmptyYourBagView`,
-  `ObservationView`, `FeelingsView` et `NeedsView` sont reliées au brouillon
-  Pinia et aux catalogues API pour les sentiments/besoins
+- ✅ Parcours de pratique front stabilisé jusqu'au récapitulatif : brouillon
+  Pinia, catalogues Feelings/Needs, choix du genre grammatical, `PauseView` et
+  fin sans enregistrement
+- ✅ Premiers accès Journal ajoutés : dernières pauses sur `HomeView`, détail et
+  suppression
+- 🚧 `HomeView` possède une première version mobile-first avec timeline
+  statistique statique, à brancher plus tard sur les données réelles
+- 🚧 Prochaine étape front : clarifier la navigation Home/Journal/pratique,
+  terminer le Journal complet avec liste chronologique et filtres par familles
+  de sentiments/besoins, puis ajouter `beforeunload` et les tests ciblés
 - 🚧 Layouts applicatifs seulement partiellement réalisés
 - ❌ Charte graphique définitive non appliquée
 
@@ -136,7 +143,7 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 **Décisions d'architecture API — Feelings/Needs (session #12, 17 avril 2026) :**
 
-- `Feeling` expose les deux formes genrées sous une structure imbriquée : `"names": {"f": "submergée", "m": "submergé"}` — le front choisit la forme à afficher selon le genre connu (connecté : profil utilisateur ; anonyme : choix en début de pause stocké en `sessionStorage`).
+- `Feeling` expose les deux formes genrées sous une structure imbriquée : `"names": {"f": "submergée", "m": "submergé"}` — le front choisit la forme à afficher selon le genre connu (connecté : profil utilisateur, y compris pour une pratique sans enregistrement ; visiteur non connecté : choix en début de pause stocké en `sessionStorage`).
 - `Need` n'a pas de genre : un seul champ `name` dans le serializer.
 - La logique d'affichage genré est centralisée côté front dans un composable `useGender()` (voir Phase 3). Ne pas dupliquer cette logique dans les composants Vue.
 
@@ -177,11 +184,12 @@ Pour chaque ressource, créer serializer + viewset + URL avant de migrer le fron
 
 #### 3.1.1 — Composable `useGender()`
 
-- [ ] Créer un composable `useGender()` qui centralise la résolution du genre à afficher
-  - Utilisateur connecté → genre depuis le store Pinia (profil)
+- [x] Créer un composable `useGender()` qui centralise la résolution du genre à afficher
+  - Utilisateur connecté → genre depuis le store Pinia (profil), y compris pour
+    une pratique sans enregistrement
   - Utilisateur anonyme → genre depuis `sessionStorage` (choix en début de pause)
-- [ ] Ce composable est l'unique point d'accès au genre dans toute l'application Vue
-- [ ] Utilisation : `const label = feeling.names[gender]`
+- [x] Ce composable est l'unique point d'accès au genre dans toute l'application Vue
+- [x] Utilisation : `const label = feeling.names[gender]`
 
 #### 3.2 — Authentification
 
@@ -252,22 +260,31 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 - [x] Login / Register
 - [ ] Dashboard
-- [ ] Observation (étape 1)
-- [ ] Feelings (étape 2)
-- [ ] Needs (étape 3)
-- [ ] Diary (liste des pauses)
-- [ ] Détail d'une pause
+- [x] Observation (étape 1)
+- [x] Feelings (étape 2)
+- [x] Needs (étape 3)
+- [ ] Diary (liste complète des pauses)
+- [x] Détail d'une pause
 - [ ] Profil utilisateur
 
-**Ordre de travail ajusté le 30 juillet 2026 :**
+**Ordre de travail ajusté le 28 août 2026 :**
 
 1. construire d'abord les vues mobile-first du parcours de pratique :
    observation, sentiments, besoins ;
 2. consommer progressivement les endpoints API depuis les stores/composables
    front appropriés ;
-3. finaliser ensuite le Dashboard et le layout applicatif à partir du parcours
-   réellement stabilisé ;
-4. reporter l'adaptation desktop complète à une étape ultérieure pour réduire le
+3. séparer clairement les rôles de `HomeView` et `DiaryView` :
+   - `HomeView` est le point d'entrée synthétique avec salutation, démarrage de
+     pratique, trois dernières pauses et timeline statistique ;
+   - `DiaryView` est l'espace d'exploration de l'historique complet avec liste
+     chronologique et filtres ;
+4. terminer le Journal, puis ajouter la prévention de perte du brouillon et les
+   tests ciblés avant merge de branche ;
+5. créer ensuite une branche dédiée aux vues du compte utilisateur : visualiser,
+   modifier et supprimer son compte ;
+6. déployer le front en préproduction après finalisation des vues compte, le back
+   étant déjà déployé ;
+7. reporter l'adaptation desktop complète à une étape ultérieure pour réduire le
    périmètre immédiat.
 
 **Conservation du brouillon pendant la pratique :**
@@ -280,7 +297,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
       contient des données, au moyen de l'événement navigateur `beforeunload`.
       Le navigateur affichera alors sa propre confirmation native ; le texte de
       cette confirmation ne peut pas être personnalisé de manière fiable.
-- [ ] Vider le brouillon après l'enregistrement réussi de la pause, ou après la
+- [x] Vider le brouillon après l'enregistrement réussi de la pause, ou après la
       fin explicite d'une pratique anonyme sans sauvegarde.
 
 **Socle du parcours de pratique — session #20 :**
@@ -297,10 +314,14 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Implémenter `FeelingsView` et `NeedsView` avec chargement des catalogues,
       sélection multiple par familles, états de chargement/erreur/vide et
       stockage des identifiants sélectionnés dans Pinia.
-- [ ] Brancher `useGender()` pour résoudre le libellé genré des sentiments.
-- [ ] Finaliser `PauseView` et implémenter la soumission finale.
-- [ ] Implémenter la reprise après inscription, la redirection vers le Journal
-      et la fin explicite d'une pratique anonyme.
+- [x] Brancher `useGender()` pour résoudre le libellé genré des sentiments.
+- [x] Finaliser `PauseView` et implémenter la soumission finale.
+- [x] Implémenter la reprise après inscription avec retour sur le récapitulatif.
+- [x] Implémenter la fin explicite d'une pratique anonyme sans sauvegarde.
+- [x] Rediriger vers le Journal après création réussie, lorsque la vue Journal
+      existe.
+- [ ] Terminer l'affichage complet de “Mes pauses” dans `DiaryView` :
+      chronologie détaillée et filtres par famille de sentiments ou de besoins.
 
 #### 3.4 — Mise à jour sécurité
 

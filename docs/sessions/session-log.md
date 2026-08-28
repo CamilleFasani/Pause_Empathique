@@ -5,6 +5,73 @@
 
 ---
 
+## Session #23 — 28 août 2026
+
+**Objectifs prévus :** Reprendre la finalisation du parcours de pratique, avec
+priorité sur le choix de genre grammatical au démarrage du parcours anonyme.
+
+**Ce qui a été fait :**
+
+- ✅ Ajout d'une modale au clic sur “Pratiquer sans enregistrer” lorsque le
+  genre anonyme n'est pas encore défini pour un visiteur non connecté.
+- ✅ Le choix “Au féminin” ou “Au masculin” est enregistré via
+  `ANONYMOUS_GENDER_STORAGE_KEY` dans le `sessionStorage`.
+- ✅ Si le genre anonyme existe déjà, le parcours démarre directement sans
+  afficher la modale.
+- ✅ `useGender()` utilise maintenant le genre du profil lorsqu'une session
+  utilisateur existe, y compris pendant une pratique sans enregistrement.
+- ✅ `WelcomeChoiceButton` peut maintenant servir de lien ou de bouton d'action
+  selon le besoin.
+- ✅ Le wording “Pratiquer sans compte” devient “Pratiquer sans enregistrer”.
+- ✅ Les objectifs 2 et 3 de la session ont été vérifiés et marqués terminés
+  dans le suivi.
+- ✅ `HomeView` remplace l'écran provisoire par une page mobile-first conforme à
+  la maquette : salutation, accès visuel au Journal, démarrage de pratique et
+  timeline statistique statique.
+- ✅ Ajout de `PracticeTimeline`, composant visuel prêt à recevoir les données
+  statistiques plus tard.
+- ✅ Ajout des fonctions API front de liste, détail et suppression des pauses.
+- ✅ Les trois dernières pauses sont affichées sur `HomeView` sous forme de
+  cartes cliquables, au-dessus de la timeline.
+- ✅ `DiaryView` reste dédiée à l'affichage complet de “Mes pauses”, encore à
+  cadrer.
+- ✅ Ajout de `PauseDetailView` pour consulter une pause et la supprimer.
+- ✅ La création authentifiée redirige maintenant vers le Journal.
+
+**Ce qui reste :**
+
+- [ ] Trancher la navigation entre Accueil, Journal, pratique et détail de pause.
+- [ ] Vérifier la cohérence complète du parcours utilisateur.
+- [ ] Terminer le Journal avec une liste chronologique détaillée et des filtres
+  par famille de sentiments ou de besoins.
+- [ ] Ajouter `beforeunload` lorsqu'un brouillon contient des données.
+- [ ] Ajouter les tests ciblés du store/parcours et les vérifications de fin de
+  branche.
+
+**Vérifications :**
+
+- ✅ `npm run type-check`
+- ✅ `npm run lint`
+- ✅ `npm run build`
+
+**Décisions prises :**
+
+- Pour une pratique sans enregistrement, le genre grammatical vient du profil si
+  l'utilisateur est connecté ; sinon, il vient du `sessionStorage` de l'onglet.
+- Clarification Home vs Journal : `HomeView` devient le point d'entrée
+  synthétique avec salutation, démarrage de pratique, trois dernières pauses et
+  timeline statistique ; `DiaryView` devient l'espace d'exploration de
+  l'historique complet, avec liste chronologique et filtres.
+
+**Blocages / Points ouverts :**
+
+- Aucun blocage identifié pendant cette session.
+
+**Prochaine session prévue :** 31 août 2026 — finaliser le Journal, clarifier la
+navigation et vérifier le parcours avant merge de branche.
+
+---
+
 ## Session #22 — 24 août 2026
 
 **Objectifs prévus :** Reprendre `PauseView` avec les composants existants du

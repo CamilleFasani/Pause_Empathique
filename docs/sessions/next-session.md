@@ -3,12 +3,12 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #22 — Date à planifier — Finalisation du parcours de pratique
+## Session #24 — 31 août 2026 — Journal, navigation et fin de branche
 
 ### Contexte
 
-La session #21 du 21 août 2026 a intégré les premières étapes du parcours de
-pratique :
+Les sessions #21 à #23 ont stabilisé le parcours de pratique et posé les
+premiers accès au Journal :
 
 - `EmptyYourBagView` et `ObservationView` sont reliées au brouillon Pinia ;
 - `FeelingsView` et `NeedsView` chargent leurs catalogues via l'API front ;
@@ -18,68 +18,61 @@ pratique :
 - les états de chargement, d'erreur et d'absence de données sont affichés ;
 - la progression est bloquée tant qu'aucune sélection n'a été faite dans l'étape
   courante ;
-- un changement local non committé dans `pauses/api/serializers.py` expose les
-  familles sous le champ `family`, attendu par le front.
+- `useGender()` choisit le libellé genré des sentiments ;
+- le parcours anonyme demande le genre grammatical au premier démarrage et le
+  conserve dans `sessionStorage` via `ANONYMOUS_GENDER_STORAGE_KEY` ;
+- `PauseView` affiche le résumé du brouillon et gère les fins de parcours
+  authentifiée et anonyme ;
+- une première version visuelle de `HomeView` prépare l'accès au Journal, à la
+  pratique, aux dernières pauses et à la future timeline statistique.
+- `PauseDetailView` permet de consulter et supprimer une pause ;
+- après création authentifiée, `PauseView` redirige vers le Journal.
 
-La prochaine session doit d'abord isoler et committer proprement le changement
-back Feelings/Needs dans une branche back dédiée, puis reprendre la fin du
-parcours front. Le Dashboard et l'adaptation desktop restent volontairement en
-dehors du périmètre immédiat.
+Clarification produit actée en session #23 :
 
-### Objectif 1 — Stabiliser le contrat Feelings/Needs côté back
+- `HomeView` est le point d'entrée synthétique : salutation, accès à la
+  pratique, trois dernières pauses et timeline statistique.
+- `DiaryView` est l'espace d'exploration de l'historique complet : liste
+  chronologique détaillée, filtres, accès aux détails.
 
-- [x] Créer une branche back dédiée pour le changement de serializers
-      Feelings/Needs.
-- [x] Vérifier que `FeelingSerializer` expose `id`, `family`, `names`.
-- [x] Vérifier que `NeedSerializer` expose `id`, `family`, `name`.
-- [x] Ajouter ou adapter les tests back du contrat Feelings/Needs si nécessaire.
-- [x] Lancer les tests back ciblés sur les endpoints Feelings/Needs.
-- [x] Committer le changement back dans cette branche dédiée.
+La prochaine session doit trancher la navigation entre Accueil, Journal,
+pratique et détail de pause, vérifier la logique du parcours utilisateur, puis
+terminer le Journal. Une fois les objectifs ci-dessous validés, la branche
+pourra être mergée. La suite prévue est une branche dédiée aux vues du compte
+utilisateur, puis le déploiement front en préproduction, le back étant déjà
+déployé.
 
-### Objectif 2 — Terminer Sentiments et Besoins côté front
+### Objectif 1 — Trancher la navigation et vérifier le parcours
 
-- [x] Brancher `useGender()` pour choisir le label genré des sentiments.
-- [ ] Ajouter une modale au début du parcours anonyme pour définir
-      `ANONYMOUS_GENDER_STORAGE_KEY`.
-- [ ] Vérifier que le retour en arrière conserve les textes et les sélections.
-- [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
-      démarré.
-- [ ] Vérifier le comportement d'erreur lorsque les catalogues ne chargent pas.
+- [ ] Trancher les liens entre `HomeView`, `DiaryView`, `PauseDetailView` et le
+      démarrage de pratique.
+- [ ] Vérifier les libellés et intentions : Accueil = point d'entrée, Journal =
+      exploration complète.
+- [ ] Vérifier les retours depuis le détail de pause après consultation et après
+      suppression.
+- [ ] Vérifier la cohérence des redirections après création réussie,
+      authentification depuis le parcours et fin sans enregistrement.
+- [ ] Ajuster les composants ou routes si une incohérence produit apparaît.
 
-### Objectif 3 — Finaliser `PauseView`
+### Objectif 2 — Terminer le Journal
 
-- [x] Transformer `PauseView` en page de résumé du brouillon.
-- [x] Ajouter le champ de titre modifiable et gérer le titre par défaut du back
-      lorsqu'il est laissé vide.
-- [x] Pour un utilisateur connecté, envoyer le payload via `createPause()`.
-- [x] Pour un utilisateur anonyme, proposer la création d'un compte pour
-      enregistrer la pause.
-- [x] Conserver le brouillon lors de l'inscription et de la connexion
-      automatique.
-- [ ] Vérifier manuellement la reprise après authentification avec retour sur le
-      récapitulatif pour validation explicite.
-- [x] Empêcher les doubles envois pendant la soumission.
-- [x] Prévoir une fin anonyme explicite avec appel du compteur sans envoyer le
-      contenu de la pause.
-- [x] Conserver le brouillon en cas d'erreur API et permettre un nouvel essai.
-- [x] Vider le brouillon uniquement après succès ou fin anonyme explicite.
+- [ ] Implémenter la liste complète des pauses dans `DiaryView`.
+- [ ] Afficher les pauses en ordre chronologique clair.
+- [ ] Ajouter un filtre par famille de sentiments.
+- [ ] Ajouter un filtre par famille de besoins.
+- [ ] Conserver les états chargement, erreur et liste vide.
+- [ ] Garder les trois dernières pauses sur `HomeView`, au-dessus de la
+      timeline.
+- [ ] Vérifier que chaque pause listée mène au détail.
 
-### Objectif 4 — Ajouter le Journal
-
-- [ ] Ajouter les fonctions API de liste des pauses et, si nécessaire, de détail.
-- [ ] Créer la route et la vue Journal protégées par authentification.
-- [ ] Afficher les pauses créées avec leur titre et leur date.
-- [ ] Afficher un lien vers le détail de chaque pause.
-- [ ] Rediriger vers le Journal après création réussie depuis `PauseView`.
-
-### Objectif 5 — Prévenir la perte du brouillon
+### Objectif 3 — Prévenir la perte du brouillon
 
 - [ ] Ajouter `beforeunload` uniquement lorsqu'un brouillon contient des données.
 - [ ] Vérifier le comportement sur un rechargement mobile et desktop.
 - [ ] Ne pas ajouter de persistance `localStorage` ou `sessionStorage` dans cette
       étape.
 
-### Objectif 6 — Vérifications
+### Objectif 4 — Vérifications et fin de branche
 
 - [ ] Ajouter les tests ciblés du store : sélection, validation, réinitialisation,
       soumission authentifiée, soumission anonyme et conservation après erreur.
@@ -91,10 +84,18 @@ dehors du périmètre immédiat.
 - [ ] Vérifier manuellement le parcours anonyme sur mobile.
 - [ ] Vérifier manuellement le parcours création de compte → sauvegarde → Journal.
 - [ ] Mettre à jour les documents de session en fin de travail.
+- [ ] Préparer le merge de cette branche après validation.
+
+### Suite prévue après merge
+
+- Créer une branche dédiée aux vues liées au compte : visualiser, modifier et
+  supprimer son compte.
+- Déployer le front en préproduction après finalisation de ces vues, le back
+  étant déjà déployé.
 
 ### Limites de la prochaine session
 
-- Ne pas finaliser le Dashboard avant la stabilisation du parcours de pratique.
+- Ne pas finaliser le Dashboard détaillé avant la stabilisation du Journal.
 - Ne pas ajouter de logique métier durable côté front si elle appartient au back.
 - Ne pas persister le brouillon dans `localStorage` ou `sessionStorage`.
 - Ne pas viser l'adaptation desktop complète au-delà de la vérification du
