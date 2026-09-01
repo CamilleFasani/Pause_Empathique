@@ -51,9 +51,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
   suppression
 - 🚧 `HomeView` possède une première version mobile-first avec timeline
   statistique statique, à brancher plus tard sur les données réelles
-- 🚧 Navigation Home/Journal/pratique/détail clarifiée et Journal complet
-  implémenté côté front ; prochaine étape front : ajouter `beforeunload` et les
-  tests ciblés
+- ✅ Navigation Home/Journal/pratique/détail clarifiée, Journal complet
+  implémenté côté front, prévention `beforeunload` ajoutée et tests unitaires de
+  base du store de pratique en place
 - 🚧 Layouts applicatifs seulement partiellement réalisés
 - ❌ Charte graphique définitive non appliquée
 
@@ -297,7 +297,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
       premières étapes (`EmptyYourBagView`, `ObservationView`,
       `FeelingsView`, `NeedsView`), sans persistance dans `localStorage` ou
       `sessionStorage` pour le moment.
-- [ ] Prévenir l'utilisateur avant un rechargement de page lorsque le brouillon
+- [x] Prévenir l'utilisateur avant un rechargement de page lorsque le brouillon
       contient des données, au moyen de l'événement navigateur `beforeunload`.
       Le navigateur affichera alors sa propre confirmation native ; le texte de
       cette confirmation ne peut pas être personnalisé de manière fiable.
@@ -341,6 +341,9 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
   d'ex aequo entre besoins, la première famille rencontrée est utilisée. Le
   mapping des icônes Iconoir est configuré côté front et reste à compléter après
   validation iconographique.
+- Les tests e2e front sont reportés tant que l'interface et le produit restent
+  fortement évolutifs ; le filet de sécurité immédiat repose sur des tests
+  unitaires Vitest du store de pratique.
 
 #### 3.4 — Mise à jour sécurité
 

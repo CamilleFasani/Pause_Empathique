@@ -5,6 +5,84 @@
 
 ---
 
+## Session #24 — 1 septembre 2026
+
+**Objectifs prévus :** Finaliser le Journal, clarifier la navigation
+Home/Journal/pratique/détail, prévenir la perte du brouillon et ajouter un
+filet de tests avant merge de la branche front.
+
+**Ce qui a été fait :**
+
+- ✅ Navigation validée entre Accueil, Journal, détail de pause et démarrage de
+  pratique.
+- ✅ Redirections de fin de parcours clarifiées : sauvegarde authentifiée vers
+  l'Accueil, suppression d'une pause vers l'Accueil, retour au récapitulatif
+  après connexion ou inscription lancée depuis la pratique.
+- ✅ `DiaryView` finalisée avec liste chronologique complète, filtres par
+  familles de sentiments, familles de besoins et période/date.
+- ✅ Le Journal adopte une timeline verticale mobile-first, proche de la maquette
+  validée.
+- ✅ Les cartes du Journal affichent titre, heure et icône automatique, avec une
+  seule icône principale.
+- ✅ Nouvelle logique visuelle du Journal : la famille de sentiments
+  prédominante donne la couleur de fond ; deux familles de sentiments ex aequo
+  produisent un dégradé ; la famille de besoins prédominante donne l'icône
+  tracée en noir ; en cas d'ex aequo entre besoins, la première famille
+  rencontrée est utilisée.
+- ✅ Installation de `@iconoir/vue` et centralisation du mapping visuel du
+  Journal dans `src/config/journalVisuals.ts`.
+- ✅ Ajout du shadow commun sur le grand cercle de `PracticeStepHeader`.
+- ✅ Ajout d'un commentaire d'intention en tête des fichiers front hors vues qui
+  n'en avaient pas encore.
+- ✅ Ajout de `beforeunload` via `usePracticeDraftBeforeUnload`, uniquement
+  lorsqu'un brouillon contient des données utiles.
+- ✅ Confirmation manuelle du comportement de prévention de perte du brouillon.
+- ✅ Ajout de tests unitaires Vitest ciblés sur le store de pratique :
+  sélection, validation, détection du brouillon, reset, reprise après
+  authentification, soumissions authentifiée/anonyme et conservation du
+  brouillon après erreur.
+
+**Ce qui reste :**
+
+- [ ] Merger la branche front après validation finale par l'utilisateur.
+- [ ] Créer une branche dédiée aux vues du compte utilisateur.
+- [ ] Avant déploiement front, ajouter un timestamp au compteur de pratiques
+  anonymes côté back.
+- [ ] Déployer le front en préproduction après finalisation des vues compte.
+
+**Vérifications :**
+
+- ✅ `npm run test:unit` — 1 fichier, 9 tests passés.
+- ✅ `npm run type-check`
+- ✅ `npm run lint`
+- ✅ `npm run build`
+- ✅ Vérification manuelle utilisateur du comportement `beforeunload`.
+- ✅ Vérification manuelle utilisateur du parcours avant merge.
+
+**Décisions prises :**
+
+- Les tests e2e sont reportés : le produit et l'UI vont encore bouger, donc le
+  coût de maintenance serait prématuré.
+- Le filet de sécurité front démarre par des tests unitaires du store Pinia,
+  plus stables que des tests de composants à ce stade.
+- `journalVisuals.ts` centralise les constantes visuelles du Journal :
+  couleurs de sentiments et composants Iconoir associés aux familles de besoins.
+- `JournalPauseIcon` reste un composant d'affichage simple : il reçoit un
+  composant Iconoir déjà résolu et le rend avec un tracé noir via `currentColor`.
+
+**Blocages / Points ouverts :**
+
+- `npm install` signale 5 vulnérabilités high dans l'arbre npm ; aucun
+  `npm audit fix` n'a été lancé pour ne pas modifier largement les dépendances
+  pendant cette finition de branche.
+- Les vues du compte utilisateur restent à créer sur une branche dédiée.
+
+**Prochaine session prévue :** créer la branche dédiée aux vues du compte
+utilisateur, puis préparer les derniers prérequis au déploiement front en
+préproduction.
+
+---
+
 ## Session #23 — 28 août 2026
 
 **Objectifs prévus :** Reprendre la finalisation du parcours de pratique, avec
