@@ -51,9 +51,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
   suppression
 - 🚧 `HomeView` possède une première version mobile-first avec timeline
   statistique statique, à brancher plus tard sur les données réelles
-- 🚧 Prochaine étape front : clarifier la navigation Home/Journal/pratique,
-  terminer le Journal complet avec liste chronologique et filtres par familles
-  de sentiments/besoins, puis ajouter `beforeunload` et les tests ciblés
+- 🚧 Navigation Home/Journal/pratique/détail clarifiée et Journal complet
+  implémenté côté front ; prochaine étape front : ajouter `beforeunload` et les
+  tests ciblés
 - 🚧 Layouts applicatifs seulement partiellement réalisés
 - ❌ Charte graphique définitive non appliquée
 
@@ -263,7 +263,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Observation (étape 1)
 - [x] Feelings (étape 2)
 - [x] Needs (étape 3)
-- [ ] Diary (liste complète des pauses)
+- [x] Diary (liste complète des pauses)
 - [x] Détail d'une pause
 - [ ] Profil utilisateur
 
@@ -278,13 +278,17 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
      pratique, trois dernières pauses et timeline statistique ;
    - `DiaryView` est l'espace d'exploration de l'historique complet avec liste
      chronologique et filtres ;
-4. terminer le Journal, puis ajouter la prévention de perte du brouillon et les
-   tests ciblés avant merge de branche ;
+4. ajouter la prévention de perte du brouillon et les tests ciblés avant merge
+   de branche ;
 5. créer ensuite une branche dédiée aux vues du compte utilisateur : visualiser,
    modifier et supprimer son compte ;
-6. déployer le front en préproduction après finalisation des vues compte, le back
+6. ajouter juste avant le déploiement front un timestamp au compteur de pratiques
+   anonymes (`AnonymousPauseCounter`) afin de connaître la dernière pratique
+   anonyme comptabilisée ; prévoir un modèle d'événements séparé si un historique
+   complet des horaires devient nécessaire ;
+7. déployer le front en préproduction après finalisation des vues compte, le back
    étant déjà déployé ;
-7. reporter l'adaptation desktop complète à une étape ultérieure pour réduire le
+8. reporter l'adaptation desktop complète à une étape ultérieure pour réduire le
    périmètre immédiat.
 
 **Conservation du brouillon pendant la pratique :**
@@ -318,10 +322,25 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Finaliser `PauseView` et implémenter la soumission finale.
 - [x] Implémenter la reprise après inscription avec retour sur le récapitulatif.
 - [x] Implémenter la fin explicite d'une pratique anonyme sans sauvegarde.
-- [x] Rediriger vers le Journal après création réussie, lorsque la vue Journal
-      existe.
-- [ ] Terminer l'affichage complet de “Mes pauses” dans `DiaryView` :
-      chronologie détaillée et filtres par famille de sentiments ou de besoins.
+- [x] Rediriger vers l'Accueil authentifié après création réussie.
+- [x] Terminer l'affichage complet de “Mes pauses” dans `DiaryView` :
+      chronologie détaillée, filtres par famille de sentiments, filtres par
+      famille de besoins, filtre par période/date et accès aux détails.
+
+**Décision Journal — session #24 :**
+
+- `DiaryView` adopte une présentation “Carnet vivant” mobile-first : timeline
+  verticale, pauses les plus récentes en haut, cartes simples avec titre, heure
+  et icône.
+- Les filtres par familles de sentiments, familles de besoins et période/date
+  se combinent avec une logique `ET`.
+- La famille de sentiments prédominante donne la couleur de fond. En cas
+  d'ex aequo entre deux familles de sentiments, le fond devient un dégradé entre
+  les deux couleurs.
+- La famille de besoins prédominante donne l'icône tracée en noir. En cas
+  d'ex aequo entre besoins, la première famille rencontrée est utilisée. Le
+  mapping des icônes Iconoir est configuré côté front et reste à compléter après
+  validation iconographique.
 
 #### 3.4 — Mise à jour sécurité
 
@@ -331,6 +350,9 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 #### 3.5 — Déploiement front
 
+- [ ] Ajouter un timestamp au modèle/table `AnonymousPauseCounter` avant
+      déploiement front pour connaître la dernière pratique anonyme comptabilisée
+      sans stocker le contenu de la pause.
 - [ ] Déployer le front (Railway, Vercel, Netlify — à décider)
 - [ ] Configurer les variables d'environnement (URL de l'API)
 - [ ] Valider en staging
