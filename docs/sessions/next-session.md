@@ -27,23 +27,26 @@ l'utilisateur après validation manuelle :
 Les tests e2e sont volontairement reportés, car l'UI et le produit vont encore
 évoluer.
 
+La branche front `feat/add-account-views` contient désormais la vue du compte et
+attend sa validation manuelle mobile avant merge.
+
 ### Objectif 1 — Repartir d'une base propre
 
-- [ ] Vérifier que la branche front précédente a bien été mergée.
-- [ ] Créer une branche dédiée aux vues du compte utilisateur.
-- [ ] Relire l'état de `docs/project-management.md` et confirmer le périmètre de
+- [x] Vérifier que la branche front précédente a bien été mergée.
+- [x] Créer une branche dédiée aux vues du compte utilisateur.
+- [x] Relire l'état de `docs/project-management.md` et confirmer le périmètre de
       la session.
 
 ### Objectif 2 — Vues du compte utilisateur
 
-- [ ] Définir les écrans nécessaires : consultation, modification et suppression
+- [x] Définir les écrans nécessaires : consultation, modification et suppression
       du compte.
-- [ ] Vérifier le contrat API existant pour le profil utilisateur.
-- [ ] Implémenter les vues via le store d'authentification et la couche API
+- [x] Vérifier le contrat API existant pour le profil utilisateur.
+- [x] Implémenter les vues via le store d'authentification et la couche API
       existants.
-- [ ] Prévoir les états chargement, erreur, succès, compte supprimé et session
+- [x] Prévoir les états chargement, erreur, succès, compte supprimé et session
       expirée.
-- [ ] Vérifier que la suppression de compte nettoie correctement l'état local et
+- [x] Vérifier que la suppression de compte nettoie correctement l'état local et
       redirige l'utilisateur.
 
 ### Objectif 3 — Prérequis avant déploiement front
@@ -61,10 +64,10 @@ Les tests e2e sont volontairement reportés, car l'UI et le produit vont encore
 ### Objectif 4 — Vérifications
 
 - [ ] Lancer les tests pertinents back si le timestamp anonyme est modifié.
-- [ ] Lancer `npm run test:unit`.
-- [ ] Lancer `npm run type-check`.
-- [ ] Lancer `npm run lint`.
-- [ ] Lancer `npm run build`.
+- [x] Lancer `npm run test:unit`.
+- [x] Lancer `npm run type-check`.
+- [x] Lancer `npm run lint`.
+- [x] Lancer `npm run build`.
 - [ ] Vérifier manuellement les parcours compte sur mobile.
 
 ### Limites de la prochaine session

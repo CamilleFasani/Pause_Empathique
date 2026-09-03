@@ -5,6 +5,75 @@
 
 ---
 
+## Session #25 — 3 septembre 2026
+
+**Objectifs prévus :** Repartir d'une branche front propre, puis implémenter la
+consultation, la modification et la suppression du compte utilisateur depuis le
+menu “Mon compte”.
+
+**Ce qui a été fait :**
+
+- ✅ Objectif 1 confirmé par l'utilisateur : branche précédente mergée et branche
+  `feat/add-account-views` créée.
+- ✅ Contrat `GET/PATCH/DELETE /api/v1/users/me/` vérifié ; la suppression des
+  pauses associées reste garantie côté Django par la relation en cascade.
+- ✅ Ajout de la route privée `/account` et branchement des accès “Mon compte”
+  dans le menu mobile et la barre latérale desktop.
+- ✅ Ajout de `AccountView` avec chargement du profil, affichage du prénom, de
+  l'email, de la préférence de lecture, de la date de création et de la date de
+  dernière modification.
+- ✅ Ajout du mode modification pour le prénom, l'email et la préférence de
+  lecture, avec validation locale, remontée des erreurs API et confirmation de
+  succès.
+- ✅ Ajout de la suppression du compte avec une modale de confirmation reprenant
+  le design de la suppression d'une pause.
+- ✅ Après suppression, la session et le brouillon de pratique Pinia sont vidés,
+  puis l'utilisateur est redirigé vers Welcome avec une confirmation explicite.
+- ✅ Ajout d'un message dédié lorsque la session expire pendant une opération sur
+  le compte.
+- ✅ Le menu du compte se ferme désormais lors d'un clic à l'extérieur.
+- ✅ Le focus jaune des champs du compte est harmonisé sur les formulaires de
+  connexion, d'inscription et sur le titre éditable d'une pause.
+- ✅ Ajout de quatre tests unitaires du store d'authentification pour le
+  rafraîchissement, la modification et les deux issues de suppression.
+
+**Ce qui reste :**
+
+- [ ] Valider manuellement les parcours du compte sur mobile et desktop.
+- [ ] Merger `feat/add-account-views` après validation utilisateur.
+- [ ] Poursuivre avec l'objectif 3 : timestamp du compteur anonyme et préparation
+  du déploiement front.
+
+**Vérifications :**
+
+- ✅ `npm run test:unit` — 2 fichiers, 13 tests passés.
+- ✅ `npm run type-check`
+- ✅ `npm run lint`
+- ✅ `npm run build`
+- ✅ Prettier ciblé et `git diff --check`.
+- ✅ `UserMeAPITest` — 6 tests back passés avec une base SQLite temporaire et le
+  cache pytest désactivé pour s'adapter à l'environnement local.
+- ⏳ Validation visuelle manuelle à réaliser.
+
+**Décisions prises :**
+
+- La page du compte regroupe consultation et édition afin de garder un parcours
+  simple ; la suppression reste isolée dans une zone destructive et une modale.
+- Le front ne réimplémente pas la règle de suppression des pauses : l'API et la
+  cascade Django restent l'autorité sur l'intégrité des données.
+- L'état d'authentification est mis à jour dans le store, tandis que la vue
+  coordonne uniquement le formulaire, les messages et la navigation.
+
+**Blocages / Points ouverts :**
+
+- Aucun blocage technique. Le rendu et les interactions doivent encore être
+  validés manuellement sur un écran mobile représentatif.
+
+**Prochaine étape prévue :** validation manuelle et merge de la branche compte,
+puis démarrage de l'objectif 3 de la session #25.
+
+---
+
 ## Session #24 — 1 septembre 2026
 
 **Objectifs prévus :** Finaliser le Journal, clarifier la navigation

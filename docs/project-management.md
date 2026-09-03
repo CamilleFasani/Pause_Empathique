@@ -49,6 +49,9 @@ L'objectif est double : livrer une application de qualité production ET acquér
   fin sans enregistrement
 - ✅ Premiers accès Journal ajoutés : dernières pauses sur `HomeView`, détail et
   suppression
+- ✅ Vue du compte utilisateur implémentée côté SPA : consultation, modification,
+  suppression avec confirmation, nettoyage de l'état local et gestion des états
+  d'erreur/session expirée
 - 🚧 `HomeView` possède une première version mobile-first avec timeline
   statistique statique, à brancher plus tard sur les données réelles
 - ✅ Navigation Home/Journal/pratique/détail clarifiée, Journal complet
@@ -265,7 +268,7 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Needs (étape 3)
 - [x] Diary (liste complète des pauses)
 - [x] Détail d'une pause
-- [ ] Profil utilisateur
+- [x] Profil utilisateur
 
 **Ordre de travail ajusté le 28 août 2026 :**
 
