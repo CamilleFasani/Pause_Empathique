@@ -3,7 +3,44 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #28 — Validation du parcours et pré-déploiement front
+## Session #29 — Dossier projet et présentation
+
+### Priorité actuelle — 15 septembre 2026
+
+À la demande de l'utilisateur, le développement est mis en pause pour se
+concentrer exclusivement sur la rédaction du dossier projet et la création de
+la présentation avec Slidev. La date de reprise du développement reste à définir.
+
+Le back est sur `feat/create-slides-for-exam`, avec `docs/plan-pres.md` et
+`docs/presentation/` présents mais non suivis par Git au moment du constat.
+Le front est sur `clean/refactoring`.
+
+L'utilisateur confirme le démarrage de Slidev le 15 septembre 2026. Les fichiers
+du modèle ont été examinés : README corrigé pour npm et exception locale ajoutée
+pour versionner `package-lock.json`. Le contenu de démonstration reste à remplacer
+par la présentation du projet ; l'export reste à vérifier.
+
+### Objectifs de la prochaine session
+
+- [ ] Poursuivre la rédaction du dossier projet en s'appuyant sur l'état réel
+      de l'application et les documents existants.
+- [ ] Structurer le fil conducteur de l'oral dans `docs/plan-pres.md`.
+- [ ] Créer les diapositives dans `docs/presentation/` avec Slidev.
+- [ ] Vérifier la cohérence entre dossier, diapositives et fonctionnalités
+      effectivement réalisées ; identifier clairement les perspectives.
+- [ ] Vérifier le rendu de la présentation et préparer son export.
+
+### Périmètre
+
+- Les prochaines sessions portent sur le dossier et la présentation.
+- Les tâches de développement ci-dessous sont reportées, sans être considérées
+  comme terminées. Réévaluer leur contexte et les branches à la reprise.
+- Aucune date de prochaine session n'est fixée.
+
+## Développement en pause — Objectifs conservés pour la reprise
+
+Les éléments ci-dessous reprennent le suivi antérieur au 15 septembre 2026.
+Les résultats de tests et les mentions de branches sont des constats historiques.
 
 ### Contexte
 

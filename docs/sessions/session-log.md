@@ -5,6 +5,32 @@
 
 ---
 
+## Session #28 — 15 septembre 2026
+
+**Objectif :** Préparer la création de la présentation et recentrer les priorités.
+
+**Ce qui a été fait :** Explication du fonctionnement de Slidev, des étapes de
+création et de la syntaxe Markdown. Conseil d'organisation dans
+`docs/presentation/` avec un projet Node dédié. Mise à jour du suivi des sessions
+et de la priorité dans la roadmap.
+
+**Décision :** L'utilisateur met le développement en pause pour se concentrer
+exclusivement sur le dossier projet et la présentation. Les tâches fonctionnelles
+et de déploiement restent ouvertes pour la reprise, sans date fixée.
+
+**Constats :** Back sur `feat/create-slides-for-exam`, avec `docs/plan-pres.md`
+et `docs/presentation/` non suivis par Git ; front sur `clean/refactoring`.
+Le démarrage de Slidev a ensuite été confirmé par l'utilisateur après retour
+à la version 52.19.2. Examen des fichiers générés, correction des commandes npm
+du README et ajout d'une exception dans le `.gitignore` local pour permettre le
+versionnement de `package-lock.json`. Les deux `.gitignore` sont conservés ; les
+exemples restent utilisés par `slides.md`. L'export n'a pas été vérifié.
+
+**Suite :** Poursuivre le dossier, structurer l'oral et créer les diapositives,
+en distinguant les réalisations des perspectives.
+
+---
+
 ## Session #27 — 11 septembre 2026
 
 **Objectif :** Créer un diagramme de classes UML du projet.

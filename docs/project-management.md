@@ -16,7 +16,18 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-## État actuel — Août 2026
+## Priorité actuelle — 15 septembre 2026
+
+À la demande de l'utilisateur, le développement est mis en pause pour se
+consacrer exclusivement à la rédaction du dossier projet CDA et à la création
+de la présentation avec Slidev, dans `docs/presentation/`.
+
+Les validations manuelles, le timestamp du compteur anonyme et les prérequis
+de déploiement front restent à faire. Ils sont reportés jusqu'à la reprise du
+développement, dont la date n'est pas fixée. Cette pause ne valide aucune phase
+supplémentaire de la roadmap.
+
+## État fonctionnel de référence — Développement en pause
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
