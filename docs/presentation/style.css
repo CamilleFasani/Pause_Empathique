@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Manrope:wght@400;600;700&display=swap");
+
+/* Charte de pause_empathique_front/src/style.css, sans dépendance à Tailwind. */
+:root {
+  /* --- Couleurs principales  --------------------------------------- */
+  --color-brand-primary: #ffb300;
+  --color-brand-primary-hover: #ffdc7d;
+
+  /* --- Fonds --------------------------------------------------------------- */
+  --color-bg-page: #fff4d5;
+  --color-bg-empty-your-bag: #ffd151;
+  --color-bg-observation: #ffdc7d;
+  --color-bg-feelings: #ffe8aa;
+  --color-bg-needs: #fff4d5;
+  --color-bg-card: #ffffff;
+  --color-bg-circle-white: #ffffff;
+  --color-bg-circle-beige: #fff4d5;
+  --color-bg-footer: #1a1200;
+
+  /* --- Texte --------------------------------------------------------------- */
+  --color-black: #1a1300;
+  --color-white: #ffffff;
+
+  /* --- Typographie --------------------------------------------------------- */
+  --font-body: "Manrope", sans-serif;
+  --font-logo: "Fraunces", serif;
+
+  /* --- Rayons de bordure --------------------------------------------------- */
+  --radius-btn: 10px;
+  --radius-card: 15px;
+
+  /* --- États  ---------------------------- */
+  --color-warning: #f74e00;
+
+  --slidev-theme-primary: var(--color-brand-primary);
+}
+
+.slidev-layout {
+  background-color: var(--color-bg-page);
+  color: var(--color-black);
+  font-family: var(--font-body);
+}
+
+.slidev-layout h1,
+.slidev-layout h2 {
+  color: var(--color-black);
+  font-family: var(--font-logo);
+  font-weight: 700;
+}
+
+.slidev-layout h1 {
+  font-size: 2.5rem;
+  line-height: 1.15;
+}
+
+.slidev-layout h2 {
+  font-size: 1.8rem;
+  line-height: 1.25;
+}
+
+.slidev-layout h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.slidev-layout p,
+.slidev-layout li {
+  line-height: 1.5;
+}
+
+/* Le jaune sert d'accent ; le texte reste foncé sur le fond crème. */
+.slidev-layout a {
+  color: var(--color-black);
+  border-color: var(--color-brand-primary);
+}
+
+.slidev-layout a:hover {
+  background-color: var(--color-brand-primary-hover);
+}
+
+.slidev-layout blockquote,
+.slidev-layout .pe-callout {
+  margin-block: 1.25rem;
+  padding: 1rem 1.5rem;
+  border: 0;
+  border-left: 5px solid var(--color-brand-primary);
+  border-radius: var(--radius-card);
+  background-color: var(--color-bg-card);
+  color: var(--color-black);
+}
+
+.slidev-layout .pe-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-card);
+  background-color: var(--color-bg-card);
+}
+
+/* .slidev-layout .pe-logo {
+  display: inline;
+  width: 50px;
+  height: auto;
+  object-fit: contain;
+} */
+
+.slidev-layout .pe-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.slidev-layout .pe-heading img {
+  height: 3.2rem;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.slidev-layout .pe-heading h1 {
+  margin: 0;
+  line-height: 1;
+}

@@ -1,2 +1,5 @@
 # Django templates are not safe to auto-format with generic HTML formatters
 templates/**/*.html
+
+# Le Markdown Slidev nécessite un formateur dédié pour préserver ses blocs YAML.
+docs/presentation/**/*.md
