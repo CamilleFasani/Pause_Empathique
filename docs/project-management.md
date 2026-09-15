@@ -307,6 +307,16 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Vider le brouillon après l'enregistrement réussi de la pause, ou après la
       fin explicite d'une pratique anonyme sans sauvegarde.
 
+**Simplification de l'état du parcours — 10 septembre 2026 :**
+
+- `practice.hasStarted` indique uniquement si une pratique a démarré ;
+  l'authentification reste portée par le store `auth`.
+- `start()` ne reçoit plus de mode. Les deux actions de soumission vérifient
+  l'existence du parcours et l'état de connexion courant ; l'API conserve ses
+  contrôles de permissions.
+- `resumeAfterAuthentication` conserve l'intention de retour au récapitulatif.
+  L'enregistrement explicite nettoie cet indicateur sans transition de mode.
+
 **Socle du parcours de pratique — session #20 :**
 
 - [x] Définir le contrat front des catalogues Feelings/Needs et de la création
@@ -314,8 +324,8 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 - [x] Ajouter le titre optionnel au payload de création afin de permettre sa
       modification depuis `PauseView` tout en conservant le titre par défaut du
       back lorsqu'il est absent.
-- [x] Créer le store Pinia `src/stores/practice.ts` avec le brouillon, le mode
-      anonyme/authentifié, les identifiants sélectionnés, les états d'envoi et
+- [x] Créer le store Pinia `src/stores/practice.ts` avec le brouillon, l'état de
+      démarrage, les identifiants sélectionnés, les états d'envoi et
       la reprise après authentification.
 - [x] Brancher `EmptyYourBagView` et `ObservationView` au brouillon Pinia.
 - [x] Implémenter `FeelingsView` et `NeedsView` avec chargement des catalogues,

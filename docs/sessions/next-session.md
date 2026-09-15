@@ -3,9 +3,22 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #25 — Vues du compte utilisateur et pré-déploiement front
+## Session #28 — Validation du parcours et pré-déploiement front
 
 ### Contexte
+
+Mise à jour du 11 septembre 2026 : le
+[diagramme de classes UML](../diagramme-classes.md) documente les modèles métier
+actuels. Cette session documentaire conserve les objectifs fonctionnels
+ci-dessous, notamment l'ajout futur du timestamp au compteur anonyme.
+
+Mise à jour du 10 septembre 2026 : le front est sur `clean/refactoring`.
+Le mode de pratique a été remplacé par le booléen `hasStarted` ; les soumissions
+consultent le store `auth` pour connaître la connexion courante. La reprise après
+authentification est conservée. Les 19 tests front, le type-check, le lint et le
+build passent. La refactorisation attend une validation manuelle du parcours.
+Les éléments ci-dessous rappellent les étapes précédentes et les prérequis de
+déploiement encore ouverts.
 
 La branche front du parcours de pratique est prête à être mergée par
 l'utilisateur après validation manuelle :
@@ -63,6 +76,8 @@ attend sa validation manuelle mobile avant merge.
 
 ### Objectif 4 — Vérifications
 
+- [ ] Vérifier manuellement la pratique sans compte, la finalisation anonyme et
+      la reprise après inscription/connexion suivie d'un enregistrement.
 - [ ] Lancer les tests pertinents back si le timestamp anonyme est modifié.
 - [x] Lancer `npm run test:unit`.
 - [x] Lancer `npm run type-check`.

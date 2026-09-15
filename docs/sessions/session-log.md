@@ -5,6 +5,53 @@
 
 ---
 
+## Session #27 — 11 septembre 2026
+
+**Objectif :** Créer un diagramme de classes UML du projet.
+
+**Ce qui a été fait :** Ajout de [diagramme-classes.md](../diagramme-classes.md),
+avec les cinq modèles métier Django, leurs principales opérations, les
+énumérations et les cardinalités. Distinction entre les associations persistées
+et la validation API ; documentation du compteur anonyme indépendant, encore
+sans timestamp.
+
+**Vérifications :** Lecture croisée des modèles, de la configuration Django,
+des serializers et vues API, ainsi que des interfaces front. Aucun comportement
+applicatif modifié.
+
+**Suite :** Conserver les validations manuelles et prérequis de déploiement
+prévus. Aucune modification de la roadmap.
+
+---
+
+## Session #26 — 10 septembre 2026
+
+**Objectif :** Simplifier l'état du parcours de pratique à la demande de
+l'utilisateur, sur la branche front existante `clean/refactoring`.
+
+**Ce qui a été fait :**
+
+- Remplacement de `mode` par `hasStarted`, simplification de `start()` et
+  adaptation des cinq vues appelantes.
+- Suppression de `continueAuthenticated()` ; nettoyage de l'intention de reprise
+  intégré à la soumission authentifiée.
+- Contrôles de soumission basés sur le démarrage du parcours et le store `auth`.
+  Les boutons existants et les permissions serveur restent inchangés.
+- Adaptation des tests du store : démarrage, reprise après connexion sans perte
+  du brouillon, refus de soumission sans parcours, session terminée et refus de
+  comptage anonyme après connexion.
+
+**Vérifications :** Tests ciblés exécutés avant puis après implémentation ;
+`npm run test:unit` (19 tests, dont 15 pour la pratique), `npm run type-check`,
+`npm run lint`, `npm run build`, Prettier ciblé et `git diff --check` réussis.
+
+**Suite :** Validation manuelle des parcours de pratique et de reprise après
+authentification, puis reprise des prérequis de déploiement. La possibilité de
+terminer explicitement sans enregistrer en étant connecté a été discutée mais
+n'est pas implémentée dans cette refactorisation.
+
+---
+
 ## Session #25 — 3 septembre 2026
 
 **Objectifs prévus :** Repartir d'une branche front propre, puis implémenter la
