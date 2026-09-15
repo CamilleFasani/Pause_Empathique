@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+dist
+*.local
+.vite-inspect
+.remote-assets
+components.d.ts
+
+# Conserver les versions npm de la présentation malgré la règle du dépôt parent.
+!package-lock.json
