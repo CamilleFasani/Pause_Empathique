@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class PauseSerializerReadTest(TestCase):
-    """Tests unitaires de sérialisation (lecture) — SER-01 à SER-05."""
+    """Tests unitaires de sérialisation (lecture) — SER-01 à SER-04."""
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -75,7 +75,7 @@ class PauseSerializerReadTest(TestCase):
         self.assertNotIn("user", data)
 
     def test_all_expected_fields_present(self):
-        # SER-05
+        # SER-04
         # Given a complete pause
         serializer = PauseSerializer(instance=self.pause)
 
