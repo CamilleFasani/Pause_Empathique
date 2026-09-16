@@ -3,7 +3,7 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #29 — Dossier projet et présentation
+## Session #30 — Dossier projet et présentation
 
 ### Priorité actuelle — 15 septembre 2026
 
@@ -22,6 +22,13 @@ par la présentation du projet ; l'export reste à vérifier.
 
 ### Objectifs de la prochaine session
 
+- [ ] Valider la proposition de design de la slide 2 et les cartes de
+      « Concrètement » (slide 5 actuelle ; demande initiale mentionnant la 6),
+      ainsi que le centrage des personas de la slide 7.
+- [ ] Valider visuellement les slides 8 et 9 : titre de partie avec soulignement
+      droit ambré, rappel plus petit à 60 % d’opacité sans soulignement et objectifs
+      sans numérotation regroupés dans les cartes PRODUIT et TECHNIQUE.
+      Classes réutilisables ajoutées le 16 septembre ; build vérifié.
 - [ ] Poursuivre la rédaction du dossier projet en s'appuyant sur l'état réel
       de l'application et les documents existants.
 - [ ] Structurer le fil conducteur de l'oral dans `docs/plan-pres.md`.
@@ -32,6 +39,9 @@ par la présentation du projet ; l'export reste à vérifier.
 
 ### Périmètre
 
+- Styles de présentation : conserver les styles propres à une slide dans son
+  `<style scoped>` ; réserver `style.css` aux styles partagés. Demander à
+  l'utilisateur si un nouveau style sera réutilisé avant de le mutualiser.
 - Les prochaines sessions portent sur le dossier et la présentation.
 - Les tâches de développement ci-dessous sont reportées, sans être considérées
   comme terminées. Réévaluer leur contexte et les branches à la reprise.

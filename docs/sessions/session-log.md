@@ -5,6 +5,44 @@
 
 ---
 
+## Session #29 — 16 septembre 2026
+
+**Objectif :** Mettre en forme les slides 8 et 9 de la présentation.
+
+**Réalisations :** Classes réutilisables `pe-section` (titre centré et soulignement
+droit ambré), `pe-section-content` (rappel de partie en haut à gauche,
+plus petit et à 60 % d’opacité, sans soulignement). Styles locaux
+`pe-objectives` et `pe-objective-card` (deux cartes PRODUIT et TECHNIQUE, chacune contenant deux
+objectifs sans numérotation). La slide 9 est
+identifiée comme sous-partie « Objectifs » dans le sommaire. Le contenu des
+objectifs est conservé.
+
+**Convention de styles :** À la demande de l'utilisateur, les styles des
+objectifs sont déplacés dans le `<style scoped>` de la slide 9. `style.css`
+reste réservé aux styles partagés ; demander si les nouveaux styles seront
+réutilisés avant de les y placer.
+
+**Vérifications :** Build Slidev réussi et numérotation/configuration des slides
+8 et 9 vérifiée avec le parseur Slidev. Contrôle visuel à faire : le lancement
+du serveur local de contrôle est bloqué par l'environnement. L'utilisateur a
+précisé le regroupement des objectifs par catégorie sans capture de référence.
+
+**Suite :** Valider le rendu des deux cartes et
+réutiliser les classes de titres dans les autres parties. Développement toujours en pause.
+
+**Suite de la mise en forme :** Slide 2 composée d'une introduction et de trois
+jalons chronologiques, avec cartes blanches et accents ambrés. Personas de la
+slide 7 centrés horizontalement et verticalement. Liste « Concrètement »
+transformée en quatre cartes blanches empilées, numérotées en couleur primaire.
+Cette liste se trouve sur la slide 5 dans le fichier actuel, alors que la demande
+mentionnait la slide 6 (« Pourquoi », sans liste) : clarification demandée et
+mise en forme appliquée à la liste existante, sans déplacer les diapositives.
+Tous les nouveaux styles restent dans les blocs `<style scoped>` concernés.
+Build réussi ; aperçus des slides 2, 5 et 7 contrôlés avec Chromium :
+centrage et absence de débordement vérifiés.
+
+---
+
 ## Session #28 — 15 septembre 2026
 
 **Objectif :** Préparer la création de la présentation et recentrer les priorités.

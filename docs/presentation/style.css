@@ -54,7 +54,7 @@
 }
 
 .slidev-layout h2 {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   line-height: 1.25;
 }
 
@@ -117,4 +117,45 @@
 .slidev-layout .pe-heading h1 {
   margin: 0;
   line-height: 1;
+}
+
+/* Ouverture de partie : centrage sur toute la diapositive. */
+.slidev-layout.pe-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.slidev-layout.pe-section h1 {
+  position: relative;
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+/* Soulignement droit réservé aux diapositives d'ouverture de partie. */
+.slidev-layout.pe-section h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.45em;
+  width: 100%;
+  height: 3px;
+  background: var(--color-brand-primary);
+}
+
+/* Rappel de partie discret, dans le flux pour réserver sa place au-dessus du contenu. */
+.slidev-layout.pe-section-content {
+  padding: 2.5rem 3.5rem;
+  text-align: left;
+}
+
+.slidev-layout.pe-section-content > h1 {
+  position: relative;
+  display: table;
+  margin: 0 0 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  opacity: 0.6;
 }
