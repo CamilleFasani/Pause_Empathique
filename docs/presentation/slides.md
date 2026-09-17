@@ -195,7 +195,7 @@ level: 2
   display: grid;
   gap: 0.75rem;
   width: 50%;
-  margin: 3rem auto 0;
+  margin: 4rem auto 0;
   padding: 0;
   list-style: none;
 }
@@ -307,7 +307,7 @@ level: 2
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
-  margin: 2rem 0 0;
+  margin: 4rem 0 0;
   padding: 0;
 }
 
@@ -774,30 +774,156 @@ title: Conception
 
 ---
 class: pe-section-content
-title: Base de Données
+title: Base de données - MCD
 level: 2
 ---
 
 # Conception
-## Base de données
+## Base de données - MCD
+
+<img
+  class="mcd-diagram"
+  src="/mcd.svg"
+  alt="MCD de l’API : un utilisateur enregistre zéro à plusieurs pauses ; chaque pause appartient à un utilisateur et contient au moins un sentiment et un besoin."
+/>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
+.mcd-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
+</style>
 
 ---
-
-## Parcours utilisateur - User flow
-
-
+class: pe-section-content
+title: Base de données - MLD
+level: 2
 ---
 
-## Identité visuelle - Charte graphique
+# Conception
+## Base de données - MLD
+
+<img
+  class="mld-diagram"
+  src="/mld.svg"
+  alt="MCD de l’API : un utilisateur enregistre zéro à plusieurs pauses ; chaque pause appartient à un utilisateur et contient au moins un sentiment et un besoin."
+/>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
+.mld-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
+</style>
 
 ---
+class: pe-section-content
+title: Base de données - MPD
+level: 2
+---
+
+# Conception
+## Base de données - MPD
+
+<img
+  class="mpd-diagram"
+  src="/mpd.svg"
+  alt="MPD PostgreSQL : sept tables applicatives avec leurs colonnes, types et clés. Pause référence Utilisateur ; les deux tables d’association relient Pause à Sentiment et Besoin. Le compteur anonyme est indépendant."
+/>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 0.75rem; font-size: 1.9rem !important; }
+.mpd-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
+</style>
+---
+class: pe-section-content
+title: Cas d’utilisation
+level: 2
+---
+
+# Conception
+## Cas d’utilisation
+
+<img
+  class="use-cases-diagram"
+  src="/use-cases.svg"
+  alt="Cas d’utilisation : visiteur et utilisateur connecté. La pratique avec compte inclut l’enregistrement ; la pratique anonyme n’enregistre pas le contenu."
+/>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 0.75rem; font-size: 1.9rem !important; }
+.use-cases-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
+</style>
+
+---
+class: pe-section-content
+title: Parcours utilisateur
+level: 2
+---
+
+# Conception
+## Parcours utilisateur
+
+<div class="userflow-scroll" role="region" aria-label="Parcours utilisateur, image défilante" tabindex="0" @keydown.stop @wheel.stop>
+  <img src="/userflow.svg" alt="Parcours utilisateur de Pause Empathique" />
+</div>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
+.userflow-scroll { height: 390px; overflow: auto; padding: 1rem; box-sizing: border-box; background: var(--color-bg-card); border-radius: var(--radius-card); scrollbar-color: #ad7300 var(--color-bg-card); overscroll-behavior: contain; }
+.userflow-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
+.userflow-scroll img { display: block; width: 100%; height: auto; max-height: none; }
+</style>
+---
+class: pe-section-content
+title: Charte graphique
+level: 2
+---
+
+# Conception
+
+## Charte graphique
+
+---
+class: pe-section-content
+title: Wireframes
+level: 2
+---
+
+# Conception
 
 ## Wireframes
+
+<div class="wireframes-scroll" role="region" aria-label="Wireframes, image défilante" tabindex="0" @keydown.stop @wheel.stop>
+  <img src="/wireframe.png" alt="Wireframes du projet Pause Empathique 2.0" />
+</div>
+
+<style scoped>
+h1 { margin: 0 0 0.75rem !important; }
+h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
+.wireframes-scroll { height: 390px; overflow: auto; padding: 1rem; box-sizing: border-box; background: var(--color-bg-card); border-radius: var(--radius-card); scrollbar-color: #ad7300 var(--color-bg-card); overscroll-behavior: contain; }
+.wireframes-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
+.wireframes-scroll img { display: block; width: 100%; height: auto; max-height: none; }
+</style>
+
+---
+class: pe-section-content
+title: Maquette Haute fidélité
+level: 2
 ---
 
-## Maquettes Hautes Fidélité
+# Conception
+
+## Maquette Haute Fidélité
 
 ---
+class: pe-section-content
+title: Accessibilité
+level: 2
+---
+
+# Conception
 
 ## Accessibilité ( & Ecoconception ?)
 
@@ -854,6 +980,8 @@ level: 2
   <h1>Zoom sur : pratiquer sans compte</h1>
 </div>
 
+diagramme de séquence à intégrer direct avec ```mermaid
+
 
 ---
 
@@ -884,6 +1012,15 @@ level: 2
   <img src="/logo.png" alt="" />
   <h1>Evolutions à venir</h1>
 </div>
+
+---
+
+# Veille
+
+
+---
+
+# Documentation
 
 
 ---

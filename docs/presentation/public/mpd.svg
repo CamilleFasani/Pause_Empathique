@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="510" viewBox="-4 -4 1148 518" role="img" aria-labelledby="title desc">
+<title id="title">MPD PostgreSQL — sept tables applicatives</title>
+<desc id="desc">Schéma issu de mpd.sql : toutes les colonnes des sept tables, cinq clés étrangères et compteur anonyme indépendant. Les contraintes détaillées et index figurent dans le SQL source.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8a651b"/></marker></defs>
+<style>text{font-family:Consolas,"Liberation Mono",monospace;fill:#1a1300}.heading{font-size:17px;font-weight:bold}.field{font-size:16px}.type{font-size:14px;fill:#5b5140}.key{font-size:11px;font-weight:bold;fill:#725000}.note{font-family:Arial,sans-serif;font-size:14px}.edge{fill:none;stroke:#8a651b;stroke-width:2;marker-end:url(#arrow)}</style>
+<path class="edge" d="M 740 310 H 770 V 268 H 800"><title>pauses_pause_feelings.feeling_id → pauses_feeling.id</title></path>
+<path class="edge" d="M 400 289 H 380 V 48 H 400"><title>pauses_pause_feelings.pause_id → pauses_pause.id</title></path>
+<path class="edge" d="M 740 455 H 770 V 413 H 800"><title>pauses_pause_needs.need_id → pauses_need.id</title></path>
+<path class="edge" d="M 400 434 H 380 V 48 H 400"><title>pauses_pause_needs.pause_id → pauses_pause.id</title></path>
+<path class="edge" d="M 400 153 H 355 V 48 H 340"><title>pauses_pause.user_id → users_user.id</title></path>
+<g><rect x="0" y="0" width="340" height="271" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M9 0H331Q340 0 340 9V33H0V9Q0 0 9 0" fill="#ffdc7d"/>
+<text class="heading" x="12" y="22">users_user</text>
+<text class="key" x="10" y="53">PK</text><text class="field" x="40" y="53">id</text><text class="type" text-anchor="end" x="329" y="53">int8</text>
+<text class="key" x="10" y="74"></text><text class="field" x="40" y="74">password</text><text class="type" text-anchor="end" x="329" y="74">varchar(128)</text>
+<text class="key" x="10" y="95"></text><text class="field" x="40" y="95">last_login</text><text class="type" text-anchor="end" x="329" y="95">timestamptz</text>
+<text class="key" x="10" y="116"></text><text class="field" x="40" y="116">is_superuser</text><text class="type" text-anchor="end" x="329" y="116">bool</text>
+<text class="key" x="10" y="137">UQ</text><text class="field" x="40" y="137">email</text><text class="type" text-anchor="end" x="329" y="137">varchar(254)</text>
+<text class="key" x="10" y="158"></text><text class="field" x="40" y="158">firstname</text><text class="type" text-anchor="end" x="329" y="158">varchar(150)</text>
+<text class="key" x="10" y="179"></text><text class="field" x="40" y="179">gender</text><text class="type" text-anchor="end" x="329" y="179">varchar(1)</text>
+<text class="key" x="10" y="200"></text><text class="field" x="40" y="200">created_at</text><text class="type" text-anchor="end" x="329" y="200">timestamptz</text>
+<text class="key" x="10" y="221"></text><text class="field" x="40" y="221">updated_at</text><text class="type" text-anchor="end" x="329" y="221">timestamptz</text>
+<text class="key" x="10" y="242"></text><text class="field" x="40" y="242">is_active</text><text class="type" text-anchor="end" x="329" y="242">bool</text>
+<text class="key" x="10" y="263"></text><text class="field" x="40" y="263">is_staff</text><text class="type" text-anchor="end" x="329" y="263">bool</text>
+</g>
+<g><rect x="400" y="0" width="340" height="187" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M409 0H731Q740 0 740 9V33H400V9Q400 0 409 0" fill="#ffdc7d"/>
+<text class="heading" x="412" y="22">pauses_pause</text>
+<text class="key" x="410" y="53">PK</text><text class="field" x="440" y="53">id</text><text class="type" text-anchor="end" x="729" y="53">int8</text>
+<text class="key" x="410" y="74"></text><text class="field" x="440" y="74">created_at</text><text class="type" text-anchor="end" x="729" y="74">timestamptz</text>
+<text class="key" x="410" y="95"></text><text class="field" x="440" y="95">updated_at</text><text class="type" text-anchor="end" x="729" y="95">timestamptz</text>
+<text class="key" x="410" y="116"></text><text class="field" x="440" y="116">empty_your_bag</text><text class="type" text-anchor="end" x="729" y="116">text</text>
+<text class="key" x="410" y="137"></text><text class="field" x="440" y="137">observation</text><text class="type" text-anchor="end" x="729" y="137">text</text>
+<text class="key" x="410" y="158">FK</text><text class="field" x="440" y="158">user_id</text><text class="type" text-anchor="end" x="729" y="158">int8</text>
+<text class="key" x="410" y="179"></text><text class="field" x="440" y="179">title</text><text class="type" text-anchor="end" x="729" y="179">varchar(200)</text>
+</g>
+<g><rect x="400" y="220" width="340" height="103" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M409 220H731Q740 220 740 229V253H400V229Q400 220 409 220" fill="#ffdc7d"/>
+<text class="heading" x="412" y="242">pauses_pause_feelings</text>
+<text class="key" x="410" y="273">PK</text><text class="field" x="440" y="273">id</text><text class="type" text-anchor="end" x="729" y="273">int8</text>
+<text class="key" x="410" y="294">FK</text><text class="field" x="440" y="294">pause_id</text><text class="type" text-anchor="end" x="729" y="294">int8</text>
+<text class="key" x="410" y="315">FK</text><text class="field" x="440" y="315">feeling_id</text><text class="type" text-anchor="end" x="729" y="315">int8</text>
+</g>
+<g><rect x="800" y="220" width="340" height="124" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M809 220H1131Q1140 220 1140 229V253H800V229Q800 220 809 220" fill="#ffdc7d"/>
+<text class="heading" x="812" y="242">pauses_feeling</text>
+<text class="key" x="810" y="273">PK</text><text class="field" x="840" y="273">id</text><text class="type" text-anchor="end" x="1129" y="273">int8</text>
+<text class="key" x="810" y="294"></text><text class="field" x="840" y="294">feminine_name</text><text class="type" text-anchor="end" x="1129" y="294">varchar(100)</text>
+<text class="key" x="810" y="315"></text><text class="field" x="840" y="315">masculine_name</text><text class="type" text-anchor="end" x="1129" y="315">varchar(100)</text>
+<text class="key" x="810" y="336"></text><text class="field" x="840" y="336">feeling_family</text><text class="type" text-anchor="end" x="1129" y="336">varchar(4)</text>
+</g>
+<g><rect x="400" y="365" width="340" height="103" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M409 365H731Q740 365 740 374V398H400V374Q400 365 409 365" fill="#ffdc7d"/>
+<text class="heading" x="412" y="387">pauses_pause_needs</text>
+<text class="key" x="410" y="418">PK</text><text class="field" x="440" y="418">id</text><text class="type" text-anchor="end" x="729" y="418">int8</text>
+<text class="key" x="410" y="439">FK</text><text class="field" x="440" y="439">pause_id</text><text class="type" text-anchor="end" x="729" y="439">int8</text>
+<text class="key" x="410" y="460">FK</text><text class="field" x="440" y="460">need_id</text><text class="type" text-anchor="end" x="729" y="460">int8</text>
+</g>
+<g><rect x="800" y="365" width="340" height="103" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M809 365H1131Q1140 365 1140 374V398H800V374Q800 365 809 365" fill="#ffdc7d"/>
+<text class="heading" x="812" y="387">pauses_need</text>
+<text class="key" x="810" y="418">PK</text><text class="field" x="840" y="418">id</text><text class="type" text-anchor="end" x="1129" y="418">int8</text>
+<text class="key" x="810" y="439"></text><text class="field" x="840" y="439">name</text><text class="type" text-anchor="end" x="1129" y="439">varchar(100)</text>
+<text class="key" x="810" y="460"></text><text class="field" x="840" y="460">need_family</text><text class="type" text-anchor="end" x="1129" y="460">varchar(4)</text>
+</g>
+<g><rect x="0" y="365" width="340" height="82" rx="9" fill="#fff" stroke="#cdbf9d"/>
+<path d="M9 365H331Q340 365 340 374V398H0V374Q0 365 9 365" fill="#ffdc7d"/>
+<text class="heading" x="12" y="387">pauses_anonymouspausecounter</text>
+<text class="key" x="10" y="418">PK</text><text class="field" x="40" y="418">id</text><text class="type" text-anchor="end" x="329" y="418">int8</text>
+<text class="key" x="10" y="439"></text><text class="field" x="40" y="439">count</text><text class="type" text-anchor="end" x="329" y="439">int4</text>
+</g>
+<text class="note" x="0" y="500">PK : clé primaire · FK : clé étrangère · UQ : unique</text>
+</svg>

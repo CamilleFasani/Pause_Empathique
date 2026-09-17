@@ -147,15 +147,14 @@
 
 /* Rappel de partie discret, dans le flux pour réserver sa place au-dessus du contenu. */
 .slidev-layout.pe-section-content {
-  padding: 2.5rem 3.5rem;
+  padding: 2.5rem;
   text-align: left;
 }
 
 .slidev-layout.pe-section-content > h1 {
   position: relative;
   display: table;
-  margin: 0 0 2.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.2;
   opacity: 0.6;
 }

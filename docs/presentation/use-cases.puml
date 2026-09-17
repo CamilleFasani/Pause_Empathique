@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+actor Visiteur as V
+actor "Utilisateur connecté" as U
+rectangle "Pause Empathique" {
+  usecase "Enregistrer une pause" as save
+  usecase "Pratiquer sans compte" as anonymous
+  usecase "Créer un compte" as register
+  usecase "Se connecter" as login
+  usecase "Pratiquer avec compte" as practice
+  usecase "Consulter son journal" as diary
+  usecase "Consulter une pause" as detail
+  usecase "Supprimer une pause" as delete
+  usecase "Consulter ses informations" as profile
+  usecase "Modifier ses informations" as update
+  usecase "Supprimer son compte" as account
+  usecase "Se déconnecter" as logout
+}
+V -- anonymous
+V -- register
+V -- login
+U -- practice
+U -- diary
+U -- detail
+U -- delete
+U -- profile
+U -- update
+U -- account
+U -- logout
+practice ..> save : <<include>>
+@enduml
