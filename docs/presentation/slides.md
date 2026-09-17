@@ -194,8 +194,8 @@ level: 2
 .practice-steps {
   display: grid;
   gap: 0.75rem;
-  width: 85%;
-  margin: 1.5rem auto 0;
+  width: 50%;
+  margin: 3rem auto 0;
   padding: 0;
   list-style: none;
 }
@@ -257,7 +257,6 @@ level: 2
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin: 0;
 }
 .persona {
   width: 130px;
@@ -272,7 +271,7 @@ layout: default
 class: pe-section
 ---
 
-# V1 vers la V2
+# Vers la V2
 
 
 <!-- Souhait de partir de l'existant pour me rapprocher du travail en entreprise où l'on part rarement de zéro, donc travailler avec une code base,  et organiser une migration -->
@@ -282,7 +281,7 @@ title: Objectifs
 level: 2
 ---
 
-# V1 vers la V2
+# Vers la V2
 
 ## Objectifs
 
@@ -346,39 +345,441 @@ level: 2
 }
 </style>
 ---
+class: pe-section
+title: Gestion de projet
+---
 
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Gestion de projet</h1>
+# Gestion de projet
+
+<!-- Dire que j'étais seule sur le projet, à raison 1J/semaine  -->
+---
+class: pe-section-content
+title: Diagramme de Gantt
+level: 2
+---
+
+# Gestion de projet
+
+## Diagramme de Gantt
+
+<div class="gantt" role="group" aria-label="Planning de la roadmap Miro, regroupé en huit phases. Les dates ne représentent pas un relevé de réalisation.">
+  <div class="gantt-header">
+    <span class="gantt-column-label">PHASES DU PROJET</span>
+    <div class="gantt-calendar">
+      <div class="gantt-years"><span style="width: 15.4430%">2025</span><span>2026</span></div>
+      <div class="gantt-months">
+        <span style="width: 7.5949%">Nov.</span>
+        <span style="width: 7.8481%">Déc.</span>
+        <span style="width: 7.8481%">Jan.</span>
+        <span style="width: 7.0886%">Fév.</span>
+        <span style="width: 7.8481%">Mars</span>
+        <span style="width: 7.5949%">Avr.</span>
+        <span style="width: 7.8481%">Mai</span>
+        <span style="width: 7.5949%">Juin</span>
+        <span style="width: 7.8481%">Juil.</span>
+        <span style="width: 7.8481%">Août</span>
+        <span style="width: 7.5949%">Sept.</span>
+        <span style="width: 7.8481%">Oct.</span>
+        <span style="width: 7.5949%">Nov.</span>
+      </div>
+    </div>
+  </div>
+  <div class="gantt-body">
+    <div class="gantt-grid" aria-hidden="true">
+      <i style="left: 0.0000%"></i>
+      <i style="left: 7.5949%"></i>
+      <i style="left: 15.4430%"></i>
+      <i style="left: 23.2911%"></i>
+      <i style="left: 30.3797%"></i>
+      <i style="left: 38.2278%"></i>
+      <i style="left: 45.8228%"></i>
+      <i style="left: 53.6709%"></i>
+      <i style="left: 61.2658%"></i>
+      <i style="left: 69.1139%"></i>
+      <i style="left: 76.9620%"></i>
+      <i style="left: 84.5570%"></i>
+      <i style="left: 92.4051%"></i>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Conception produit</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 1.2658%; width: 31.1392%" role="img" aria-label="Conception produit : du 06/11/2025 au 08/03/2026" title="Conception produit : du 06/11/2025 au 08/03/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Conception technique</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 8.1013%; width: 18.9873%" role="img" aria-label="Conception technique : du 03/12/2025 au 15/02/2026" title="Conception technique : du 03/12/2025 au 15/02/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">V1 · déploiement et oral</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 1.5190%; width: 16.2025%" role="img" aria-label="V1 · déploiement et oral : du 07/11/2025 au 09/01/2026" title="V1 · déploiement et oral : du 07/11/2025 au 09/01/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Set up Environnement</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 29.8734%; width: 7.8481%" role="img" aria-label="Environnement technique : du 27/02/2026 au 29/03/2026" title="Environnement technique : du 27/02/2026 au 29/03/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Migration vers la V2</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 37.7215%; width: 14.1772%" role="img" aria-label="Migration vers la V2 : du 30/03/2026 au 24/05/2026" title="Migration vers la V2 : du 30/03/2026 au 24/05/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Nouvelles fonctionnalités</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 51.8987%; width: 24.8101%" role="img" aria-label="Nouvelles fonctionnalités : du 25/05/2026 au 30/08/2026" title="Nouvelles fonctionnalités : du 25/05/2026 au 30/08/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Dossiers RNCP</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 1.2658%; width: 87.3418%" role="img" aria-label="Dossiers RNCP : du 06/11/2025 au 16/10/2026" title="Dossiers RNCP : du 06/11/2025 au 16/10/2026"></span></div>
+    </div>
+    <div class="gantt-row">
+      <span class="gantt-label">Présentation et oral</span>
+      <div class="gantt-track"><span class="gantt-bar" style="left: 81.2658%; width: 12.6582%" role="img" aria-label="Présentation et oral : du 18/09/2026 au 06/11/2026" title="Présentation et oral : du 18/09/2026 au 06/11/2026"></span></div>
+    </div>
+  </div>
+  <div class="gantt-milestones">
+    <span class="gantt-column-label">Etapes clés</span>
+    <div class="gantt-track">
+      <span class="gantt-milestone" style="left: 17.4684%"><b aria-hidden="true">◆</b><span>Oral V1</span></span>
+      <span class="gantt-milestone" style="left: 22.7848%"><b aria-hidden="true">◆</b><span>Démo 1</span></span>
+      <span class="gantt-milestone" style="left: 33.4177%"><b aria-hidden="true">◆</b><span>Démo 2</span></span>
+      <span class="gantt-milestone" style="left: 81.2658%"><b aria-hidden="true">◆</b><span>Oral blanc</span></span>
+      <!-- Position indicative dans la première semaine de novembre : jour exact non précisé. -->
+      <span class="gantt-milestone" style="left: 93.2%" title="Examen · début novembre 2026"><b aria-hidden="true">◆</b><span>Examen</span></span>
+    </div>
+  </div>
 </div>
 
-
+<style scoped>
+h1 { margin-bottom: 1rem !important; }
+h2 { margin: 0; font-size: 1.9rem !important; }
+.gantt { --label-width: 205px; padding: 12px 14px 8px; background: var(--color-bg-card); border-radius: var(--radius-card); margin-top: 3rem; }
+.gantt-header, .gantt-row, .gantt-milestones { display: grid; grid-template-columns: var(--label-width) minmax(0, 1fr); align-items: center; }
+.gantt-column-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
+.gantt-years, .gantt-months { display: flex; }
+.gantt-years { height: 20px; font-size: 12px; font-weight: 700; }
+.gantt-years span { padding-left: 5px; }
+.gantt-months { height: 25px; align-items: center; }
+.gantt-months span { flex-shrink: 0; text-align: center; font-size: 10px; }
+.gantt-body { position: relative; }
+.gantt-grid { position: absolute; inset: 0 0 0 var(--label-width); border-right: 1px solid #e9e3d6; pointer-events: none; }
+.gantt-grid i { position: absolute; top: 0; bottom: 0; border-left: 1px solid #e9e3d6; }
+.gantt-row { position: relative; height: 28px; border-bottom: 1px solid #f2eee5; }
+.gantt-label { padding-right: 8px; font-size: 13px; font-weight: 600; }
+.gantt-track { position: relative; height: 100%; }
+.gantt-bar { position: absolute; top: 6px; height: 16px; border-radius: 4px; background: var(--color-brand-primary); border: 1px solid #ad7300; }
+.gantt-milestones { height: 54px; }
+.gantt-milestone { position: absolute; top: 4px; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%); white-space: nowrap; }
+.gantt-milestone b { font-size: 13px; line-height: 16px; }
+.gantt-milestone span { font-size: 10px; }
+</style>
+---
+class: pe-section-content
+title: Backlog
+level: 2
 ---
 
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Road Map - Diagramme de Gant</h1>
+# Gestion de projet
+
+## Backlog
+
+<div class="backlog-scroll" role="region" aria-label="Backlog complet, tableau défilant de 39 tâches" tabindex="0">
+  <table class="backlog-table">
+    <colgroup><col class="backlog-task-column" /><col /><col /><col /></colgroup>
+    <thead><tr><th scope="col">Tâche</th><th scope="col">To Do</th><th scope="col">In progress</th><th scope="col">Done</th></tr></thead>
+    <tbody class="backlog-phase" style="--phase-bg: #fff2cf">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Conception produit</th></tr>
+      <tr><th scope="row">Définir les personae</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Cahier des charges</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Wireframes</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Charte graphique et logo</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Maquettes</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #eaf0fc">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Conception technique</th></tr>
+      <tr><th scope="row">Modélisation BDD</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Rédiger le backlog</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #f3eafa">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">V1 · déploiement et oral</th></tr>
+      <tr><th scope="row">Dossier professionnel · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Déploiement · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Adapter le dossier projet · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Adapter la présentation · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Préparer l’oral · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Oral · V1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #e7f3f1">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Set up Environnement</th></tr>
+      <tr><th scope="row">Instructions Copilot</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Déployer en staging</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Migrer de Black à Ruff</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Initialiser le front, DRF et Vue</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Dockeriser le front</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #eaf2de">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Migration vers la V2</th></tr>
+      <tr><th scope="row">Appliquer la nouvelle charte</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Connexion</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Inscription</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Page profil</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Page accueil</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Déployer le front sur Railway</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #fce9df">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Nouvelles fonctionnalités</th></tr>
+      <tr><th scope="row">Mot de passe oublié</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Pratiquer sans compte</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Visualisation des données</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Notifications d’erreur et de succès</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Authentification MFA</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Saisie vocale · Vide ton sac</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Saisie vocale · Observation</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #f8e7ef">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Dossiers RNCP</th></tr>
+      <tr><th scope="row">Dossier professionnel · RNCP</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Dossier projet · RNCP</th>
+        <td></td>
+        <td><span class="backlog-status progress" role="img" aria-label="In progress">●</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tbody class="backlog-phase" style="--phase-bg: #e6f1f8">
+      <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Présentation et oral</th></tr>
+      <tr><th scope="row">Présentation · RNCP</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Préparer l’oral · RNCP</th>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><th scope="row">Démo 1</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Démo 2</th>
+        <td></td>
+        <td></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+      </tr>
+      <tr><th scope="row">Séminaire 2</th>
+        <td></td>
+        <td><span class="backlog-status progress" role="img" aria-label="In progress">●</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-
+<style scoped>
+h1 { margin-bottom: 1rem !important; }
+h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
+.backlog-scroll { max-height: 380px; overflow-y: auto; border: 1px solid #d8cba9; border-radius: var(--radius-card); background: var(--color-bg-card); scrollbar-color: #ad7300 var(--color-bg-page); }
+.backlog-scroll:focus-visible { outline: 3px solid #ad7300; outline-offset: 3px; }
+.backlog-table { width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 15px; line-height: 1.3; }
+.backlog-task-column { width: 61%; }
+.backlog-table th, .backlog-table td { padding: 8px 12px; border: 0; border-bottom: 1px solid #eee8da; }
+.backlog-table thead th { position: sticky; top: 0; z-index: 1; background: var(--color-brand-primary); color: var(--color-black); font-size: 13px; font-weight: 700; white-space: nowrap; }
+.backlog-table th { text-align: left; }
+.backlog-table tbody th { font-weight: 500; }
+.backlog-table td, .backlog-table thead th:not(:first-child) { text-align: center; }
+.backlog-phase { background: var(--phase-bg); }
+.backlog-table .backlog-phase-title th { padding: 10px 12px 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-top: 3px solid var(--color-bg-card); border-bottom: 1px solid #00000015; }
+.backlog-table tbody tr:last-child > * { border-bottom: 0; }
+.backlog-status { display: inline-block; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; vertical-align: middle; font-size: 0; }
+.backlog-status.todo { background: var(--color-white); }
+.backlog-status.progress { background: var(--color-bg-observation); }
+.backlog-status.done { background: var(--color-brand-primary); }
+.backlog-caption { margin: 0.65rem 0 0; font-size: 0.7rem; }
+</style>
+---
+class: pe-section-content
+title: Gestion de projet assistée par IA
+level: 2
 ---
 
-## Kanban
+# Gestion de projet
 
----
+## Gestion de projet assistée par IA
 
-## AI Management project
-
----
-
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Conception</h1>
+<div class="ai-project-files">
+  <section class="ai-file-card ai-file-framework">
+    <h3>AGENTS.md</h3>
+    <p>Rôles &amp; bonnes pratiques</p>
+  </section>
+  <div class="ai-file-details">
+    <section class="ai-file-card">
+      <h3>project-management.md</h3>
+      <p>Backlog</p>
+    </section>
+    <section class="ai-file-card">
+      <h3>next-session.md</h3>
+      <p>Objectifs</p>
+    </section>
+    <section class="ai-file-card">
+      <h3>session-log.md</h3>
+      <p>Journalisation</p>
+    </section>
+  </div>
 </div>
 
-## Base de Données
-### RGPD
-### Merise
+<style scoped>
+h1 { margin-bottom: 1.5rem !important; }
+h2 { margin: 0; font-size: 2rem !important; }
+.ai-project-files { display: grid; gap: 1.25rem; margin-top: 3rem; }
+.ai-file-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.ai-file-card { display: flex; flex-direction: column; align-items: stretch; gap: 1rem; min-height: 145px; padding: 1.25rem; border-radius: var(--radius-card); background: var(--color-bg-card); }
+.ai-file-framework { min-height: 115px; }
+.ai-file-card h3 { align-self: flex-start; margin: 0; font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-size: 0.85rem; font-weight: 600;text-align: left; }
+.ai-file-card p {font-size: 1.5rem; text-align: center; text-decoration: underline; text-decoration-color: var(--color-brand-primary); }
+.ai-file-framework h3 { font-size: 1rem; }
+</style>
+
+---
+class: pe-section
+title: Conception
+---
+
+# Conception
+
+
+---
+class: pe-section-content
+title: Base de Données
+level: 2
+---
+
+# Conception
+## Base de données
 
 ---
 
