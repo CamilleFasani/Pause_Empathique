@@ -968,9 +968,9 @@ level: 2
 
 <div class="visual-universe">
   <div class="visual-planets">
-    <div class="visual-planet visual-planet-clarity">Clarté</div>
+    <div class="visual-planet visual-planet-clarity">Cheminement</div>
     <div class="visual-planet visual-planet-world">Monde intérieur</div>
-    <div class="visual-planet visual-planet-journey">Cheminement</div>
+    <div class="visual-planet visual-planet-journey">Clarté</div>
   </div>
   <svg class="visual-path" viewBox="0 0 680 42" aria-hidden="true">
     <path d="M12 22 C38 -8 69 45 90 19 S125 0 132 22 S104 44 98 29 S140 4 165 23 S192 43 207 21 S243 2 267 21 S312 36 347 23 S410 18 452 21 L668 21" />
@@ -1492,40 +1492,49 @@ layout: center
 class: pe-section
 ---
 
-# Zoom sur : Pratique sans compte
-
-diagramme de séquence à intégrer direct avec ```mermaid
+# Zoom sur : Pratiquer sans compte
 
 
 ---
+class: pe-section-content
+title: Diagramme de séquence
+level: 2
+---
 
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Tests</h1>
-</div>
+# Pratiquer sans compte
+
+## Diagramme de séquence
+
+---
+layout: center
+class: pe-section
+---
+
+# Tests
+
+---
+layout: center
+class: pe-section
+---
+
+# Déploiement
 
 
 ---
+layout: center
+class: pe-section
+---
 
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Déploiement</h1>
-</div>
+# Difficultés & Défis
 
 
 ---
-
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Difficultés & Défis</h1>
-</div>
-
+layout: center
+class: pe-section
 ---
 
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Evolutions à venir</h1>
-</div>
+# Evolutions à venir
+
 
 Suppressions des templates Django, nettoyage des dépendances
 Toutes les pages légales
@@ -1545,11 +1554,11 @@ Page FAQ
 
 ---
 hideInToc: true
+class: pe-section
+layout: center
 ---
 
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Merci</h1>
-</div>
+# Merci
+
 
 <PoweredBySlidev mt-10 />
