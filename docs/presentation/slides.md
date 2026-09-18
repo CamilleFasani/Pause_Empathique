@@ -1,7 +1,7 @@
 ---
 theme: default
 hideInToc: true
-background: /cover.jpg
+background: /cover.webp
 title: Pause Empathique
 info: |
   ## Slidev Starter Template
@@ -64,7 +64,6 @@ hideInToc: true
 
 <div class="intro">
   <div class="intro-heading">
-    <!-- <span class="intro-eyebrow">FAISONS CONNAISSANCE</span> -->
     <h1>Bonjour,<br>je suis <span>Camille Fasani.</span></h1>
     <p>J’apprends le développement web depuis janvier 2025.</p>
   </div>
@@ -94,15 +93,6 @@ hideInToc: true
   justify-content: center;
   height: 100%;
   gap: 2.5rem;
-}
-.intro-eyebrow {
-  display: inline-block;
-  padding: 0.35rem 0.8rem;
-  border-radius: var(--radius-btn);
-  background: var(--color-brand-primary);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
 }
 .intro-heading h1 {
   margin: 1rem 0;
@@ -157,7 +147,7 @@ hideInToc: true
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Sommaire</h1>
 </div>
 
@@ -243,9 +233,9 @@ level: 2
 ## Pour qui
 
 <div class="personae">
-  <img src="/persona1.png" alt ="" class="persona"/>
-  <img src="/persona2.png" alt ="" class="persona"/>
-  <img src="/persona3.png" alt ="" class="persona"/>
+  <img src="/persona1.webp" alt ="" class="persona"/>
+  <img src="/persona2.webp" alt ="" class="persona"/>
+  <img src="/persona3.webp" alt ="" class="persona"/>
 </div>
 <style scoped>
 .personae {
@@ -715,7 +705,6 @@ level: 2
 .backlog-status.todo { background: var(--color-white); }
 .backlog-status.progress { background: var(--color-bg-observation); }
 .backlog-status.done { background: var(--color-brand-primary); }
-.backlog-caption { margin: 0.65rem 0 0; font-size: 0.7rem; }
 </style>
 ---
 class: pe-section-content
@@ -870,7 +859,7 @@ level: 2
 ## Wireframes
 
 <div class="wireframes-scroll" role="region" aria-label="Wireframes, image défilante" tabindex="0" @keydown.stop @wheel.stop>
-  <img src="/wireframe.png" alt="Wireframes du projet Pause Empathique 2.0" />
+  <img src="/wireframe.webp" alt="Wireframes du projet Pause Empathique 2.0" />
 </div>
 
 <style scoped>
@@ -898,6 +887,9 @@ level: 2
     <div class="brand-font-card">
       <span class="brand-role">Textes &amp; interface</span>
       <p class="brand-manrope">Manrope</p>
+    </div>
+    <div class="brand-logo-card">
+      <img src="/logo-name.webp" alt="Logo Pause Empathique" />
     </div>
   </section>
   <section class="brand-colors" aria-label="Palette de couleurs">
@@ -949,13 +941,14 @@ level: 2
 <style scoped>
 .brand-guide { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 1.5rem; }
 .brand-section-label { margin: 0 0 0.75rem; font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; }
-.brand-font-card { display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; min-height: 148px; padding: 1.1rem 1.4rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
+.brand-font-card { display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; min-height: 108px; padding: 1.1rem 1.4rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
 .brand-font-card + .brand-font-card { margin-top: 0.75rem; }
+.brand-logo-card { display: flex; align-items: center; justify-content: center; height: 68px; margin-top: 0.75rem; padding: 0.5rem 1rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
+.brand-logo-card img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .brand-role { font-size: 0.8rem; font-weight: 600; }
 .brand-font-card p { margin: 0; font-size: 2.15rem; line-height: 1.2; }
 .brand-fraunces { font-family: var(--font-logo); font-weight: 700; }
 .brand-manrope { font-family: var(--font-body); font-weight: 400; }
-.brand-font-detail { font-size: 0.75rem; }
 .brand-palette { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; height: 308px; }
 .brand-color-column { display: grid; grid-auto-rows: minmax(0, 1fr); gap: 0.75rem; min-width: 0; }
 .brand-color-card { display: grid; grid-template-columns: 62px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 0.75rem; row-gap: 0.3rem; min-height: 0; padding: 0.6rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
@@ -991,7 +984,6 @@ level: 2
 .visual-planet { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; width: 185px; height: 185px; border-radius: 50%; background: var(--color-bg-circle-white); box-shadow: 0 18px 45px rgba(26, 19, 0, 0.12); font-family: var(--font-logo); font-size: 1.45rem; }
 .visual-planet-clarity { transform: translateY(12px); }
 .visual-planet-world { width: 225px; height: 225px; gap: 0.65rem; }
-.visual-planet-subtitle { font-family: var(--font-body); font-size: 1rem; }
 .visual-planet-journey { transform: translateY(22px); }
 .visual-path { display: block; width: 76%; height: 42px; margin: 0.75rem auto 0; overflow: visible; }
 .visual-path path { fill: none; stroke: var(--color-brand-primary); stroke-width: 2.5; stroke-linecap: round; }
@@ -1014,50 +1006,50 @@ level: 2
   <div class="mockups-mobile">
     <figure>
       <figcaption>Accueil</figcaption>
-      <img src="/maquettes/Home%20Page.svg" alt="Maquette mobile : Accueil" />
+      <img src="/maquettes/Home%20Page.webp" alt="Maquette mobile : Accueil" />
     </figure>
     <figure>
       <figcaption>Connexion</figcaption>
-      <img src="/maquettes/Login%20Page.svg" alt="Maquette mobile : Connexion" />
+      <img src="/maquettes/Login%20Page.webp" alt="Maquette mobile : Connexion" />
     </figure>
     <figure>
       <figcaption>Inscription</figcaption>
-      <img src="/maquettes/Register%20Page.svg" alt="Maquette mobile : Inscription" />
+      <img src="/maquettes/Register%20Page.webp" alt="Maquette mobile : Inscription" />
     </figure>
     <figure>
       <figcaption>Vide ton sac</figcaption>
-      <img src="/maquettes/Vide%20ton%20sac%20Page.svg" alt="Maquette mobile : Vide ton sac" />
+      <img src="/maquettes/Vide%20ton%20sac%20Page.webp" alt="Maquette mobile : Vide ton sac" />
     </figure>
     <figure>
       <figcaption>Observation</figcaption>
-      <img src="/maquettes/Observation%20Page.svg" alt="Maquette mobile : Observation" />
+      <img src="/maquettes/Observation%20Page.webp" alt="Maquette mobile : Observation" />
     </figure>
     <figure>
       <figcaption>Sentiments</figcaption>
-      <img src="/maquettes/Feelings%20Page.svg" alt="Maquette mobile : Sentiments" />
+      <img src="/maquettes/Feelings%20Page.webp" alt="Maquette mobile : Sentiments" />
     </figure>
     <figure>
       <figcaption>Sentiments · sélection</figcaption>
-      <img src="/maquettes/Feelings%20Page-1.svg" alt="Maquette mobile : Sentiments · sélection" />
+      <img src="/maquettes/Feelings%20Page-1.webp" alt="Maquette mobile : Sentiments · sélection" />
     </figure>
     <figure>
       <figcaption>Besoins</figcaption>
-      <img src="/maquettes/Needs%20Page.svg" alt="Maquette mobile : Besoins" />
+      <img src="/maquettes/Needs%20Page.webp" alt="Maquette mobile : Besoins" />
     </figure>
     <figure>
       <figcaption>Journal</figcaption>
-      <img src="/maquettes/Journal%20Page.svg" alt="Maquette mobile : Journal" />
+      <img src="/maquettes/Journal%20Page.webp" alt="Maquette mobile : Journal" />
     </figure>
   </div>
   <h3 class="mockups-desktop-heading">Desktop</h3>
   <div class="mockups-desktop">
     <figure>
       <figcaption>Accueil · desktop</figcaption>
-      <img src="/maquettes/Desktop%20-%201.svg" alt="Maquette Accueil · desktop" />
+      <img src="/maquettes/Desktop%20-%201.webp" alt="Maquette Accueil · desktop" />
     </figure>
     <figure>
       <figcaption>Connexion · desktop</figcaption>
-      <img src="/maquettes/Desktop%20-%203.svg" alt="Maquette Connexion · desktop" />
+      <img src="/maquettes/Desktop%20-%203.webp" alt="Maquette Connexion · desktop" />
     </figure>
   </div>
 </div>
@@ -1151,7 +1143,7 @@ level: 2
   <section class="pe-card stack-card stack-card-main">
     <h3>Back-end</h3>
     <div class="stack-tools">
-      <div class="stack-tool"><img src="/tech/drf.png" alt="" /><span>Django REST Framework</span></div>
+      <div class="stack-tool"><img src="/tech/drf.webp" alt="" /><span>Django REST Framework</span></div>
       <div class="stack-tool"><img src="/tech/poetry.svg" alt="" /><span>Poetry</span></div>
       <div class="stack-tool"><img src="/tech/pytest.svg" alt="" /><span>Pytest</span></div>
     </div>
@@ -1229,9 +1221,6 @@ level: 2
 .git-lines path { stroke: currentColor; }
 .git-commit { fill: white; stroke: currentColor; stroke-width: 3; }
 .git-commit-core { fill: currentColor; stroke: none; }
-.git-notes { font-size: 14px; fill: #655b4c; }
-.git-time { fill: none; stroke: #a49b8d; stroke-width: 1.5; }
-.git-time-label { font-size: 13px; fill: #655b4c; }
 </style>
 
 ---
@@ -1246,11 +1235,11 @@ title: CI
 <div class="ci-diagrams">
   <figure>
     <figcaption>Back ></figcaption>
-    <img src="/ci-back.svg" alt="Pipeline d’intégration continue du back-end" />
+    <img src="/ci-back.webp" alt="Pipeline d’intégration continue du back-end" />
   </figure>
   <figure>
     <figcaption>Front ></figcaption>
-    <img src="/ci-front.svg" alt="Pipeline d’intégration continue du front-end" />
+    <img src="/ci-front.webp" alt="Pipeline d’intégration continue du front-end" />
   </figure>
 </div>
 
@@ -1273,11 +1262,11 @@ title: Docker
 <div class="ci-diagrams">
   <figure>
     <figcaption>Dockerfile</figcaption>
-    <img src="/dockerfile.svg" />
+    <img src="/dockerfile.webp" />
   </figure>
   <figure>
     <figcaption>Docker compose</figcaption>
-    <img src="/docker-compose.svg"/>
+    <img src="/docker-compose.webp"/>
   </figure>
 </div>
 
@@ -1314,7 +1303,7 @@ title: Architecture
     <div class="architecture-flow">
       <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
       <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
-      <div class="architecture-node architecture-api"><span class="architecture-role">Back-end · API REST</span><img src="/tech/drf.png" alt="" /><strong>Django REST Framework</strong></div>
+      <div class="architecture-node architecture-api"><span class="architecture-role">Back-end · API REST</span><img src="/tech/drf.webp" alt="" /><strong>Django REST Framework</strong></div>
       <div class="architecture-link architecture-json"><span>JSON</span><i aria-hidden="true"></i></div>
       <div class="architecture-node"><span class="architecture-role">Front-end</span><img src="/tech/vuedotjs.svg" alt="" /><strong>Vue</strong></div>
     </div>
@@ -1349,19 +1338,161 @@ class: pe-section
 # Migration vers la V2
 
 ---
-
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Démo 🍿</h1>
-</div>
-
-
+class: pe-section-content
+title: Etapes de la migration
+level: 2
 ---
 
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Zoom sur : pratiquer sans compte</h1>
-</div>
+# Migration vers la V2
+
+<svg class="migration-journey" viewBox="0 0 900 430" role="img" aria-labelledby="migration-journey-title">
+  <title id="migration-journey-title">Migration vers la V2 en onze étapes, révélées au clic</title>
+  <g v-click="1" class="migration-step">
+    <g class="migration-stop">
+      <circle cx="135" cy="40" r="19" />
+      <text class="migration-number" x="135" y="46">1</text>
+      <text class="migration-label" x="135" y="83">
+        <tspan x="135" dy="0">Environnement de</tspan>
+        <tspan x="135" dy="23">préproduction</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="2" class="migration-step">
+    <path class="migration-segment" d="M157 40 H345" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="345" cy="40" r="19" />
+      <text class="migration-number" x="345" y="46">2</text>
+      <text class="migration-label" x="345" y="83">
+        <tspan x="345" dy="0">Charte graphique</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="3" class="migration-step">
+    <path class="migration-segment" d="M367 40 H555" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="555" cy="40" r="19" />
+      <text class="migration-number" x="555" y="46">3</text>
+      <text class="migration-label" x="555" y="83">
+        <tspan x="555" dy="0">Black → Ruff</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="4" class="migration-step">
+    <path class="migration-segment" d="M577 40 H765" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="765" cy="40" r="19" />
+      <text class="migration-number" x="765" y="46">4</text>
+      <text class="migration-label" x="765" y="83">
+        <tspan x="765" dy="0">unittest → pytest</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="5" class="migration-step">
+    <path class="migration-segment" d="M787 40 H805 C890 40 890 190 805 190 H765" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="765" cy="190" r="19" />
+      <text class="migration-number" x="765" y="196">5</text>
+      <text class="migration-label" x="765" y="233">
+        <tspan x="765" dy="0">Endpoints API</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="6" class="migration-step">
+    <path class="migration-segment" d="M743 190 H450" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="450" cy="190" r="19" />
+      <text class="migration-number" x="450" y="196">6</text>
+      <text class="migration-label" x="450" y="233">
+        <tspan x="450" dy="0">Tests &amp; documentation</tspan>
+        <tspan x="450" dy="23">API</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="7" class="migration-step">
+    <path class="migration-segment" d="M428 190 H135" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="135" cy="190" r="19" />
+      <text class="migration-number" x="135" y="196">7</text>
+      <text class="migration-label" x="135" y="233">
+        <tspan x="135" dy="0">Setup </tspan>
+        <tspan x="135" dy="23">repo front</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="8" class="migration-step">
+    <path class="migration-segment" d="M113 190 H95 C10 190 10 340 95 340 H135" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="135" cy="340" r="19" />
+      <text class="migration-number" x="135" y="346">8</text>
+      <text class="migration-label" x="135" y="383">
+        <tspan x="135" dy="0">Authentification</tspan>
+        <tspan x="135" dy="23" class="migration-detail">Vues · Logique · Tests</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="9" class="migration-step">
+    <path class="migration-segment" d="M157 340 H345" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="345" cy="340" r="19" />
+      <text class="migration-number" x="345" y="346">9</text>
+      <text class="migration-label" x="345" y="383">
+        <tspan x="345" dy="0">Pratique</tspan>
+        <tspan x="345" dy="23" class="migration-detail">Vues · Logique · Tests</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="10" class="migration-step">
+    <path class="migration-segment" d="M367 340 H555" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="555" cy="340" r="19" />
+      <text class="migration-number" x="555" y="346">10</text>
+      <text class="migration-label" x="555" y="383">
+        <tspan x="555" dy="0">Mise en conformité</tspan>
+        <tspan x="555" dy="23">RGPD</tspan>
+      </text>
+    </g>
+  </g>
+  <g v-click="11" class="migration-step">
+    <path class="migration-segment" d="M577 340 H765" pathLength="1" />
+    <g class="migration-stop">
+      <circle cx="765" cy="340" r="19" />
+      <text class="migration-number" x="765" y="346">11</text>
+      <text class="migration-label" x="765" y="383">
+        <tspan x="765" dy="0">Préparation du</tspan>
+        <tspan x="765" dy="23">déploiement</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
+
+<style scoped>
+.migration-journey { display: block; width: 100%; height: 430px; margin-top: 0.75rem; overflow: visible; font-family: var(--font-body); }
+.migration-segment { fill: none; stroke: var(--color-brand-primary); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 550ms ease; }
+.migration-step.slidev-vclick-hidden .migration-segment { stroke-dashoffset: 1; }
+.migration-stop { opacity: 1; transition: opacity 250ms ease 350ms; }
+.migration-step.slidev-vclick-hidden .migration-stop { opacity: 0; transition-delay: 0ms; }
+.migration-stop circle { fill: var(--color-bg-card); stroke: var(--color-brand-primary); stroke-width: 4; }
+.migration-number { fill: var(--color-black); font-size: 17px; font-weight: 700; text-anchor: middle; }
+.migration-label { fill: var(--color-black); font-size: 18px; font-weight: 600; text-anchor: middle; }
+.migration-detail { font-size: 15px; font-weight: 400; }
+@media (prefers-reduced-motion: reduce) {
+  .migration-segment, .migration-stop { transition: none; }
+}
+</style>
+
+---
+layout: center
+class: pe-section
+---
+
+# Démo 🍿
+
+---
+layout: center
+class: pe-section
+---
+
+# Zoom sur : Pratique sans compte
 
 diagramme de séquence à intégrer direct avec ```mermaid
 
@@ -1369,7 +1500,7 @@ diagramme de séquence à intégrer direct avec ```mermaid
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Tests</h1>
 </div>
 
@@ -1377,7 +1508,7 @@ diagramme de séquence à intégrer direct avec ```mermaid
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Déploiement</h1>
 </div>
 
@@ -1385,16 +1516,22 @@ diagramme de séquence à intégrer direct avec ```mermaid
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Difficultés & Défis</h1>
 </div>
 
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Evolutions à venir</h1>
 </div>
+
+Suppressions des templates Django, nettoyage des dépendances
+Toutes les pages légales
+Page de contact,
+Réinitialisation du mot de passe
+Page FAQ
 
 ---
 
@@ -1411,7 +1548,7 @@ hideInToc: true
 ---
 
 <div class="pe-heading">
-  <img src="/logo.png" alt="" />
+  <img src="/logo.webp" alt="" />
   <h1>Merci</h1>
 </div>
 

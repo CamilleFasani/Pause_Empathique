@@ -83,8 +83,7 @@
   background-color: var(--color-brand-primary-hover);
 }
 
-.slidev-layout blockquote,
-.slidev-layout .pe-callout {
+.slidev-layout blockquote {
   margin-block: 1.25rem;
   padding: 1rem 1.5rem;
   border: 0;
@@ -99,13 +98,6 @@
   border-radius: var(--radius-card);
   background-color: var(--color-bg-card);
 }
-
-/* .slidev-layout .pe-logo {
-  display: inline;
-  width: 50px;
-  height: auto;
-  object-fit: contain;
-} */
 
 .slidev-layout .pe-heading {
   display: flex;
