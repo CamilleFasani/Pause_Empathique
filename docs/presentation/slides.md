@@ -447,8 +447,6 @@ level: 2
 </div>
 
 <style scoped>
-h1 { margin-bottom: 1rem !important; }
-h2 { margin: 0; font-size: 1.9rem !important; }
 .gantt { --label-width: 205px; padding: 12px 14px 8px; background: var(--color-bg-card); border-radius: var(--radius-card); margin-top: 3rem; }
 .gantt-header, .gantt-row, .gantt-milestones { display: grid; grid-template-columns: var(--label-width) minmax(0, 1fr); align-items: center; }
 .gantt-column-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
@@ -701,8 +699,6 @@ level: 2
 </div>
 
 <style scoped>
-h1 { margin-bottom: 1rem !important; }
-h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
 .backlog-scroll { max-height: 380px; overflow-y: auto; border: 1px solid #d8cba9; border-radius: var(--radius-card); background: var(--color-bg-card); scrollbar-color: #ad7300 var(--color-bg-page); }
 .backlog-scroll:focus-visible { outline: 3px solid #ad7300; outline-offset: 3px; }
 .backlog-table { width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 15px; line-height: 1.3; }
@@ -753,8 +749,6 @@ level: 2
 </div>
 
 <style scoped>
-h1 { margin-bottom: 1.5rem !important; }
-h2 { margin: 0; font-size: 2rem !important; }
 .ai-project-files { display: grid; gap: 1.25rem; margin-top: 3rem; }
 .ai-file-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 .ai-file-card { display: flex; flex-direction: column; align-items: stretch; gap: 1rem; min-height: 145px; padding: 1.25rem; border-radius: var(--radius-card); background: var(--color-bg-card); }
@@ -788,8 +782,6 @@ level: 2
 />
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
 .mcd-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
 </style>
 
@@ -809,8 +801,6 @@ level: 2
 />
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
 .mld-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
 </style>
 
@@ -830,8 +820,6 @@ level: 2
 />
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 0.75rem; font-size: 1.9rem !important; }
 .mpd-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
 </style>
 ---
@@ -850,8 +838,6 @@ level: 2
 />
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 0.75rem; font-size: 1.9rem !important; }
 .use-cases-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
 </style>
 
@@ -869,22 +855,10 @@ level: 2
 </div>
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
 .userflow-scroll { height: 390px; overflow: auto; padding: 1rem; box-sizing: border-box; background: var(--color-bg-card); border-radius: var(--radius-card); scrollbar-color: #ad7300 var(--color-bg-card); overscroll-behavior: contain; }
 .userflow-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
 .userflow-scroll img { display: block; width: 100%; height: auto; max-height: none; }
 </style>
----
-class: pe-section-content
-title: Charte graphique
-level: 2
----
-
-# Conception
-
-## Charte graphique
-
 ---
 class: pe-section-content
 title: Wireframes
@@ -900,11 +874,129 @@ level: 2
 </div>
 
 <style scoped>
-h1 { margin: 0 0 0.75rem !important; }
-h2 { margin: 0 0 1rem; font-size: 1.9rem !important; }
 .wireframes-scroll { height: 390px; overflow: auto; padding: 1rem; box-sizing: border-box; background: var(--color-bg-card); border-radius: var(--radius-card); scrollbar-color: #ad7300 var(--color-bg-card); overscroll-behavior: contain; }
 .wireframes-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
 .wireframes-scroll img { display: block; width: 100%; height: auto; max-height: none; }
+</style>
+---
+class: pe-section-content
+title: Charte graphique
+level: 2
+---
+
+# Conception
+
+## Charte graphique
+
+<div class="brand-guide">
+  <section class="brand-type" aria-label="Typographies">
+    <h3 class="brand-section-label">TYPOGRAPHIES</h3>
+    <div class="brand-font-card">
+      <span class="brand-role">Logo &amp; titres</span>
+      <p class="brand-fraunces">Fraunces</p>
+    </div>
+    <div class="brand-font-card">
+      <span class="brand-role">Textes &amp; interface</span>
+      <p class="brand-manrope">Manrope</p>
+    </div>
+  </section>
+  <section class="brand-colors" aria-label="Palette de couleurs">
+    <h3 class="brand-section-label">COULEURS</h3>
+    <div class="brand-palette">
+      <div class="brand-color-column" role="group" aria-label="Couleurs principales">
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-brand-primary)" aria-hidden="true"></span>
+          <span class="brand-color-name">Primaire</span>
+          <span class="brand-hex">#FFB300</span>
+        </div>
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-white)" aria-hidden="true"></span>
+          <span class="brand-color-name">Cartes</span>
+          <span class="brand-hex">#FFFFFF</span>
+        </div>
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-black)" aria-hidden="true"></span>
+          <span class="brand-color-name">Texte</span>
+          <span class="brand-hex">#1A1300</span>
+        </div>
+      </div>
+      <div class="brand-color-column" role="group" aria-label="Étapes de pratique">
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-bg-empty-your-bag)" aria-hidden="true"></span>
+          <span class="brand-color-name">Vide ton sac</span>
+          <span class="brand-hex">#FFD151</span>
+        </div>
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-bg-observation)" aria-hidden="true"></span>
+          <span class="brand-color-name">Observation</span>
+          <span class="brand-hex">#FFDC7D</span>
+        </div>
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-bg-feelings)" aria-hidden="true"></span>
+          <span class="brand-color-name">Sentiments</span>
+          <span class="brand-hex">#FFE8AA</span>
+        </div>
+        <div class="brand-color-card">
+          <span class="brand-swatch" style="background: var(--color-bg-page)" aria-hidden="true"></span>
+          <span class="brand-color-name">Besoins</span>
+          <span class="brand-hex">#FFF4D5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style scoped>
+.brand-guide { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 1.5rem; }
+.brand-section-label { margin: 0 0 0.75rem; font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; }
+.brand-font-card { display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; min-height: 148px; padding: 1.1rem 1.4rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
+.brand-font-card + .brand-font-card { margin-top: 0.75rem; }
+.brand-role { font-size: 0.8rem; font-weight: 600; }
+.brand-font-card p { margin: 0; font-size: 2.15rem; line-height: 1.2; }
+.brand-fraunces { font-family: var(--font-logo); font-weight: 700; }
+.brand-manrope { font-family: var(--font-body); font-weight: 400; }
+.brand-font-detail { font-size: 0.75rem; }
+.brand-palette { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; height: 308px; }
+.brand-color-column { display: grid; grid-auto-rows: minmax(0, 1fr); gap: 0.75rem; min-width: 0; }
+.brand-color-card { display: grid; grid-template-columns: 62px minmax(0, 1fr); grid-template-rows: 1fr 1fr; column-gap: 0.75rem; row-gap: 0.3rem; min-height: 0; padding: 0.6rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
+.brand-swatch { display: block; grid-row: 1 / 3; height: 100%; border-radius: 7px; box-shadow: inset 0 0 0 1px #1a130015; }
+.brand-color-name { align-self: end; font-size: 0.8rem; font-weight: 600; line-height: 1.2; }
+.brand-hex { font-family: ui-monospace, Consolas, monospace; font-size: 0.7rem; line-height: 1.2; }
+</style>
+---
+class: pe-section-content
+title: Identité visuelle
+level: 2
+---
+
+# Conception
+
+## Identité visuelle
+
+<div class="visual-universe">
+  <div class="visual-planets">
+    <div class="visual-planet visual-planet-clarity">Clarté</div>
+    <div class="visual-planet visual-planet-world">Monde intérieur</div>
+    <div class="visual-planet visual-planet-journey">Cheminement</div>
+  </div>
+  <svg class="visual-path" viewBox="0 0 680 42" aria-hidden="true">
+    <path d="M12 22 C38 -8 69 45 90 19 S125 0 132 22 S104 44 98 29 S140 4 165 23 S192 43 207 21 S243 2 267 21 S312 36 347 23 S410 18 452 21 L668 21" />
+  </svg>
+  <p class="visual-message">Du compliqué et sinueux, vers le <strong>simple et clair</strong></p>
+</div>
+
+<style scoped>
+.visual-universe { margin-top: 1.5rem; text-align: center; }
+.visual-planets { display: flex; justify-content: center; align-items: center; gap: 2rem; height: 250px; }
+.visual-planet { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; width: 185px; height: 185px; border-radius: 50%; background: var(--color-bg-circle-white); box-shadow: 0 18px 45px rgba(26, 19, 0, 0.12); font-family: var(--font-logo); font-size: 1.45rem; }
+.visual-planet-clarity { transform: translateY(12px); }
+.visual-planet-world { width: 225px; height: 225px; gap: 0.65rem; }
+.visual-planet-subtitle { font-family: var(--font-body); font-size: 1rem; }
+.visual-planet-journey { transform: translateY(22px); }
+.visual-path { display: block; width: 76%; height: 42px; margin: 0.75rem auto 0; overflow: visible; }
+.visual-path path { fill: none; stroke: var(--color-brand-primary); stroke-width: 2.5; stroke-linecap: round; }
+.visual-message { margin: 0.8rem 0 0; font-size: 1.25rem; }
+.visual-message strong { font-weight: 700; }
 </style>
 
 ---
@@ -917,25 +1009,121 @@ level: 2
 
 ## Maquette Haute Fidélité
 
+<div class="mockups-board" role="region" aria-label="Maquettes Figma mobiles puis desktop, tableau défilant" tabindex="0" @keydown.stop @wheel.stop>
+  <h3>Mobile</h3>
+  <div class="mockups-mobile">
+    <figure>
+      <figcaption>Accueil</figcaption>
+      <img src="/maquettes/Home%20Page.svg" alt="Maquette mobile : Accueil" />
+    </figure>
+    <figure>
+      <figcaption>Connexion</figcaption>
+      <img src="/maquettes/Login%20Page.svg" alt="Maquette mobile : Connexion" />
+    </figure>
+    <figure>
+      <figcaption>Inscription</figcaption>
+      <img src="/maquettes/Register%20Page.svg" alt="Maquette mobile : Inscription" />
+    </figure>
+    <figure>
+      <figcaption>Vide ton sac</figcaption>
+      <img src="/maquettes/Vide%20ton%20sac%20Page.svg" alt="Maquette mobile : Vide ton sac" />
+    </figure>
+    <figure>
+      <figcaption>Observation</figcaption>
+      <img src="/maquettes/Observation%20Page.svg" alt="Maquette mobile : Observation" />
+    </figure>
+    <figure>
+      <figcaption>Sentiments</figcaption>
+      <img src="/maquettes/Feelings%20Page.svg" alt="Maquette mobile : Sentiments" />
+    </figure>
+    <figure>
+      <figcaption>Sentiments · sélection</figcaption>
+      <img src="/maquettes/Feelings%20Page-1.svg" alt="Maquette mobile : Sentiments · sélection" />
+    </figure>
+    <figure>
+      <figcaption>Besoins</figcaption>
+      <img src="/maquettes/Needs%20Page.svg" alt="Maquette mobile : Besoins" />
+    </figure>
+    <figure>
+      <figcaption>Journal</figcaption>
+      <img src="/maquettes/Journal%20Page.svg" alt="Maquette mobile : Journal" />
+    </figure>
+  </div>
+  <h3 class="mockups-desktop-heading">Desktop</h3>
+  <div class="mockups-desktop">
+    <figure>
+      <figcaption>Accueil · desktop</figcaption>
+      <img src="/maquettes/Desktop%20-%201.svg" alt="Maquette Accueil · desktop" />
+    </figure>
+    <figure>
+      <figcaption>Connexion · desktop</figcaption>
+      <img src="/maquettes/Desktop%20-%203.svg" alt="Maquette Connexion · desktop" />
+    </figure>
+  </div>
+</div>
+
+<style scoped>
+.mockups-board { height: 400px; overflow: auto; padding: 1.5rem; box-sizing: border-box; background: var(--color-bg-card); border-radius: var(--radius-card); scrollbar-color: #ad7300 var(--color-bg-card); overscroll-behavior: contain; }
+.mockups-board:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
+.mockups-board h3 { margin: 0 0 1rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.mockups-mobile { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 1.5rem; }
+.mockups-desktop { display: grid; gap: 1.75rem; }
+.mockups-board .mockups-desktop-heading { margin-top: 2rem; }
+.mockups-board figure { margin: 0; min-width: 0; }
+.mockups-board figcaption { margin-bottom: 0.6rem; font-size: 0.75rem; font-weight: 600; }
+.mockups-board img { display: block; width: 100%; height: auto; max-height: none; border-radius: 8px; }
+.mockups-mobile img { width: auto; max-width: 100%; height: 280px; margin-inline: auto; object-fit: contain; }
+</style>
+
 ---
 class: pe-section-content
-title: Accessibilité
+title: Qualité & Réglementation
 level: 2
 ---
 
 # Conception
 
-## Accessibilité ( & Ecoconception ?)
+## Qualité & Réglementation
 
----
-
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Spécifications techniques</h1>
+<div class="quality-rules">
+  <div class="rule accessibility">Accessibilité</div>
+  <div class="rule rgpd">RGPD</div>
+  <div class="rule ecoconception">Ecoconception</div>
 </div>
 
-## Stack
 
+<style>
+.quality-rules {  margin-top: 3rem; text-align: center; display: flex; justify-content: center; align-items: center; gap: 3rem; height: 250px; }
+.rule { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; width: 195px; height: 195px; border-radius: 50%; background: var(--color-bg-circle-white); box-shadow: 0 18px 45px rgba(26, 19, 0, 0.12); font-family: var(--font-logo); font-size: 1.45rem; }
+.accessibility { transform: translateY(12px); }
+.rgpd { width: 225px; height: 225px; gap: 0.65rem; }
+.ecoconception { transform: translateY(22px); }
+</style>
+
+<!--
+Accessibilité : Contraste, navigation au clavier, balises sémantiques html
+RGPD : Réflexion sur les données, suppression et accès, attention données intimes
+Ecoconception : Existe mais peu pris en compte, pas de vidéos,
+
+Manque Mentions Légales, Consentement, Politique de Confidentialité -->
+
+---
+layout: center
+class: pe-section
+---
+
+# Spécifications techniques
+
+---
+class: pe-section-content
+title: Stack
+level: 2
+---
+
+# Spécifications techniques
+
+
+## Stack
 
 ---
 
