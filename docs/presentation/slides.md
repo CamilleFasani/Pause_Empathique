@@ -1125,33 +1125,228 @@ level: 2
 
 ## Stack
 
----
-
-## Environnement de travail
-
-### Git / GitHub
----
-
-### CI/CD
-
----
-
-### Docker
-
----
-
-### Architecture
-
----
-
-### ORM
-
----
-
-<div class="pe-heading">
-  <img src="/logo.png" alt="" />
-  <h1>Migration V1 vers V2</h1>
+<div class="stack-grid">
+  <div class="stack-support">
+  <section class="pe-card stack-card">
+    <h3>Base de données</h3>
+    <div class="stack-tools">
+      <div class="stack-tool"><img src="/tech/postgresql.svg" alt="" /><span>PostgreSQL</span></div>
+    </div>
+  </section>
+  <section class="pe-card stack-card stack-card-compact">
+    <h3>Conteneurisation &amp; déploiement</h3>
+    <div class="stack-tools">
+      <div class="stack-tool"><img src="/tech/docker.svg" alt="" /><span>Docker</span></div>
+      <div class="stack-tool"><img src="/tech/railway.svg" alt="" /><span>Railway</span></div>
+    </div>
+  </section>
+  <section class="pe-card stack-card stack-card-compact">
+    <h3>Versionnement</h3>
+    <div class="stack-tools">
+      <div class="stack-tool"><img src="/tech/git.svg" alt="" /><span>Git</span></div>
+      <div class="stack-tool"><img src="/tech/github.svg" alt="" /><span>GitHub</span></div>
+    </div>
+  </section>
+  </div>
+  <section class="pe-card stack-card stack-card-main">
+    <h3>Back-end</h3>
+    <div class="stack-tools">
+      <div class="stack-tool"><img src="/tech/drf.png" alt="" /><span>Django REST Framework</span></div>
+      <div class="stack-tool"><img src="/tech/poetry.svg" alt="" /><span>Poetry</span></div>
+      <div class="stack-tool"><img src="/tech/pytest.svg" alt="" /><span>Pytest</span></div>
+    </div>
+  </section>
+  <section class="pe-card stack-card stack-card-main">
+    <h3>Front-end</h3>
+    <div class="stack-tools">
+      <div class="stack-tool"><img src="/tech/vuedotjs.svg" alt="" /><span>Vue</span></div>
+      <div class="stack-tool"><img src="/tech/typescript.svg" alt="" /><span>TypeScript</span></div>
+      <div class="stack-tool"><img src="/tech/tailwindcss.svg" alt="" /><span>Tailwind CSS</span></div>
+      <div class="stack-tool"><img src="/tech/vitest.svg" alt="" /><span>Vitest</span></div>
+    </div>
+  </section>
 </div>
+
+<style scoped>
+.stack-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; height: 380px; margin-top: 1.5rem; }
+.stack-support { display: grid; grid-template-rows: 1fr 1.2fr 1fr; gap: 0.75rem; }
+.stack-support .stack-card { padding: 1.1rem 1.25rem; }
+.stack-card h3 { margin: 0 0 2rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 00; line-height: 1.4; border-bottom: 1px solid var(--color-brand-primary); }
+.stack-tools { display: grid ;gap: 0.8rem; }
+.stack-card-compact .stack-tools { display: flex; gap: 1.5rem; }
+.stack-card-main .stack-tools { margin-top: 2rem; gap: 2.25rem; }
+.stack-tool { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; line-height: 1.3; }
+.stack-tool img { width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; }
+</style>
+
+---
+class: pe-section-content
+title: Git Flow
+level: 2
+---
+
+# Spécifications techniques
+
+## Git Flow
+
+<div class="git-flow-board">
+  <svg class="git-flow" viewBox="0 0 900 390" role="img" aria-labelledby="git-flow-title git-flow-desc">
+    <g class="git-labels">
+      <text x="26" y="71">main</text>
+      <text x="26" y="156">dev</text>
+      <text x="26" y="236">feat/</text>
+      <text x="26" y="316">fix/</text>
+    </g>
+    <g class="git-lines">
+      <path class="git-main" d="M 170 65 H 845" />
+      <path class="git-main" d="M 845 65 H 875" stroke-dasharray="3 12" />
+      <path class="git-dev" d="M 170 65 V 110 Q 170 150 210 150 H 845" />
+      <path class="git-dev" d="M 845 150 H 875" stroke-dasharray="3 12" />
+      <path class="git-feature-one" d="M 280 150 V 192 Q 280 230 318 230 H 430 Q 480 230 480 190 V 165" marker-end="url(#git-flow-merge)" />
+      <path class="git-feature-two" d="M 530 150 V 272 Q 530 310 568 310 H 670 Q 720 310 720 270 V 165" marker-end="url(#git-flow-merge)" />
+      <path class="git-dev" d="M 755 150 Q 800 150 800 110 V 80" marker-end="url(#git-flow-merge)" />
+    </g>
+    <!-- Commits : cercle blanc extérieur et centre de la couleur de la branche. -->
+    <g class="git-commit git-main"><circle cx="800" cy="65" r="11" /><circle class="git-commit-core" cx="800" cy="65" r="4" /></g>
+    <g class="git-commit git-dev"><circle cx="480" cy="150" r="11" /><circle class="git-commit-core" cx="480" cy="150" r="4" /></g>
+    <g class="git-commit git-dev"><circle cx="720" cy="150" r="11" /><circle class="git-commit-core" cx="720" cy="150" r="4" /></g>
+    <g class="git-commit git-feature-one"><circle cx="345" cy="230" r="11" /><circle class="git-commit-core" cx="345" cy="230" r="4" /></g>
+    <g class="git-commit git-feature-one"><circle cx="415" cy="230" r="11" /><circle class="git-commit-core" cx="415" cy="230" r="4" /></g>
+    <g class="git-commit git-feature-two"><circle cx="590" cy="310" r="11" /><circle class="git-commit-core" cx="590" cy="310" r="4" /></g>
+    <g class="git-commit git-feature-two"><circle cx="655" cy="310" r="11" /><circle class="git-commit-core" cx="655" cy="310" r="4" /></g>
+  </svg>
+</div>
+
+<style scoped>
+.git-flow-board { margin-top: 1.5rem; padding: 0.5rem; background: var(--color-bg-card); border-radius: var(--radius-card); }
+.git-flow { display: block; width: 100%; height: auto; font-family: var(--font-body); }
+.git-labels { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 18px; font-weight: 700; fill: var(--color-black); }
+.git-main { color: var(--color-black); }
+.git-dev { color: var(--color-brand-primary); }
+.git-feature-one { color: #238799; }
+.git-feature-two { color: #c65345; }
+.git-lines { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.git-lines path { stroke: currentColor; }
+.git-commit { fill: white; stroke: currentColor; stroke-width: 3; }
+.git-commit-core { fill: currentColor; stroke: none; }
+.git-notes { font-size: 14px; fill: #655b4c; }
+.git-time { fill: none; stroke: #a49b8d; stroke-width: 1.5; }
+.git-time-label { font-size: 13px; fill: #655b4c; }
+</style>
+
+---
+class: pe-section-content
+title: CI
+---
+
+# Spécifications techniques
+
+## CI
+
+<div class="ci-diagrams">
+  <figure>
+    <figcaption>Back ></figcaption>
+    <img src="/ci-back.svg" alt="Pipeline d’intégration continue du back-end" />
+  </figure>
+  <figure>
+    <figcaption>Front ></figcaption>
+    <img src="/ci-front.svg" alt="Pipeline d’intégration continue du front-end" />
+  </figure>
+</div>
+
+<style scoped>
+.ci-diagrams { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; height: 420px; }
+.ci-diagrams figure { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; margin: 0; min-width: 0; min-height: 0; }
+.ci-diagrams figcaption { display: flex; align-items: center; gap: 0.4rem; font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.ci-diagrams img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center top; }
+</style>
+
+---
+class: pe-section-content
+title: Docker
+---
+
+# Spécifications techniques
+
+## Docker
+
+<div class="ci-diagrams">
+  <figure>
+    <figcaption>Dockerfile</figcaption>
+    <img src="/dockerfile.svg" />
+  </figure>
+  <figure>
+    <figcaption>Docker compose</figcaption>
+    <img src="/docker-compose.svg"/>
+  </figure>
+</div>
+
+<style scoped>
+.ci-diagrams { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; height: 420px; }
+.ci-diagrams figure { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; margin: 0; min-width: 0; min-height: 0; }
+.ci-diagrams figcaption { display: flex; align-items: center; gap: 0.4rem; font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.ci-diagrams img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center top; }
+</style>
+
+
+
+---
+class: pe-section-content
+title: Architecture
+---
+
+# Spécifications techniques
+## Architecture
+
+<div class="architecture-comparison">
+  <section class="architecture-version" aria-label="Architecture V1 : rendu côté serveur">
+    <div class="architecture-heading"><span class="architecture-badge">V1</span><span>SSR</span></div>
+    <div class="architecture-flow">
+      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
+      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Back-end</span><img src="/tech/django.svg" alt="" /><strong>Django</strong></div>
+      <div class="architecture-link"><span>Rendu HTML</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Interface</span><span class="architecture-code" aria-hidden="true">&lt;/&gt;</span><strong>Templates HTML</strong></div>
+    </div>
+  </section>
+  <section class="architecture-version" aria-label="Architecture V2 : API Django et front-end Vue séparés">
+    <div class="architecture-heading"><span class="architecture-badge architecture-badge-v2">V2</span><span>CSR</span></div>
+    <div class="architecture-flow">
+      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
+      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node architecture-api"><span class="architecture-role">Back-end · API REST</span><img src="/tech/drf.png" alt="" /><strong>Django REST Framework</strong></div>
+      <div class="architecture-link architecture-json"><span>JSON</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Front-end</span><img src="/tech/vuedotjs.svg" alt="" /><strong>Vue</strong></div>
+    </div>
+  </section>
+</div>
+
+<style scoped>
+.architecture-comparison { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
+.architecture-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 1rem; font-weight: 600; }
+.architecture-badge { padding: 0.3rem 0.75rem; border-radius: var(--radius-btn); background: var(--color-black); color: var(--color-white); font-weight: 700; }
+.architecture-badge-v2 { background: var(--color-brand-primary); color: var(--color-black); }
+.architecture-flow { display: grid; grid-template-columns: minmax(0, 1fr) 105px minmax(0, 1fr) 105px minmax(0, 1fr); align-items: center; }
+.architecture-node { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.65rem; height: 125px; padding: 0.75rem; border-radius: var(--radius-card); background: var(--color-bg-card); text-align: center; }
+.architecture-role { font-size: 0.8rem; opacity: 0.7; }
+.architecture-node img { width: 30px; height: 30px; object-fit: contain; }
+.architecture-node strong { font-size: 0.95rem; line-height: 1.25; }
+.architecture-code { height: 30px; font: 700 26px/30px ui-monospace, SFMono-Regular, Consolas, monospace; }
+.architecture-api { background: var(--color-bg-feelings); }
+.architecture-link { display: flex; flex-direction: column; gap: 0.65rem; padding: 0 0.5rem; text-align: center; }
+.architecture-link > span { font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.architecture-link i { display: block; position: relative; height: 3px; background: var(--color-black); }
+.architecture-link i::after { content: ''; position: absolute; right: 0; top: -4px; width: 10px; height: 10px; border-top: 3px solid var(--color-black); border-right: 3px solid var(--color-black); transform: rotate(45deg); }
+.architecture-json > span { align-self: center; padding: 0.15rem 0.6rem; border-radius: 6px; background: var(--color-brand-primary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 700; }
+</style>
+
+
+---
+layout: center
+class: pe-section
+---
+
+# Migration vers la V2
 
 ---
 
