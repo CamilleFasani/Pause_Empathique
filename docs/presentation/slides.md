@@ -4,26 +4,22 @@ hideInToc: true
 background: /cover.webp
 title: Pause Empathique
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
+  ## Pause Empathique
+  Présentation du projet pour le titre de
+  Concepteur Développeur d’Applications.
 
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
+  Camille Fasani — Novembre 2026
 class: text-center
-# https://sli.dev/features/drawing
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
 comark: true
-# duration of the presentation
 duration: 40min
 ---
 <!-- Photo de <a href="https://unsplash.com/fr/@mrkarlphoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mr Karl</a>sur <a href="https://unsplash.com/fr/photos/photographie-de-vue-aerienne-du-desert-yFmh736pYsg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
 
 # Pause Empathique
-<p class="title">Présentation au titre : Concepteur Développeur d'Applications</p>
+<p class="title">Présentation au titre de Concepteur Développeur d'Applications</p>
 <p class="signature">
   Camille Fasani - Novembre 2026
 </p>
@@ -68,11 +64,6 @@ hideInToc: true
     <p>J’apprends le développement web depuis janvier 2025.</p>
   </div>
   <ol class="intro-timeline">
-    <li>
-      <span class="intro-date">JANVIER 2025</span>
-      <h2>Premiers pas</h2>
-      <p>Apprentissage du développement web</p>
-    </li>
     <li>
       <span class="intro-date">JANVIER 2026</span>
       <h2>Titre DWWM</h2>
@@ -1235,11 +1226,11 @@ title: CI
 <div class="ci-diagrams">
   <figure>
     <figcaption>Back ></figcaption>
-    <img src="/ci-back.webp" alt="Pipeline d’intégration continue du back-end" />
+    <img src="/ci-back.webp" alt="Pipeline d’intégration continue du back-end" class="code-capture" />
   </figure>
   <figure>
     <figcaption>Front ></figcaption>
-    <img src="/ci-front.webp" alt="Pipeline d’intégration continue du front-end" />
+    <img src="/ci-front.webp" alt="Pipeline d’intégration continue du front-end" class="code-capture" />
   </figure>
 </div>
 
@@ -1262,11 +1253,11 @@ title: Docker
 <div class="ci-diagrams">
   <figure>
     <figcaption>Dockerfile</figcaption>
-    <img src="/dockerfile.webp" />
+    <img src="/dockerfile.webp" class="code-capture"/>
   </figure>
   <figure>
     <figcaption>Docker compose</figcaption>
-    <img src="/docker-compose.webp"/>
+    <img src="/docker-compose.webp" class="code-capture"/>
   </figure>
 </div>
 
@@ -1496,15 +1487,252 @@ class: pe-section
 
 
 ---
-class: pe-section-content
+class: pe-section-content !bg-white
 title: Diagramme de séquence
+preload: false
 level: 2
 ---
 
-# Pratiquer sans compte
+# Pratiquer sans compte - Diagramme de séquence
 
-## Diagramme de séquence
+<div class="sequence-panel" role="img" aria-label="Diagramme de séquence">
 
+```mermaid {scale: 0.44,theme: 'base', themeVariables: {fontFamily: 'Arial, sans-serif', primaryColor: '#fff4d5', primaryTextColor: '#1a1300', primaryBorderColor: '#ad7300', lineColor: '#1a1300', actorBkg: '#fff4d5', actorBorder: '#ad7300', actorTextColor: '#1a1300', noteBkgColor: '#ffe8aa', noteTextColor: '#1a1300', noteBorderColor: '#ffb300'}, sequence: {useMaxWidth: true, actorFontSize: 16, messageFontSize: 18, noteFontSize: 12, actorMargin: 70, width: 125, height: 36, messageMargin: 7, noteMargin: 3, boxMargin: 4, boxTextMargin: 3, diagramMarginX: 12, diagramMarginY: 8, wrap: false, mirrorActors: false}}
+sequenceDiagram
+    actor P as Personne
+    participant V as Interface Vue
+    participant S as Stores Pinia
+    participant C as Client API
+    participant A as API DRF
+    participant D as Base de données
+    P->>V: EmptyYourBagView : saisir le texte
+    V->>S: draft.emptyYourBag (v-model)
+    P->>V: Suivant → ObservationView : décrire les faits
+    V->>S: draft.observation (v-model)
+    P->>V: Suivant → FeelingsView
+    V->>C: getFeelings()
+    C->>A: GET /api/v1/feelings/
+    A->>D: Lire les sentiments
+    A-->>C: 200 · sentiments
+    Note over P,V: Sans sentiment : bouton « Étape suivante » désactivé
+    P->>V: Sélectionner un sentiment
+    V->>S: toggleFeeling(id)
+    P->>V: Suivant → NeedsView
+    V->>C: getNeeds()
+    C->>A: GET /api/v1/needs/
+    A->>D: Lire les besoins
+    A-->>C: 200 · besoins
+    P->>V: Sélectionner un besoin
+    V->>S: toggleNeed(id)
+    P->>V: Suivant → PauseView
+    S-->>V: Brouillon réactif → récapitulatif
+```
+
+</div>
+
+<style scoped>
+.sequence-panel { position: absolute; inset: 80px 0 0; background: #fff; }
+/* La taille du SVG est réglée par l’option scale du bloc Mermaid. */
+.sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 100%; height: 98%; }
+</style>
+
+---
+class: pe-section-content !bg-white
+title: Terminer sans enregistrer
+preload: false
+level: 2
+---
+
+# Terminer sans enregistrer
+
+<div class="sequence-panel" role="img" aria-label="Terminer sans enregistrer">
+
+```mermaid {scale: 0.56, theme: 'base', themeVariables: {fontFamily: 'Arial, sans-serif', primaryColor: '#fff4d5', primaryTextColor: '#1a1300', primaryBorderColor: '#ad7300', lineColor: '#1a1300', actorBkg: '#fff4d5', actorBorder: '#ad7300', actorTextColor: '#1a1300', noteBkgColor: '#ffe8aa', noteTextColor: '#1a1300', noteBorderColor: '#ffb300'}, sequence: {useMaxWidth: true, actorFontSize: 14, messageFontSize: 14, noteFontSize: 13, actorMargin: 14, width: 125, height: 55, messageMargin: 12, noteMargin: 4, boxMargin: 4, boxTextMargin: 3, diagramMarginX: 14, diagramMarginY: 18, wrap: false, mirrorActors: true}}
+sequenceDiagram
+    actor P as Personne
+    participant V as Interface Vue
+    participant S as Store Pinia pratice
+    participant C as Client API
+    participant A as API DRF
+    participant D as Base de données
+    P->>V: Terminer sans enregistrer
+    V->>S: practice.submitAnonymousPractice()
+    S->>C: countAnonymousPractice()
+    C->>A: POST /api/v1/pauses/anonymous/
+    Note over C,A: Aucun contenu du brouillon transmis
+    A->>A: Vérifier l’absence d’authentification
+    A->>D: Incrémenter AnonymousPauseCounter
+    D-->>A: Compteur mis à jour
+    A-->>C: 204 · aucun contenu
+    C-->>S: Succès
+    S->>S: reset() · effacer le brouillon
+    S-->>V: Finalisation terminée
+    V-->>P: Retour à l’accueil (Welcome)
+```
+
+</div>
+
+<style scoped>
+.sequence-panel { position: absolute; inset: 84px 0 0; }
+.sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 95%; height: 95%; }
+</style>
+
+---
+class: pe-section-content !bg-white
+title: Créer un compte pour enregistrer
+preload: false
+level: 2
+---
+
+# Créer un compte pour enregistrer
+
+<div class="sequence-panel" role="img" aria-label="Créer un compte pour enregistrer">
+
+```mermaid {scale: 0.51, theme: 'base', themeVariables: {fontFamily: 'Arial, sans-serif', primaryColor: '#fff4d5', primaryTextColor: '#1a1300', primaryBorderColor: '#ad7300', lineColor: '#1a1300', actorBkg: '#fff4d5', actorBorder: '#ad7300', actorTextColor: '#1a1300', noteBkgColor: '#ffe8aa', noteTextColor: '#1a1300', noteBorderColor: '#ffb300'}, sequence: {useMaxWidth: true, actorFontSize: 14, messageFontSize: 14, noteFontSize: 13, actorMargin: 130, width: 125, height:60 , messageMargin: 12, noteMargin: 4, boxMargin: 4, boxTextMargin: 3, diagramMarginX: 26, diagramMarginY: 16, wrap: true, mirrorActors: true}}
+sequenceDiagram
+    actor P as Personne
+    participant V as Interface Vue
+    participant S as Stores Pinia
+    participant C as Client API
+    participant A as API DRF
+    participant D as Base de données
+    P->>V: Créer un compte pour enregistrer
+    V->>S: practice.prepareAuthentication()
+    Note over V,S: Brouillon conservé · reprise après authentification
+    V->>V: Route register · AuthView / RegisterForm
+    P->>V: Renseigner et soumettre le formulaire
+    V->>V: Valider les champs côté front
+    V->>S: auth.register(données)
+    S->>C: registerUser(données)
+    C->>A: POST /api/v1/auth/register/
+    A->>D: Vérifier l’unicité de l’email
+    D-->>A: Email présent ou absent
+    Note over A,D: Deux issues : email déjà utilisé (38) ou inscription valide (39)
+```
+
+</div>
+
+<style scoped>
+.sequence-panel { position: absolute; inset: 80px 0 0; }
+.sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 95%; height: 95%; }
+</style>
+
+---
+class: pe-section-content !bg-white
+title: Cas d’erreur — email déjà utilisé
+preload: false
+level: 2
+---
+
+# Cas d’erreur : email déjà utilisé
+
+<div class="sequence-panel" role="img" aria-label="Cas d’erreur — email déjà utilisé">
+
+```mermaid {scale: 0.8, theme: 'base', themeVariables: {fontFamily: 'Arial, sans-serif', primaryColor: '#fff4d5', primaryTextColor: '#1a1300', primaryBorderColor: '#ad7300', lineColor: '#1a1300', actorBkg: '#fff4d5', actorBorder: '#ad7300', actorTextColor: '#1a1300', noteBkgColor: '#ffe8aa', noteTextColor: '#1a1300', noteBorderColor: '#ffb300'}, sequence: {useMaxWidth: true, actorFontSize: 14, messageFontSize: 14, noteFontSize: 13, actorMargin: 60, width: 125, height: 60, messageMargin: 12, noteMargin: 4, boxMargin: 4, boxTextMargin: 3, diagramMarginX: 16, diagramMarginY: 16, wrap: true, mirrorActors: true}}
+sequenceDiagram
+    actor P as Personne
+    participant V as Interface Vue
+    participant S as Stores Pinia<br/>practice / auth
+    participant C as Client API<br/>src/api · Axios
+    participant A as API DRF
+    participant D as Base de données
+    A-->>C: 400 · erreur de validation sur email
+    C-->>S: Rejet de registerUser()
+    S-->>V: Erreur propagée à RegisterForm
+    V-->>P: Afficher l’erreur sous le champ email
+    Note over V,S: Rester sur Register · brouillon conservé
+    P->>V: Corriger l’email et soumettre à nouveau
+```
+
+</div>
+
+<style scoped>
+.sequence-panel { position: absolute; inset: 84px 0 0; }
+.sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 95%; height: 95%; }
+</style>
+
+---
+class: pe-section-content !bg-white
+title: Inscription validée
+preload: false
+level: 2
+---
+
+# Inscription validée
+
+<div class="sequence-panel" role="img" aria-label="Inscription validée">
+
+```mermaid {scale: 0.42, theme: 'base', themeVariables: {fontFamily: 'Arial, sans-serif', primaryColor: '#fff4d5', primaryTextColor: '#1a1300', primaryBorderColor: '#ad7300', lineColor: '#1a1300', actorBkg: '#fff4d5', actorBorder: '#ad7300', actorTextColor: '#1a1300', noteBkgColor: '#ffe8aa', noteTextColor: '#1a1300', noteBorderColor: '#ffb300'}, sequence: {useMaxWidth: true, actorFontSize: 18, messageFontSize: 16, noteFontSize: 14, actorMargin: 64, width: 125, height: 55, messageMargin: 7, noteMargin: 4, boxMargin: 4, boxTextMargin: 3, diagramMarginX: 12, diagramMarginY: 20, wrap: false, mirrorActors: true}}
+sequenceDiagram
+    actor P as Personne
+    participant V as Interface Vue
+    participant S as Stores Pinia
+    participant C as Client API
+    participant A as API DRF
+    participant D as Base de données
+    Note over A,D: Données validées · mot de passe haché
+    A->>D: Créer le compte
+    A-->>C: 201 · compte créé
+    C-->>S: Inscription réussie
+    S->>C: loginUser(email, mot de passe)
+    C->>A: POST /api/v1/auth/token/
+    A->>D: Rechercher le compte pour vérifier le mot de passe
+    A-->>C: 200 · access JWT + cookie refresh HttpOnly
+    C-->>S: Access token conservé en mémoire
+    Note over S,D: getCurrentUser() → GET /users/me/ authentifié → profil chargé
+    S-->>V: Connexion terminée
+    V-->>P: Retour à PauseView · brouillon retrouvé
+    P->>V: Enregistrer ma pause
+    V->>S: submitAuthenticatedPause()
+    S->>C: createPause(payload)
+    C->>A: POST /api/v1/pauses/ · Bearer JWT + contenu
+    A->>D: Créer la pause liée à request.user et ses associations
+    A-->>C: 201 · pause
+    C-->>S: Succès · reset() du brouillon
+    S-->>V: Enregistrement terminé
+    V-->>P: Retour à l’accueil connecté (Home)
+```
+
+</div>
+
+<style scoped>
+.sequence-panel { position: absolute; inset: 70px 0 0; }
+.sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 100%; height: 100%; }
+</style>
+---
+class: pe-section-content
+level: 2
+title: Composable useGender
+---
+# Composable useGender
+
+<img src="/useGender.png" class="code-capture" />
+
+<style>
+  img {
+    display: block;
+    width: 700px;
+    height:auto;
+    margin-inline: auto;
+  }
+</style>
+---
+class: pe-section-content
+level: 2
+title: Composable useGender
+---
+# Composable useGender
+
+<img src="/PauseDetailview.png" class="code-capture" />
+
+<style>
+  img {
+    display: block;
+    height: 90%;
+    width: auto;
+    margin-inline: auto;
+  }
+</style>
 ---
 layout: center
 class: pe-section
