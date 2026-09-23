@@ -78,7 +78,7 @@ hideInToc: true
       <span class="intro-point" aria-hidden="true"></span>
       <p v-click="2" class="intro-event">Titre DWWM</p>
     </li>
-    <li style="--month: 22">
+    <li style="--month: 21">
       <time class="intro-date" datetime="2026-11">Novembre 2026</time>
       <span class="intro-point" aria-hidden="true"></span>
       <p v-click="3" class="intro-event">Titre CDA</p>
@@ -149,10 +149,10 @@ hideInToc: true
 }
 .intro-date {
   position: absolute;
-  bottom: 22px;
+  bottom: 18px;
   width: max-content;
   white-space: nowrap;
-  transform: rotate(-45deg);
+  transform: rotate(-35deg) translateX(5px);
   transform-origin: left bottom;
   font-size: 0.8rem;
   text-align: center;
@@ -167,7 +167,6 @@ hideInToc: true
   transform: translateX(-30%);
   font-size: 0.9rem;
   font-weight: 600;
-  line-height: 1.5;
   color: var(--color-black);
 }
 .intro-timeline li:nth-child(2) .intro-event {
@@ -239,7 +238,7 @@ level: 2
   align-items: center;
   gap: 1.25rem;
   margin: 0;
-  padding: 0.65rem 1.5rem;
+  padding: 1.5rem;
   min-height: 3.4rem;
   border-radius: var(--radius-card);
   background: var(--color-bg-card);
@@ -516,32 +515,32 @@ level: 2
   <table class="backlog-table">
     <colgroup><col class="backlog-task-column" /><col /><col /><col /></colgroup>
     <thead><tr><th scope="col">Tâche</th><th scope="col">To Do</th><th scope="col">In progress</th><th scope="col">Done</th></tr></thead>
-    <tbody class="backlog-phase" style="--phase-bg: #fff2cf">
+    <tbody class="backlog-phase" style="--phase-bg: white">
       <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Conception produit</th></tr>
       <tr><th scope="row">Définir les personae</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Cahier des charges</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Wireframes</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Charte graphique et logo</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Maquettes</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
     </tbody>
     <tbody class="backlog-phase" style="--phase-bg: #eaf0fc">
@@ -549,12 +548,12 @@ level: 2
       <tr><th scope="row">Modélisation BDD</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Rédiger le backlog</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
     </tbody>
     <tbody class="backlog-phase" style="--phase-bg: #f3eafa">
@@ -562,32 +561,32 @@ level: 2
       <tr><th scope="row">Dossier professionnel · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Déploiement · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Adapter le dossier projet · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Adapter la présentation · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Préparer l’oral · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Oral · V1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
     </tbody>
     <tbody class="backlog-phase" style="--phase-bg: #e7f3f1">
@@ -595,25 +594,25 @@ level: 2
       <tr><th scope="row">Instructions Copilot</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Déployer en staging</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Migrer de Black à Ruff</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Initialiser le front, DRF et Vue</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Dockeriser le front</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
@@ -623,30 +622,30 @@ level: 2
       <tr><th scope="row">Appliquer la nouvelle charte</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Connexion</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Inscription</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Page profil</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Page accueil</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Déployer le front sur Railway</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
@@ -654,37 +653,37 @@ level: 2
     <tbody class="backlog-phase" style="--phase-bg: #fce9df">
       <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Nouvelles fonctionnalités</th></tr>
       <tr><th scope="row">Mot de passe oublié</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Pratiquer sans compte</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Visualisation des données</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Notifications d’erreur et de succès</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Authentification MFA</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Saisie vocale · Vide ton sac</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Saisie vocale · Observation</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
@@ -694,39 +693,39 @@ level: 2
       <tr><th scope="row">Dossier professionnel · RNCP</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Dossier projet · RNCP</th>
         <td></td>
-        <td><span class="backlog-status progress" role="img" aria-label="In progress">●</span></td>
+        <td><span class="backlog-status progress" role="img" aria-label="In progress">×</span></td>
         <td></td>
       </tr>
     </tbody>
     <tbody class="backlog-phase" style="--phase-bg: #e6f1f8">
       <tr class="backlog-phase-title"><th colspan="4" scope="rowgroup">Présentation et oral</th></tr>
       <tr><th scope="row">Présentation · RNCP</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Préparer l’oral · RNCP</th>
-        <td><span class="backlog-status todo" role="img" aria-label="To Do">●</span></td>
+        <td><span class="backlog-status todo" role="img" aria-label="To Do">×</span></td>
         <td></td>
         <td></td>
       </tr>
       <tr><th scope="row">Démo 1</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Démo 2</th>
         <td></td>
         <td></td>
-        <td><span class="backlog-status done" role="img" aria-label="Done">●</span></td>
+        <td><span class="backlog-status done" role="img" aria-label="Done">✔</span></td>
       </tr>
       <tr><th scope="row">Séminaire 2</th>
         <td></td>
-        <td><span class="backlog-status progress" role="img" aria-label="In progress">●</span></td>
+        <td><span class="backlog-status progress" role="img" aria-label="In progress">×</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -734,22 +733,22 @@ level: 2
 </div>
 
 <style scoped>
-.backlog-scroll { max-height: 380px; overflow-y: auto; border: 1px solid #d8cba9; border-radius: var(--radius-card); background: var(--color-bg-card); scrollbar-color: #ad7300 var(--color-bg-page); }
+.backlog-scroll { max-height: 410px; overflow-y: auto; border: 1px solid #d8cba9; scrollbar-color: #ad7300 var(--color-bg-page); }
 .backlog-scroll:focus-visible { outline: 3px solid #ad7300; outline-offset: 3px; }
 .backlog-table { width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 15px; line-height: 1.3; }
-.backlog-task-column { width: 61%; }
+.backlog-task-column { width: 61%;}
 .backlog-table th, .backlog-table td { padding: 8px 12px; border: 0; border-bottom: 1px solid #eee8da; }
 .backlog-table thead th { position: sticky; top: 0; z-index: 1; background: var(--color-brand-primary); color: var(--color-black); font-size: 13px; font-weight: 700; white-space: nowrap; }
 .backlog-table th { text-align: left; }
 .backlog-table tbody th { font-weight: 500; }
 .backlog-table td, .backlog-table thead th:not(:first-child) { text-align: center; }
 .backlog-phase { background: var(--phase-bg); }
-.backlog-table .backlog-phase-title th { padding: 10px 12px 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-top: 3px solid var(--color-bg-card); border-bottom: 1px solid #00000015; }
+.backlog-table .backlog-phase-title th { padding: 10px 12px 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-top: 1px solid #d8cba9;border-bottom: 1px solid #d8cba9; }
 .backlog-table tbody tr:last-child > * { border-bottom: 0; }
-.backlog-status { display: inline-block; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; vertical-align: middle; font-size: 0; }
-.backlog-status.todo { background: var(--color-white); }
-.backlog-status.progress { background: var(--color-bg-observation); }
-.backlog-status.done { background: var(--color-brand-primary); }
+.backlog-status { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; vertical-align: middle; font-size: 28px; font-weight: 700; line-height: 1; }
+.backlog-status.todo { color: #241c0b; }
+.backlog-status.progress { color: #241c0b;}
+.backlog-status.done { color: #241c0b; }
 </style>
 ---
 class: pe-section-content
@@ -762,33 +761,29 @@ level: 2
 ## Gestion de projet assistée par IA
 
 <div class="ai-project-files">
-  <section class="ai-file-card ai-file-framework">
+  <section v-click:1 class="ai-file-card ai-file-framework">
     <h3>AGENTS.md</h3>
     <p>Rôles &amp; bonnes pratiques</p>
   </section>
-  <div class="ai-file-details">
-    <section class="ai-file-card">
-      <h3>project-management.md</h3>
-      <p>Backlog</p>
-    </section>
-    <section class="ai-file-card">
-      <h3>next-session.md</h3>
-      <p>Objectifs</p>
-    </section>
-    <section class="ai-file-card">
-      <h3>session-log.md</h3>
-      <p>Journalisation</p>
-    </section>
-  </div>
+  <section v-click:2 class="ai-file-card">
+    <h3>project-management.md</h3>
+    <p>Backlog</p>
+  </section>
+  <section v-click:3 class="ai-file-card">
+    <h3>next-session.md</h3>
+    <p>Objectifs</p>
+  </section>
+  <section v-click:4 class="ai-file-card">
+    <h3>session-log.md</h3>
+    <p>Journalisation</p>
+  </section>
 </div>
 
 <style scoped>
-.ai-project-files { display: grid; gap: 1.25rem; margin-top: 3rem; }
-.ai-file-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-.ai-file-card { display: flex; flex-direction: column; align-items: stretch; gap: 1rem; min-height: 145px; padding: 1.25rem; border-radius: var(--radius-card); background: var(--color-bg-card); }
-.ai-file-framework { min-height: 115px; }
-.ai-file-card h3 { align-self: flex-start; margin: 0; font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-size: 0.85rem; font-weight: 600;text-align: left; }
-.ai-file-card p {font-size: 1.5rem; text-align: center; text-decoration: underline; text-decoration-color: var(--color-brand-primary); }
+.ai-project-files { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+.ai-file-card { display: flex; flex-direction: column; align-items: stretch; gap: 1rem; min-height: 145px; padding: 1.25rem; border-radius: var(--radius-card); background: var(--color-bg-card);}
+.ai-file-card h3 { align-self: flex-start; margin: 0; font-family: "Liberation Mono", monospace; font-size: 1rem; font-weight: 600; text-align: left; text-decoration:underline;}
+.ai-file-card p {font-size: 1.5rem; text-align: center;}
 .ai-file-framework h3 { font-size: 1rem; }
 </style>
 
@@ -1333,7 +1328,7 @@ title: Architecture
 ## Architecture
 
 <div class="architecture-comparison">
-  <section class="architecture-version" aria-label="Architecture V1 : rendu côté serveur">
+  <section v-click:1 class="architecture-version" aria-label="Architecture V1 : rendu côté serveur">
     <div class="architecture-heading"><span class="architecture-badge">V1</span><span>SSR</span></div>
     <div class="architecture-flow">
       <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
@@ -1343,7 +1338,7 @@ title: Architecture
       <div class="architecture-node"><span class="architecture-role">Interface</span><span class="architecture-code" aria-hidden="true">&lt;/&gt;</span><strong>Templates HTML</strong></div>
     </div>
   </section>
-  <section class="architecture-version" aria-label="Architecture V2 : API Django et front-end Vue séparés">
+  <section v-click:2 class="architecture-version" aria-label="Architecture V2 : API Django et front-end Vue séparés">
     <div class="architecture-heading"><span class="architecture-badge architecture-badge-v2">V2</span><span>CSR</span></div>
     <div class="architecture-flow">
       <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
@@ -1795,11 +1790,69 @@ class: pe-section
 # Tests
 
 ---
-layout: center
+class: pe-section-content
+title: pyramide de tests
+level: 2
+---
+
+# Tests
+## Pyramide de tests
+
+<svg class="test-pyramid" viewBox="0 0 900 360" role="img" aria-labelledby="test-pyramid-title test-pyramid-description">
+  <title id="test-pyramid-title">Pyramide de tests</title>
+  <desc id="test-pyramid-description">Trois niveaux de même hauteur : tests unitaires à la base, tests d’intégration au milieu et tests E2E au sommet.</desc>
+  <polygon class="test-pyramid-unit" points="250,235 650,235 750,345 150,345" />
+  <polygon class="test-pyramid-integration" points="350,125 550,125 650,235 250,235" />
+  <polygon class="test-pyramid-e2e" points="450,15 550,125 350,125" />
+  <path class="test-pyramid-separators" d="M350 125 H550 M250 235 H650" />
+  <text x="450" y="92">Tests E2E</text>
+  <text x="450" y="180">Tests d’intégration</text>
+  <text x="450" y="290">Tests unitaires</text>
+</svg>
+
+<style>
+.test-pyramid { display: block; width: 100%; height: 360px; margin-top: 1rem; }
+.test-pyramid-unit { fill: var(--color-brand-primary); }
+.test-pyramid-integration { fill: var(--color-bg-observation); }
+.test-pyramid-e2e { fill: var(--color-bg-feelings); }
+.test-pyramid-separators { fill: none; stroke: var(--color-bg-page); stroke-width: 4; }
+.test-pyramid text { fill: var(--color-black); font-family: var(--font-body); font-size: 22px; font-weight: 600; text-anchor: middle; dominant-baseline: middle; }
+</style>
+
+---
+class: pe-section-content
+title: TDD
+level: 2
+---
+
+# Tests
+## TDD
+
+<img src=/TDD-red.png class=test-red>
+
+---
+class: pe-section-content
+title: TDD
+level: 2
+---
+
+# Tests
+## TDD
+
+<img src=/TDD-green.png class=test-green>
+---
 class: pe-section
+layout: center
 ---
 
 # Déploiement
+---
+class: pe-section-content
+level: 2
+---
+
+# Déploiement
+
 
 
 ---
@@ -1808,6 +1861,33 @@ class: pe-section
 ---
 
 # Difficultés & Défis
+---
+class: pe-section-content
+title: l'IA
+level: 2
+---
+
+# Difficultés & Défis
+## Multicasquettes
+
+---
+class: pe-section-content
+title: l'IA
+level: 2
+---
+
+# Difficultés & Défis
+## IA
+<!--  comment être critique de quelquechose qu'on ne maitrise pas ?
+si je maîtrise : IA fait et je corrige
+si je ne maîtrise pas : je fais et IA corrige
+Mais gain de temps ?
+La qualité finale ?
+Au détriment de mon apprentissage
+
+Besoin d'une vraie discipline, équipe mixte
+
+Bon côté : on peut poser toutes les questions, plein de fois de suite -->
 
 
 ---
@@ -1825,14 +1905,18 @@ Réinitialisation du mot de passe
 Page FAQ
 
 ---
+layout: center
+class: pe-section
+---
 
 # Veille
 
-
+---
+class: pe-section-content
+level: 2
 ---
 
-# Documentation
-
+# Veille
 
 ---
 hideInToc: true
