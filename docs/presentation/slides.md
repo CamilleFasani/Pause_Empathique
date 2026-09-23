@@ -63,16 +63,25 @@ hideInToc: true
     <h1>Bonjour,<br>je suis <span>Camille Fasani.</span></h1>
     <p>J’apprends le développement web depuis janvier 2025.</p>
   </div>
-  <ol class="intro-timeline">
-    <li>
-      <span class="intro-date">JANVIER 2026</span>
-      <h2>Titre DWWM</h2>
-      <p>Une première étape validée</p>
+  <ol class="intro-timeline" aria-label="Mon parcours de janvier 2025 à novembre 2026">
+    <li style="--month: 0">
+      <time class="intro-date" datetime="2025-01">Janvier 2025</time>
+      <span class="intro-point" aria-hidden="true"></span>
     </li>
-    <li>
-      <span class="intro-date">DEPUIS OCTOBRE 2025</span>
-      <h2>Alternance</h2>
-      <p>Développeuse Full-Stack<br>chez <strong>cogito</strong></p>
+    <li style="--month: 9">
+      <time class="intro-date" datetime="2025-10">Octobre 2025</time>
+      <span class="intro-point" aria-hidden="true"></span>
+      <p v-click="1" class="intro-event">Alternance <br> Développeuse full stack <br> chez <strong>cogito</strong></p>
+    </li>
+    <li style="--month: 12">
+      <time class="intro-date" datetime="2026-01">Janvier 2026</time>
+      <span class="intro-point" aria-hidden="true"></span>
+      <p v-click="2" class="intro-event">Titre DWWM</p>
+    </li>
+    <li style="--month: 22">
+      <time class="intro-date" datetime="2026-11">Novembre 2026</time>
+      <span class="intro-point" aria-hidden="true"></span>
+      <p v-click="3" class="intro-event">Titre CDA</p>
     </li>
   </ol>
 </div>
@@ -81,9 +90,9 @@ hideInToc: true
 .intro {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
-  gap: 2.5rem;
+  padding-top: 3rem;
 }
 .intro-heading h1 {
   margin: 1rem 0;
@@ -102,33 +111,78 @@ hideInToc: true
   opacity: 1;
 }
 .intro-timeline {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  height: 185px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+.intro-timeline::before {
+  content: "";
+  position: absolute;
+  top: 95px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--color-brand-primary);
+  transform: translateY(-50%);
+}
 .intro-timeline li {
-  position: relative;
+  position: absolute;
+  top: 95px;
+  left: calc(8% + var(--month) * 84% / 22);
+  width: 0;
   margin: 0;
-  padding: 1.2rem;
-  border-radius: var(--radius-card);
+  padding: 0;
+}
+.intro-point {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 4px solid var(--color-brand-primary);
+  border-radius: 50%;
   background: var(--color-bg-card);
+  transform: translate(-50%, -50%);
 }
 .intro-date {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
+  position: absolute;
+  bottom: 22px;
+  width: max-content;
+  white-space: nowrap;
+  transform: rotate(-45deg);
+  transform-origin: left bottom;
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 1.4;
+  color: var(--color-black);
 }
-.intro-timeline h2 {
-  margin: 0.65rem 0 0.5rem;
-  font-size: 1.4rem;
-}
-.intro-timeline p {
+.intro-timeline .intro-event {
+  position: absolute;
+  top: 28px;
+  width: 170px;
   margin: 0;
+  transform: translateX(-30%);
   font-size: 0.9rem;
+  font-weight: 600;
   line-height: 1.5;
+  color: var(--color-black);
+}
+.intro-timeline li:nth-child(2) .intro-event {
+  width: 225px;
+  transform: translateX(-85%);
+  text-align: right;
+}
+.intro-timeline li:nth-child(3) .intro-event {
+  width: 140px;
+  transform: translateX(-30%);
+}
+.intro-timeline li:last-child .intro-event {
+  width: 150px;
+  transform: translateX(-80%);
+  text-align: right;
 }
 </style>
 
