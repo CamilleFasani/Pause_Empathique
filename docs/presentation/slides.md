@@ -102,7 +102,7 @@ hideInToc: true
 .intro-heading h1 span {
   text-decoration: underline;
   text-decoration-color: var(--color-brand-primary);
-  text-decoration-thickness: 4px;
+  text-decoration-thickness: 2px;
   text-underline-offset: 0.18em;
 }
 .intro-heading p {
@@ -189,13 +189,9 @@ hideInToc: true
 ---
 hideInToc: true
 ---
+# Sommaire
 
-<div class="pe-heading">
-  <img src="/logo.webp" alt="" />
-  <h1>Sommaire</h1>
-</div>
-
-<Toc minDepth="1" maxDepth="1" />
+<AgendaPath />
 
 ---
 layout: center
@@ -263,6 +259,29 @@ level: 2
 # PE, c'est quoi ?
 
 ## Pourquoi
+
+<div class="why-illustration">
+  <img src="/pourquoi2.webp" alt="Deux personnes échangent, assises dans des fauteuils jaunes." />
+</div>
+
+<style scoped>
+.why-illustration {
+  position: absolute;
+  inset: 140px 40px 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.why-illustration img {
+  display: block;
+  width: 560px;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+</style>
 
 <!-- Quand on s'est formé à la CNV ce n'est pas facile de trouver avec qui pratiquer, et aussi de trouver une oreille attentive quand le besoin s'en fait sentir
 Une application est disponible 24/24, permet de prendre le temps nécessaire à l'introspection sans enjeu relationnel -->
@@ -1154,7 +1173,6 @@ level: 2
 
 # Spécifications techniques
 
-
 ## Stack
 
 <div class="stack-grid">
@@ -1266,6 +1284,7 @@ level: 2
 ---
 class: pe-section-content
 title: CI
+level: 2
 ---
 
 # Spécifications techniques
@@ -1293,6 +1312,7 @@ title: CI
 ---
 class: pe-section-content
 title: Docker
+level: 2
 ---
 
 # Spécifications techniques
@@ -1322,6 +1342,7 @@ title: Docker
 ---
 class: pe-section-content
 title: Architecture
+level: 2
 ---
 
 # Spécifications techniques
@@ -1656,7 +1677,7 @@ sequenceDiagram
     C->>A: POST /api/v1/auth/register/
     A->>D: Vérifier l’unicité de l’email
     D-->>A: Email présent ou absent
-    Note over A,D: Deux issues : email déjà utilisé (38) ou inscription valide (39)
+    Note over A,D: Deux issues : email déjà utilisé ou inscription valide
 ```
 
 </div>
@@ -1753,9 +1774,10 @@ class: pe-section-content
 level: 2
 title: Composable useGender
 ---
+
 # Composable useGender
 
-<img src="/useGender.png" class="code-capture" />
+<img src="/useGender.webp" class="code-capture" />
 
 <style>
   img {
@@ -1770,9 +1792,10 @@ class: pe-section-content
 level: 2
 title: Composable useGender
 ---
+
 # Composable useGender
 
-<img src="/PauseDetailview.png" class="code-capture" />
+<img src="/PauseDetailview.webp" class="code-capture" />
 
 <style>
   img {
@@ -1782,6 +1805,79 @@ title: Composable useGender
     margin-inline: auto;
   }
 </style>
+---
+class: pe-section-content
+level: 2
+title: Sécurité
+---
+
+# Pratiquer sans compte
+## Sécurité
+
+<div class="security-cards">
+  <section v-click="1" class="security-card">
+    <h3>Minimisation des données</h3>
+    <p>Pinia · mémoire volatile</p>
+  </section>
+  <section v-click="2" class="security-card">
+    <h3>Échappement à l’affichage</h3>
+    <p>Interpolation Vue · XSS</p>
+  </section>
+  <section v-click="3" class="security-card">
+    <h3>Protection des mots de passe</h3>
+    <p>Hachage · validate_password</p>
+  </section>
+  <section v-click="4" class="security-card">
+    <h3>Authentification</h3>
+    <p>Jeton JWT · cookie HttpOnly</p>
+  </section>
+  <section v-click="5" class="security-card">
+    <h3>Validation côté serveur</h3>
+    <p>Serializers DRF</p>
+  </section>
+  <section v-click="6" class="security-card">
+    <h3>Autorisation</h3>
+    <p>Permissions · filtrage par propriétaire</p>
+  </section>
+</div>
+
+<style scoped>
+.security-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, 160px);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.security-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+}
+.security-card h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.security-card p {
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  color: #65583e;
+  line-height: 1.4;
+}
+</style>
+
+<!-- J’ai conçu ce parcours pour limiter la collecte : sans compte, le contenu reste en mémoire dans le navigateur. Pour l’enregistrer, l’API exige une authentification, valide les données et attribue elle-même la pause à l’utilisateur connecté. Les tests vérifient notamment qu’un utilisateur ne peut pas accéder aux pauses d’un autre.Le brouillon reste temporairement dans la mémoire de l’application, sans persistance dans le navigateur. Ce choix limite la conservation des données personnelles, mais ne remplace pas les protections contre les XSS. Et puisque l’état du front peut être modifié, l’API vérifie toujours les données et les autorisations. -->
 ---
 layout: center
 class: pe-section
@@ -1828,7 +1924,7 @@ level: 2
 # Tests
 ## TDD
 
-<img src=/TDD-red.png class=test-red>
+<img src=/TDD-red.webp>
 
 ---
 class: pe-section-content
@@ -1839,7 +1935,46 @@ level: 2
 # Tests
 ## TDD
 
-<img src=/TDD-green.png class=test-green>
+<img src=/TDD-green.webp>
+
+---
+class: pe-section-content
+title: Test d'intégration
+level: 2
+---
+
+# Tests
+## Test d'intégration
+
+<img src=/test_api_pauses.webp class="code-capture">
+
+<style>
+  img {
+    display: block;
+    height: 95%;
+    width: auto;
+    margin-inline: auto;
+  }
+</style>
+---
+class: pe-section-content
+title: Test unitaire
+level: 2
+---
+
+# Tests
+## Test unitaire
+
+<img src=/pratice.test.ts.webp class="code-capture">
+
+<style>
+  img {
+    display: block;
+    height: 95%;
+    width: auto;
+    margin-inline: auto;
+  }
+</style>
 ---
 class: pe-section
 layout: center
@@ -1852,9 +1987,90 @@ level: 2
 ---
 
 # Déploiement
+## Du commit à la mise en ligne
 
+<svg class="deployment-map" viewBox="0 0 900 405" role="img" aria-labelledby="deployment-title deployment-desc">
+  <title id="deployment-title">Déploiement automatique du front et du back</title>
+  <desc id="deployment-desc">Dans chaque dépôt, commit et push sur une branche de travail, pull request, CI réussie puis merge dans dev. Cloudflare construit et publie Vue, Railway construit et déploie Django en staging. Après validation manuelle, pull request de dev vers main, CI et merge déclenchent les déploiements de production.</desc>
+  <defs>
+    <marker id="deploy-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="currentColor" /></marker>
+  </defs>
+  <rect class="lane" x="0" y="0" width="900" height="170" rx="16" />
+  <rect class="lane" x="0" y="223" width="900" height="170" rx="16" />
+  <text class="lane-title" x="18" y="27">01 · STAGING</text>
+  <text class="lane-title" x="18" y="250">02 · PRODUCTION</text>
+  <text class="eyebrow" x="464" y="27">DÉPLOIEMENT AUTOMATIQUE</text>
+  <text class="eyebrow" x="464" y="250">DÉPLOIEMENT AUTOMATIQUE</text>
 
+  <g class="flow">
+    <path d="M100 96H118" /><path d="M206 96H224" /><path d="M312 96H330" />
+    <path d="M100 319H118" /><path d="M206 319H224" /><path d="M312 319H330" />
+    <path d="M418 96H440V67H460" /><path d="M440 96V131H460" />
+    <path d="M418 319H440V290H460" /><path d="M440 319V354H460" />
+  </g>
 
+  <g class="step">
+    <rect x="16" y="58" width="84" height="76" rx="10" />
+    <text x="58" y="85">Commit</text><text x="58" y="107">+ push</text>
+    <rect x="122" y="58" width="84" height="76" rx="10" />
+    <text x="164" y="85">Pull request</text><text class="detail" x="164" y="108">vers dev</text>
+    <rect class="ci-box" x="228" y="58" width="84" height="76" rx="10" />
+    <text class="ci-text" x="270" y="95">CI ✓</text><text class="detail" x="270" y="120">GitHub</text>
+    <rect class="merge-box" x="334" y="58" width="84" height="76" rx="10" />
+    <text x="376" y="85">Merge</text><text class="branch" x="376" y="109">dev</text>
+    <rect x="16" y="281" width="84" height="76" rx="10" />
+    <text x="58" y="309">Version</text><text x="58" y="331">validée</text>
+    <rect x="122" y="281" width="84" height="76" rx="10" />
+    <text x="164" y="308">Pull request</text><text class="detail" x="164" y="331">dev → main</text>
+    <rect class="ci-box" x="228" y="281" width="84" height="76" rx="10" />
+    <text class="ci-text" x="270" y="322">CI ✓</text><text class="detail" x="270" y="345">GitHub</text>
+    <rect class="merge-box" x="334" y="281" width="84" height="76" rx="10" />
+    <text x="376" y="308">Merge</text><text class="branch" x="376" y="332">main</text>
+  </g>
+
+  <g class="service">
+    <rect x="464" y="41" width="418" height="52" rx="10" />
+    <rect x="464" y="105" width="418" height="52" rx="10" />
+    <rect x="464" y="264" width="418" height="52" rx="10" />
+    <rect x="464" y="328" width="418" height="52" rx="10" />
+    <text class="service-title" x="480" y="63">Vue · Cloudflare Pages</text>
+    <text class="domain" x="480" y="82">staging.pause-empathique.fr</text>
+    <text class="service-title" x="480" y="127">API DRF · Railway</text>
+    <text class="domain" x="480" y="146">api-staging.pause-empathique.fr</text>
+    <text class="service-title" x="480" y="286">Vue · Cloudflare Pages</text>
+    <text class="domain" x="480" y="305">pause-empathique.fr</text>
+    <text class="service-title" x="480" y="350">API DRF · Railway</text>
+    <text class="domain" x="480" y="369">api.pause-empathique.fr</text>
+    <text class="build-label" x="866" y="63">Build → publication</text>
+    <text class="build-label" x="866" y="127">Build Docker → déploiement</text>
+    <text class="build-label" x="866" y="286">Build → publication</text>
+    <text class="build-label" x="866" y="350">Build Docker → déploiement</text>
+  </g>
+  <text class="caption" x="18" y="153">Branche feat/*</text>
+</svg>
+
+<style scoped>
+.deployment-map { display: block; width: 100%; height: 365px; margin-top: 0; overflow: visible; color: var(--color-black); font-family: var(--font-body); }
+.lane { fill: #ffe8aa; }
+.lane-title { font-size: 16px; font-weight: 800; letter-spacing: 1px; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.flow { fill: none; stroke: currentColor; stroke-width: 2; marker-end: url(#deploy-arrow); }
+.step rect, .service rect { fill: white; }
+.step text { text-anchor: middle; font-size: 12px; font-weight: 700; }
+.step .detail { font-size: 11px; font-weight: 500; }
+.step .branch { font-size: 17px; }
+.step .merge-box { fill: var(--color-brand-primary); }
+.step .ci-box { fill: #e7f2e8; }
+.step .ci-text { fill: #25603a; font-size: 19px; }
+.service-title { font-size: 13px; font-weight: 800; }
+.domain { font-size: 12px; }
+.build-label { font-size: 10px; text-anchor: end; fill: #5c513b; }
+.caption { font-size: 10px; fill: #5c513b; }
+.validation-link { fill: none; stroke: #76603a; stroke-width: 1.5; stroke-dasharray: 5 4; marker-end: url(#deploy-arrow); }
+.validation-label { fill: var(--color-bg-page); }
+.validation-text { font-size: 13px; font-weight: 700; text-anchor: middle; }
+.deployment-footer { display: flex; justify-content: space-between; margin-top: 0.4rem; font-size: 0.65rem; color: #65583e; }
+</style>
 ---
 layout: center
 class: pe-section
@@ -1868,7 +2084,29 @@ level: 2
 ---
 
 # Difficultés & Défis
-## Multicasquettes
+
+<div class="multicasquettes-illustration">
+  <img src="/multicasquettes.webp"/>
+</div>
+
+<style scoped>
+.multicasquettes-illustration {
+  position: absolute;
+  inset: 120px 40px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.multicasquettes-illustration img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+</style>
 
 ---
 class: pe-section-content
@@ -1877,13 +2115,37 @@ level: 2
 ---
 
 # Difficultés & Défis
-## IA
+
+<div class="ai-illustration">
+  <img src="/ia-dubitative.webp" />
+</div>
+
+<style scoped>
+.ai-illustration {
+  position: absolute;
+  inset: 120px 40px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ai-illustration img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+</style>
+
 <!--  comment être critique de quelquechose qu'on ne maitrise pas ?
 si je maîtrise : IA fait et je corrige
 si je ne maîtrise pas : je fais et IA corrige
 Mais gain de temps ?
 La qualité finale ?
 Au détriment de mon apprentissage
+ça lève beaucoup de questions, sur un chemin qui bouge tout le temps.
 
 Besoin d'une vraie discipline, équipe mixte
 
@@ -1898,22 +2160,15 @@ class: pe-section
 # Evolutions à venir
 
 
+<!--
+préparation au déploiement : mise en conformité RGPD, configuration Cloudflare Pages, page de contact, FAQ, réinitialisation du mot de passe.
 Suppressions des templates Django, nettoyage des dépendances
-Toutes les pages légales
-Page de contact,
-Réinitialisation du mot de passe
-Page FAQ
+Nouvelles fonctionnalités
+ -->
 
 ---
 layout: center
 class: pe-section
----
-
-# Veille
-
----
-class: pe-section-content
-level: 2
 ---
 
 # Veille
@@ -1926,5 +2181,22 @@ layout: center
 
 # Merci
 
+<div class="closing-credit">
+  <PoweredBySlidev />
+</div>
 
-<PoweredBySlidev mt-10 />
+<style scoped>
+.closing-credit {
+  position: absolute;
+  left: 20px;
+  bottom: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  opacity: 0.6;
+}
+.closing-credit :deep(img) {
+  width: auto;
+  height: 1.5em;
+  margin: 0;
+}
+</style>

@@ -45,7 +45,6 @@
   background-color: var(--color-bg-page);
   color: var(--color-black);
   font-family: var(--font-body);
-  /* --slidev-code-background: var(--color-bg-card); */
   --slidev-code-font-size: 16px;
   --slidev-code-line-height: 24px;
   --slidev-code-padding: 20px;
