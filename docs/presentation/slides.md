@@ -340,13 +340,13 @@ level: 2
 
 <div class="v1-patchwork" aria-label="Aperçu des pages de Pause Empathique V1 sur ordinateur et mobile">
   <div class="v1-desktop">
-    <img src="/pev1-desktop-home.png" alt="Accueil et connexion de la V1 sur ordinateur." />
-    <img src="/pev1-diary-desktop.png" alt="Journal des pauses de la V1 sur ordinateur." />
+    <img src="/pev1-desktop-home.webp" alt="Accueil et connexion de la V1 sur ordinateur." />
+    <img src="/pev1-diary-desktop.webp" alt="Journal des pauses de la V1 sur ordinateur." />
   </div>
-  <img class="v1-mobile" src="/pev1-home.png" alt="Accueil de la V1 sur mobile." style="--offset: -20px; --angle: -2deg" />
-  <img class="v1-mobile" src="/pev1-login.png" alt="Connexion à la V1 sur mobile." style="--offset: 25px; --angle: 1.5deg" />
-  <img class="v1-mobile" src="/pev1-feelings.png" alt="Choix des sentiments pendant une pause sur mobile." style="--offset: -15px; --angle: -1.5deg" />
-  <img class="v1-mobile" src="/pev1-diary.png" alt="Journal des pauses de la V1 sur mobile." style="--offset: 20px; --angle: 2deg" />
+  <img class="v1-mobile" src="/pev1-home.webp" alt="Accueil de la V1 sur mobile." style="--offset: -20px; --angle: -2deg" />
+  <img class="v1-mobile" src="/pev1-login.webp" alt="Connexion à la V1 sur mobile." style="--offset: 25px; --angle: 1.5deg" />
+  <img class="v1-mobile" src="/pev1-feelings.webp" alt="Choix des sentiments pendant une pause sur mobile." style="--offset: -15px; --angle: -1.5deg" />
+  <img class="v1-mobile" src="/pev1-diary.webp" alt="Journal des pauses de la V1 sur mobile." style="--offset: 20px; --angle: 2deg" />
 </div>
 <a class="v1-site-link" href="https://pause-empathique.fr" target="_blank" rel="noopener noreferrer">pause-empathique.fr</a>
 <style scoped>
@@ -892,6 +892,8 @@ level: 2
 .ai-file-card p {font-size: 1.5rem; text-align: center;}
 .ai-file-framework h3 { font-size: 1rem; }
 </style>
+<!-- 4 fichiers - 3 réellement utiles <br/>
+AGENTS : 1 projet et 1 par repo   -->
 
 ---
 class: pe-section
@@ -919,6 +921,10 @@ level: 2
 <style scoped>
 .mcd-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
 </style>
+<!-- Merise <br/>
+Entités <br/>
+Attribut <br/>
+Règles Métier -->
 
 ---
 class: pe-section-content
@@ -938,7 +944,9 @@ level: 2
 <style scoped>
 .mld-diagram { display: block; width: 100%; height: 370px; object-fit: contain; margin-top: 2rem; }
 </style>
-
+<!--
+Tables <br/>
+Clés étrangères  -->
 ---
 class: pe-section-content
 title: Base de données - MPD
@@ -957,6 +965,8 @@ level: 2
 <style scoped>
 .mpd-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
 </style>
+<!-- Implémentation dans SGBDR <br/>
+PostgreSQL -->
 ---
 class: pe-section-content
 title: Cas d’utilisation
