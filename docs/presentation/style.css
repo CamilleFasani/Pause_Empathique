@@ -84,10 +84,6 @@
   border-color: var(--color-brand-primary);
 }
 
-.slidev-layout a:hover {
-  background-color: var(--color-brand-primary-hover);
-}
-
 .slidev-layout blockquote {
   margin-block: 1.25rem;
   padding: 1rem 1.5rem;

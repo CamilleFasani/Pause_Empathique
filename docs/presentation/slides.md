@@ -50,9 +50,6 @@ duration: 40min
   background: var(--color-bg-page);
 }
 </style>
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
 
 ---
 hideInToc: true
@@ -184,7 +181,7 @@ hideInToc: true
   text-align: right;
 }
 </style>
-
+<!-- Titre DWWM passé et OBTENU -->
 
 ---
 hideInToc: true
@@ -201,8 +198,13 @@ class: pe-section
 # Pause Empathique, c'est quoi ?
 
 <!--
-Application web permet de pratiquer l'auto empathie en suivant un protocole inspiré de la Communication Non Violente, souvent appelé OSBD.
-La CNV est une pratique qui permet de résoudre des conflits, de faire médiation, d'améliorer la communication dans nos relations pro, privées, citoyennes.  PE est dédiée à la pratique d'auto empathie, qui est une première étape pour aller ensuite parler à l'autre -->
+Application web déployé <br/>
+Projet DWWM <br/>
+Pratiquer l'auto empathie <br/>
+Protocole OSBD inspiré de la Communication Non Violente. <br/>
+Définition CNV ? <br/>
+1ère étape avant parler à qqn
+ -->
 ---
 class: pe-section-content
 title: Concrètement ?
@@ -250,6 +252,11 @@ level: 2
 }
 </style>
 
+<!-- Définition du terme Pause <br/>
+Etat actuel<br/>
+PE permet de Consulter un journal de ses pauses <br/>
+Consulter, modifier, supprimer une pause <br/>
+Consulter, modifier, supprimer son compte-->
 ---
 class: pe-section-content
 title: Concrètement ?
@@ -283,8 +290,11 @@ level: 2
 }
 </style>
 
-<!-- Quand on s'est formé à la CNV ce n'est pas facile de trouver avec qui pratiquer, et aussi de trouver une oreille attentive quand le besoin s'en fait sentir
-Une application est disponible 24/24, permet de prendre le temps nécessaire à l'introspection sans enjeu relationnel -->
+<!--
+Trouver quelqu'un de formé <br/>
+Trouver quelqu'un disponible <br/>
+Une application est disponible 24/24 <br/>
+Prendre le temps nécessaire à l'introspection sans enjeu relationnel -->
 ---
 class: pe-section-content
 title: Pour qui
@@ -317,7 +327,66 @@ level: 2
 }
 </style>
 
-<!-- En premier lieu aux initiés à la CNV, mais on peut élargir à quiconque souhaite mieux de connaitre et gagner en discernement. Plutôt public féminin, peu technophile. -->
+<!-- Initiés à la CNV <br/>
+Quiconque souhaite mieux se connaitre et gagner en discernement <br/>
+Profil type : plutôt féminin, peu technophile. -->
+---
+class: pe-section-content
+title: V1
+level: 2
+---
+# PE c'est quoi ?
+## Pause Empathique 1.0
+
+<div class="v1-patchwork" aria-label="Aperçu des pages de Pause Empathique V1 sur ordinateur et mobile">
+  <div class="v1-desktop">
+    <img src="/pev1-desktop-home.png" alt="Accueil et connexion de la V1 sur ordinateur." />
+    <img src="/pev1-diary-desktop.png" alt="Journal des pauses de la V1 sur ordinateur." />
+  </div>
+  <img class="v1-mobile" src="/pev1-home.png" alt="Accueil de la V1 sur mobile." style="--offset: -20px; --angle: -2deg" />
+  <img class="v1-mobile" src="/pev1-login.png" alt="Connexion à la V1 sur mobile." style="--offset: 25px; --angle: 1.5deg" />
+  <img class="v1-mobile" src="/pev1-feelings.png" alt="Choix des sentiments pendant une pause sur mobile." style="--offset: -15px; --angle: -1.5deg" />
+  <img class="v1-mobile" src="/pev1-diary.png" alt="Journal des pauses de la V1 sur mobile." style="--offset: 20px; --angle: 2deg" />
+</div>
+<a class="v1-site-link" href="https://pause-empathique.fr" target="_blank" rel="noopener noreferrer">pause-empathique.fr</a>
+<style scoped>
+.v1-patchwork {
+  position: absolute;
+  inset: 130px 40px 40px;
+  display: grid;
+  grid-template-columns: 328px repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: 14px;
+}
+.v1-desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.v1-patchwork img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgb(26 19 0 / 16%);
+}
+.v1-mobile {
+  transform: translateY(calc(var(--offset) - 25px)) rotate(var(--angle));
+}
+.v1-site-link {
+  position: absolute;
+  right: 40px;
+  bottom: 35px;
+  left: 382px;
+  text-align: center;
+  font-size: 20px;
+  border-bottom: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+</style>
 
 ---
 layout: default
@@ -327,7 +396,11 @@ class: pe-section
 # Vers la V2
 
 
-<!-- Souhait de partir de l'existant pour me rapprocher du travail en entreprise où l'on part rarement de zéro, donc travailler avec une code base,  et organiser une migration -->
+<!--
+Partir de l'existant <br/>
+Cas Professionnel fréquent <br/>
+Migration <br/>
+Cliente d'une agence web-->
 ---
 class: pe-section-content
 title: Objectifs
@@ -397,6 +470,11 @@ level: 2
   font-weight: 600;
 }
 </style>
+<!-- Cahier des charges <br/>
+Intérêt découplage : <br/>
+Pédagogique <br/>
+Application mobile <br/>
+W à plusieurs -->
 ---
 class: pe-section
 title: Gestion de projet
@@ -404,7 +482,8 @@ title: Gestion de projet
 
 # Gestion de projet
 
-<!-- Dire que j'étais seule sur le projet, à raison 1J/semaine  -->
+<!-- Seule <br/>
+1 jour par semaine -->
 ---
 class: pe-section-content
 title: Diagramme de Gantt
@@ -520,6 +599,12 @@ level: 2
 .gantt-milestone b { font-size: 13px; line-height: 16px; }
 .gantt-milestone span { font-size: 10px; }
 </style>
+<!-- Visualiser le planning <br/>
+Chevauchement <br/>
+Outil: Miro <br/>
+
+Road map : grandes étapes et objectifs <br/>
+Gantt tâche et leur calendrier-->
 ---
 class: pe-section-content
 title: Backlog
@@ -528,7 +613,7 @@ level: 2
 
 # Gestion de projet
 
-## Backlog
+## [Backlog](https://miro.com/app/board/uXjVJuidePA=/)
 
 <div class="backlog-scroll" role="region" aria-label="Backlog complet, tableau défilant de 39 tâches" tabindex="0">
   <table class="backlog-table">
@@ -769,6 +854,8 @@ level: 2
 .backlog-status.progress { color: #241c0b;}
 .backlog-status.done { color: #241c0b; }
 </style>
+<!-- Outil : Miro <br/>
+tableau Kanban -->
 ---
 class: pe-section-content
 title: Gestion de projet assistée par IA
