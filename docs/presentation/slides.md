@@ -985,7 +985,7 @@ level: 2
 <style scoped>
 .use-cases-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
 </style>
-
+<!-- Type de diagramme UML - Comportement-->
 ---
 class: pe-section-content
 title: Parcours utilisateur
@@ -1004,6 +1004,9 @@ level: 2
 .userflow-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
 .userflow-scroll img { display: block; width: 100%; height: auto; max-height: none; }
 </style>
+<!-- Clarifier le Parcours <br/>
+Aligner l'équipe <br/>
+Repérer les différents cas  -->
 ---
 class: pe-section-content
 title: Wireframes
@@ -1023,6 +1026,8 @@ level: 2
 .wireframes-scroll:focus-visible { outline: 2px solid #ad7300; outline-offset: 3px; }
 .wireframes-scroll img { display: block; width: 100%; height: auto; max-height: none; }
 </style>
+<!-- Zoning basse fidélité <br/>
+Hiérarchie information -->
 ---
 class: pe-section-content
 title: Charte graphique
@@ -1112,6 +1117,9 @@ level: 2
 .brand-color-name { align-self: end; font-size: 0.8rem; font-weight: 600; line-height: 1.2; }
 .brand-hex { font-family: ui-monospace, Consolas, monospace; font-size: 0.7rem; line-height: 1.2; }
 </style>
+<!-- Contraste <br/>
+Conformité AAA au WCAG ( > 7:1 ) <br/>
+Formalise l'identité visuelle -->
 ---
 class: pe-section-content
 title: Identité visuelle
@@ -1222,7 +1230,8 @@ level: 2
 .mockups-board img { display: block; width: 100%; height: auto; max-height: none; border-radius: 8px; }
 .mockups-mobile img { width: auto; max-width: 100%; height: 280px; margin-inline: auto; object-fit: contain; }
 </style>
-
+<!-- proche du rendu final <br/>
+Wireframe + Charte graphique -->
 ---
 class: pe-section-content
 title: Qualité & Réglementation
@@ -1235,7 +1244,7 @@ level: 2
 
 <div class="quality-rules">
   <div class="rule accessibility">Accessibilité</div>
-  <div class="rule rgpd">RGPD</div>
+  <div class="rule rgpd">Protection des données</div>
   <div class="rule ecoconception">Ecoconception</div>
 </div>
 
@@ -1249,11 +1258,13 @@ level: 2
 </style>
 
 <!--
-Accessibilité : Contraste, navigation au clavier, balises sémantiques html
-RGPD : Réflexion sur les données, suppression et accès, attention données intimes
-Ecoconception : Existe mais peu pris en compte, pas de vidéos,
+Obligation != Bonnes pratiques  <br/>
+Manque ++ Audit prévu avant déploiement <br/>
+A : Contraste, Navigation au clavier, Balises Sémantiques HTML <br/>
+PD : OBLIGATOIRE - Données intimes <br/>
+E : limitation des médias, pas de transfert, pas de fontionnalité inutile<br/>
 
-Manque Mentions Légales, Consentement, Politique de Confidentialité -->
+Manque MENTIONS LEGALES + POLITIQUE CONFIDENTIALITE ( car données perso) -->
 
 ---
 layout: center
@@ -1325,6 +1336,63 @@ level: 2
 .stack-tool { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; line-height: 1.3; }
 .stack-tool img { width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; }
 </style>
+<!-- Stack V1 <br/>
+Stack entreprise <br/>
+Marché du travail <br/>
+Maintenance & Communauté <br/>
+ -->
+---
+class: pe-section-content
+title: Architecture
+level: 2
+---
+
+# Spécifications techniques
+## Architecture
+
+<div class="architecture-comparison">
+  <section v-click:1 class="architecture-version" aria-label="Architecture V1 : rendu côté serveur">
+    <div class="architecture-heading"><span class="architecture-badge">V1</span><span>SSR</span></div>
+    <div class="architecture-flow">
+      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
+      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Back-end</span><img src="/tech/django.svg" alt="" /><strong>Django</strong></div>
+      <div class="architecture-link"><span>Rendu HTML</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Interface</span><span class="architecture-code" aria-hidden="true">&lt;/&gt;</span><strong>Templates HTML</strong></div>
+    </div>
+  </section>
+  <section v-click:2 class="architecture-version" aria-label="Architecture V2 : API Django et front-end Vue séparés">
+    <div class="architecture-heading"><span class="architecture-badge architecture-badge-v2">V2</span><span>CSR</span></div>
+    <div class="architecture-flow">
+      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
+      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node architecture-api"><span class="architecture-role">Back-end · API REST</span><img src="/tech/drf.webp" alt="" /><strong>Django REST Framework</strong></div>
+      <div class="architecture-link architecture-json"><span>JSON</span><i aria-hidden="true"></i></div>
+      <div class="architecture-node"><span class="architecture-role">Front-end</span><img src="/tech/vuedotjs.svg" alt="" /><strong>Vue</strong></div>
+    </div>
+  </section>
+</div>
+
+<style scoped>
+.architecture-comparison { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
+.architecture-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 1rem; font-weight: 600; }
+.architecture-badge { padding: 0.3rem 0.75rem; border-radius: var(--radius-btn); background: var(--color-black); color: var(--color-white); font-weight: 700; }
+.architecture-badge-v2 { background: var(--color-brand-primary); color: var(--color-black); }
+.architecture-flow { display: grid; grid-template-columns: minmax(0, 1fr) 105px minmax(0, 1fr) 105px minmax(0, 1fr); align-items: center; }
+.architecture-node { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.65rem; height: 125px; padding: 0.75rem; border-radius: var(--radius-card); background: var(--color-bg-card); text-align: center; }
+.architecture-role { font-size: 0.8rem; opacity: 0.7; }
+.architecture-node img { width: 30px; height: 30px; object-fit: contain; }
+.architecture-node strong { font-size: 0.95rem; line-height: 1.25; }
+.architecture-code { height: 30px; font: 700 26px/30px ui-monospace, SFMono-Regular, Consolas, monospace; }
+.architecture-api { background: var(--color-bg-feelings); }
+.architecture-link { display: flex; flex-direction: column; gap: 0.65rem; padding: 0 0.5rem; text-align: center; }
+.architecture-link > span { font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.architecture-link i { display: block; position: relative; height: 3px; background: var(--color-black); }
+.architecture-link i::after { content: ''; position: absolute; right: 0; top: -4px; width: 10px; height: 10px; border-top: 3px solid var(--color-black); border-right: 3px solid var(--color-black); transform: rotate(45deg); }
+.architecture-json > span { align-self: center; padding: 0.15rem 0.6rem; border-radius: 6px; background: var(--color-brand-primary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 700; }
+</style>
+<!-- Monolithe vers un front et un back découplé <br/>
+SPA qui consomme API Rest-->
 
 ---
 class: pe-section-content
@@ -1436,56 +1504,7 @@ level: 2
 
 
 
----
-class: pe-section-content
-title: Architecture
-level: 2
----
 
-# Spécifications techniques
-## Architecture
-
-<div class="architecture-comparison">
-  <section v-click:1 class="architecture-version" aria-label="Architecture V1 : rendu côté serveur">
-    <div class="architecture-heading"><span class="architecture-badge">V1</span><span>SSR</span></div>
-    <div class="architecture-flow">
-      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
-      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
-      <div class="architecture-node"><span class="architecture-role">Back-end</span><img src="/tech/django.svg" alt="" /><strong>Django</strong></div>
-      <div class="architecture-link"><span>Rendu HTML</span><i aria-hidden="true"></i></div>
-      <div class="architecture-node"><span class="architecture-role">Interface</span><span class="architecture-code" aria-hidden="true">&lt;/&gt;</span><strong>Templates HTML</strong></div>
-    </div>
-  </section>
-  <section v-click:2 class="architecture-version" aria-label="Architecture V2 : API Django et front-end Vue séparés">
-    <div class="architecture-heading"><span class="architecture-badge architecture-badge-v2">V2</span><span>CSR</span></div>
-    <div class="architecture-flow">
-      <div class="architecture-node"><span class="architecture-role">Base de données</span><img src="/tech/postgresql.svg" alt="" /><strong>PostgreSQL</strong></div>
-      <div class="architecture-link"><span>Données</span><i aria-hidden="true"></i></div>
-      <div class="architecture-node architecture-api"><span class="architecture-role">Back-end · API REST</span><img src="/tech/drf.webp" alt="" /><strong>Django REST Framework</strong></div>
-      <div class="architecture-link architecture-json"><span>JSON</span><i aria-hidden="true"></i></div>
-      <div class="architecture-node"><span class="architecture-role">Front-end</span><img src="/tech/vuedotjs.svg" alt="" /><strong>Vue</strong></div>
-    </div>
-  </section>
-</div>
-
-<style scoped>
-.architecture-comparison { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
-.architecture-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 1rem; font-weight: 600; }
-.architecture-badge { padding: 0.3rem 0.75rem; border-radius: var(--radius-btn); background: var(--color-black); color: var(--color-white); font-weight: 700; }
-.architecture-badge-v2 { background: var(--color-brand-primary); color: var(--color-black); }
-.architecture-flow { display: grid; grid-template-columns: minmax(0, 1fr) 105px minmax(0, 1fr) 105px minmax(0, 1fr); align-items: center; }
-.architecture-node { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.65rem; height: 125px; padding: 0.75rem; border-radius: var(--radius-card); background: var(--color-bg-card); text-align: center; }
-.architecture-role { font-size: 0.8rem; opacity: 0.7; }
-.architecture-node img { width: 30px; height: 30px; object-fit: contain; }
-.architecture-node strong { font-size: 0.95rem; line-height: 1.25; }
-.architecture-code { height: 30px; font: 700 26px/30px ui-monospace, SFMono-Regular, Consolas, monospace; }
-.architecture-api { background: var(--color-bg-feelings); }
-.architecture-link { display: flex; flex-direction: column; gap: 0.65rem; padding: 0 0.5rem; text-align: center; }
-.architecture-link > span { font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
-.architecture-link i { display: block; position: relative; height: 3px; background: var(--color-black); }
-.architecture-link i::after { content: ''; position: absolute; right: 0; top: -4px; width: 10px; height: 10px; border-top: 3px solid var(--color-black); border-right: 3px solid var(--color-black); transform: rotate(45deg); }
-.architecture-json > span { align-self: center; padding: 0.15rem 0.6rem; border-radius: 6px; background: var(--color-brand-primary); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-weight: 700; }
-</style>
 
 
 ---
@@ -1702,6 +1721,9 @@ sequenceDiagram
 /* La taille du SVG est réglée par l’option scale du bloc Mermaid. */
 .sequence-panel :deep(.mermaid) { display: flex; justify-content: center; align-items: flex-start; width: 100%; height: 98%; }
 </style>
+<!-- Diagramme d'intégration UML <br/>
+Couches <br/>
+Responsabilités-->
 
 ---
 class: pe-section-content !bg-white
@@ -1884,6 +1906,8 @@ title: Composable useGender
     margin-inline: auto;
   }
 </style>
+<!--  fonction qui utilise le système réactif de Vue <br/>
+diff avec Helper, fonction pure, sans import, pas état réactif -->
 ---
 class: pe-section-content
 level: 2
@@ -2053,6 +2077,8 @@ level: 2
     margin-inline: auto;
   }
 </style>
+<!-- isolation <br/>
+on peut récupérer que NOS pauses -->
 ---
 class: pe-section-content
 title: Test unitaire
@@ -2072,6 +2098,7 @@ level: 2
     margin-inline: auto;
   }
 </style>
+<!-- Pas encore de E2E car interfaces non finalisées  -->
 ---
 class: pe-section
 layout: center
@@ -2258,6 +2285,7 @@ class: pe-section
 
 
 <!--
+Regret V1 : PAS OSER PARTAGER a de VRAIS USERS <br/>
 préparation au déploiement : mise en conformité RGPD, configuration Cloudflare Pages, page de contact, FAQ, réinitialisation du mot de passe.
 Suppressions des templates Django, nettoyage des dépendances
 Nouvelles fonctionnalités
@@ -2269,6 +2297,11 @@ class: pe-section
 ---
 
 # Veille
+
+<!-- Newsletter <br/>
+Medium <br/>
+Meet up <br/>
+Onglets qui attendent  -->
 
 ---
 hideInToc: true
