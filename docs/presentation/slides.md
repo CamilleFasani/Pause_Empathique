@@ -181,7 +181,8 @@ hideInToc: true
   text-align: right;
 }
 </style>
-<!-- Titre DWWM passé et OBTENU -->
+<!-- Titre DWWM passé et OBTENU <br/>
+Niveau RNCP 5-->
 
 ---
 hideInToc: true
@@ -893,7 +894,8 @@ level: 2
 .ai-file-framework h3 { font-size: 1rem; }
 </style>
 <!-- 4 fichiers - 3 réellement utiles <br/>
-AGENTS : 1 projet et 1 par repo   -->
+AGENTS : 1 projet et 1 par repo   <br/>
+A retravailler avec l'évolution des modèles-->
 
 ---
 class: pe-section
@@ -924,7 +926,8 @@ level: 2
 <!-- Merise <br/>
 Entités <br/>
 Attribut <br/>
-Règles Métier -->
+Règles Métier <br/>
+Quelles infos doit on stocker et comment sont elle liées ?-->
 
 ---
 class: pe-section-content
@@ -946,7 +949,8 @@ level: 2
 </style>
 <!--
 Tables <br/>
-Clés étrangères  -->
+Clés étrangères <br/>
+Comment organiser ces données en tables ? -->
 ---
 class: pe-section-content
 title: Base de données - MPD
@@ -965,7 +969,7 @@ level: 2
 <style scoped>
 .mpd-diagram { display: block; width: 100%; height: 400px; object-fit: contain; margin: 0 auto; }
 </style>
-<!-- Implémentation dans SGBDR <br/>
+<!-- Comment la base est elle créée dans le SGBDR<br/>
 PostgreSQL -->
 ---
 class: pe-section-content
@@ -1998,7 +2002,10 @@ title: Sécurité
 }
 </style>
 
-<!-- J’ai conçu ce parcours pour limiter la collecte : sans compte, le contenu reste en mémoire dans le navigateur. Pour l’enregistrer, l’API exige une authentification, valide les données et attribue elle-même la pause à l’utilisateur connecté. Les tests vérifient notamment qu’un utilisateur ne peut pas accéder aux pauses d’un autre.Le brouillon reste temporairement dans la mémoire de l’application, sans persistance dans le navigateur. Ce choix limite la conservation des données personnelles, mais ne remplace pas les protections contre les XSS. Et puisque l’état du front peut être modifié, l’API vérifie toujours les données et les autorisations. -->
+<!-- Limiter la collecte, pas de persistance <br/>
+Pour enregistrer, l’API exige une authentification, valide les données et attribue elle-même la pause à l’utilisateur connecté.<br/>
+PBKDF2 algo, 1 000 000 itérations<br/>
+ -->
 ---
 layout: center
 class: pe-section
