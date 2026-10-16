@@ -5,6 +5,14 @@
 
 ---
 
+## Session #28 — 15 septembre 2026
+
+**Décision :** Le développement est en pause pour se consacrer au dossier projet
+et à la présentation. Les tâches de développement restent ouvertes pour la
+reprise, sans date fixée.
+
+---
+
 ## Session #27 — 11 septembre 2026
 
 **Objectif :** Créer un diagramme de classes UML du projet.
@@ -89,7 +97,7 @@ menu “Mon compte”.
 - [ ] Valider manuellement les parcours du compte sur mobile et desktop.
 - [ ] Merger `feat/add-account-views` après validation utilisateur.
 - [ ] Poursuivre avec l'objectif 3 : timestamp du compteur anonyme et préparation
-  du déploiement front.
+      du déploiement front.
 
 **Vérifications :**
 
@@ -163,7 +171,7 @@ filet de tests avant merge de la branche front.
 - [ ] Merger la branche front après validation finale par l'utilisateur.
 - [ ] Créer une branche dédiée aux vues du compte utilisateur.
 - [ ] Avant déploiement front, ajouter un timestamp au compteur de pratiques
-  anonymes côté back.
+      anonymes côté back.
 - [ ] Déployer le front en préproduction après finalisation des vues compte.
 
 **Vérifications :**
@@ -237,10 +245,10 @@ priorité sur le choix de genre grammatical au démarrage du parcours anonyme.
 - [ ] Trancher la navigation entre Accueil, Journal, pratique et détail de pause.
 - [ ] Vérifier la cohérence complète du parcours utilisateur.
 - [ ] Terminer le Journal avec une liste chronologique détaillée et des filtres
-  par famille de sentiments ou de besoins.
+      par famille de sentiments ou de besoins.
 - [ ] Ajouter `beforeunload` lorsqu'un brouillon contient des données.
 - [ ] Ajouter les tests ciblés du store/parcours et les vérifications de fin de
-  branche.
+      branche.
 
 **Vérifications :**
 
@@ -292,13 +300,13 @@ parcours et avancer la finalisation de la soumission.
 **Ce qui reste :**
 
 - [ ] Décider si la reprise après authentification doit déclencher
-  automatiquement l'envoi ou simplement ramener l'utilisateur sur le
-  récapitulatif pour validation.
+      automatiquement l'envoi ou simplement ramener l'utilisateur sur le
+      récapitulatif pour validation.
 - [ ] Ajouter le Journal, ses appels API, sa route protégée et la redirection
-  après création réussie.
+      après création réussie.
 - [ ] Ajouter les tests ciblés du store/parcours.
 - [ ] Vérifier manuellement les parcours complet anonyme et création de compte →
-  sauvegarde.
+      sauvegarde.
 
 **Vérifications :**
 
@@ -353,23 +361,23 @@ alimentés par l'API, puis préparation de `PauseView`, du Journal, de
 **Ce qui reste :**
 
 - [ ] Créer une branche back dédiée et y committer l'ajustement des serializers
-  Feelings/Needs.
+      Feelings/Needs.
 - [ ] Ajouter ou mettre à jour les tests back liés au contrat Feelings/Needs si
-  nécessaire.
+      nécessaire.
 - [ ] Brancher `useGender()` pour choisir le label genré des sentiments au lieu
-  d'utiliser directement la forme féminine.
+      d'utiliser directement la forme féminine.
 - [ ] Définir le comportement d'une arrivée directe sur une étape sans parcours
-  démarré.
+      démarré.
 - [ ] Transformer `PauseView` en page de résumé, de titre modifiable et de
-  soumission.
+      soumission.
 - [ ] Finaliser les parcours authentifié et anonyme depuis `PauseView`, y compris
-  reprise après inscription, prévention des doubles envois, conservation après
-  erreur et remise à zéro après succès ou fin anonyme explicite.
+      reprise après inscription, prévention des doubles envois, conservation après
+      erreur et remise à zéro après succès ou fin anonyme explicite.
 - [ ] Ajouter le Journal, ses appels API, sa route protégée et la redirection
-  après création réussie.
+      après création réussie.
 - [ ] Ajouter `beforeunload` lorsqu'un brouillon contient des données.
 - [ ] Ajouter les tests ciblés du store/parcours et relancer
-  `npm run type-check`, `npm run lint` et `npm run build`.
+      `npm run type-check`, `npm run lint` et `npm run build`.
 
 **Décisions prises :**
 
@@ -431,18 +439,18 @@ endpoints Feelings, Needs et Pauses.
 
 - [ ] Brancher `EmptyYourBagView` et `ObservationView` au brouillon Pinia.
 - [ ] Remplacer les zones de texte de Sentiments et Besoins par des boutons de
-  sélection alimentés par les endpoints API.
+      sélection alimentés par les endpoints API.
 - [ ] Ajouter les états de chargement, d'erreur et la résolution genrée des
-  labels de sentiments.
+      labels de sentiments.
 - [ ] Transformer `PauseView` en page de résumé et de soumission avec titre
-  modifiable.
+      modifiable.
 - [ ] Préserver le brouillon lors du passage par l'inscription et rediriger
-  après création vers le Journal.
+      après création vers le Journal.
 - [ ] Ajouter le Journal et le lien vers la pause créée.
 - [ ] Implémenter l'alerte avant rechargement et vider le brouillon après succès
-  ou fin anonyme explicite.
+      ou fin anonyme explicite.
 - [ ] Ajouter les tests du store et du parcours, puis lancer aussi
-  `npm run build`.
+      `npm run build`.
 
 **Décisions prises :**
 
@@ -515,8 +523,8 @@ merges.
 
 - [ ] Merger cette branche documentation dans `dev`.
 - [ ] Ouvrir, au début de la prochaine session, une nouvelle branche de
-  documentation et une nouvelle branche front pour le Dashboard et le parcours de
-  pratique.
+      documentation et une nouvelle branche front pour le Dashboard et le parcours de
+      pratique.
 
 **Décisions prises :**
 
@@ -590,16 +598,16 @@ concevoir et démarrer l'authentification sécurisée par cookies.
 **Ce qui reste pour terminer l'objectif 2 :**
 
 - [ ] Relire pédagogiquement le diff front pour bien comprendre les changements
-  Axios, API auth, store Pinia et router.
+      Axios, API auth, store Pinia et router.
 - [ ] Arbitrer les remarques de review Copilot sur la branche back
-  `feat/secure-authentication`.
+      `feat/secure-authentication`.
 - [ ] Vérifier le fonctionnement de bout en bout entre les deux repos dans le
-  navigateur avant merge de la partie front.
+      navigateur avant merge de la partie front.
 - [ ] Merger la branche back `feat/secure-authentication` dans `dev` et vérifier
-  la CI.
+      la CI.
 - [ ] Rebaser/merger la branche documentation pour garder les docs alignées.
 - [ ] Merger la branche front `feat/secure-authentication` une fois back, docs et
-  tests end-to-end validés.
+      tests end-to-end validés.
 
 **Décisions prises :**
 
@@ -658,10 +666,10 @@ et le parcours de pratique.
 **Ce qui reste avant intégration de `feat/-base-layout-and-auth-views` :**
 
 - [ ] Effectuer une dernière relecture du diff et vérifier manuellement le rendu
-  et la navigation de `WelcomeView` sur mobile et desktop.
+      et la navigation de `WelcomeView` sur mobile et desktop.
 - [ ] Finaliser les commits, merger la branche dans `dev` et vérifier la CI.
 - [ ] Finaliser ultérieurement les layouts des pages applicatives dans le contexte
-  du Dashboard et du parcours de pratique.
+      du Dashboard et du parcours de pratique.
 
 **Décisions prises :**
 
@@ -672,8 +680,7 @@ et le parcours de pratique.
   nommées. La navigation immédiate est retenue pour cette branche ; une animation
   de sortie supplémentaire n'est pas un prérequis au merge.
 - La gestion actuelle des JWT côté navigateur est provisoire. Une branche dédiée
-  traitera le transport par cookies et l'authentification sécurisée le 17 juillet
-  2026.
+  traitera le transport par cookies et l'authentification sécurisée le 17 juillet 2026.
 - Le Dashboard et l'ensemble du parcours de pratique seront repris après cette
   sécurisation et regroupés sur une même branche fonctionnelle.
 - Les documents transversaux du projet restent centralisés et versionnés dans le

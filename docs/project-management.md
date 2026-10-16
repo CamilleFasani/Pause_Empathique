@@ -16,7 +16,17 @@ L'objectif est double : livrer une application de qualité production ET acquér
 
 ---
 
-## État actuel — Août 2026
+## Priorité actuelle — 15 septembre 2026
+
+Le développement est en pause pour se consacrer au dossier projet et à la
+présentation.
+
+Les validations manuelles, le timestamp du compteur anonyme et les prérequis
+de déploiement front restent à faire. Ils sont reportés jusqu'à la reprise du
+développement, dont la date n'est pas fixée. Cette pause ne valide aucune phase
+supplémentaire de la roadmap.
+
+## État fonctionnel de référence — Développement en pause
 
 - ✅ Application Django full stack fonctionnelle en production (`pause-empathique.fr`)
 - ✅ Authentification par sessions Django (templates)
@@ -425,14 +435,14 @@ Pour chaque vue Django existante, créer le composant Vue équivalent :
 
 ## Informations à collecter
 
-| Information                                               | Statut                                                                    |
-| --------------------------------------------------------- | ------------------------------------------------------------------------- |
-| Détails de la nouvelle charte graphique (couleurs, typos) | ⚠️ En cours de définition                                                 |
-| Stratégie composants design system (maison + librairie)   | ✅ Validée (approche hybride)                                             |
-| URL du repo front Vue.js                                  | ✅ Repo créé et initialisé                                                |
-| Contraintes de délai pour la formation CDA                | ❌ À préciser                                                             |
-| Orientation stockage JWT                                  | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front        |
-| Stack logs/monitoring retenue                             | ❌ À décider (phase 5)                                                    |
+| Information                                               | Statut                                                             |
+| --------------------------------------------------------- | ------------------------------------------------------------------ |
+| Détails de la nouvelle charte graphique (couleurs, typos) | ⚠️ En cours de définition                                          |
+| Stratégie composants design system (maison + librairie)   | ✅ Validée (approche hybride)                                      |
+| URL du repo front Vue.js                                  | ✅ Repo créé et initialisé                                         |
+| Contraintes de délai pour la formation CDA                | ❌ À préciser                                                      |
+| Orientation stockage JWT                                  | ✅ Validée : refresh en cookie `HttpOnly`, access en mémoire front |
+| Stack logs/monitoring retenue                             | ❌ À décider (phase 5)                                             |
 
 ---
 

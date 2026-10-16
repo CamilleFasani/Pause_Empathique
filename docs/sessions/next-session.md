@@ -3,7 +3,15 @@
 > Source de vérité pour la prochaine étape de travail. À mettre à jour à la fin de
 > chaque session.
 
-## Session #28 — Validation du parcours et pré-déploiement front
+## Priorité actuelle — 15 septembre 2026
+
+Le développement est en pause pour se consacrer au dossier projet et à la
+présentation. La date de reprise reste à définir.
+
+## Développement en pause — Objectifs conservés pour la reprise
+
+Les éléments ci-dessous reprennent le suivi antérieur au 15 septembre 2026.
+Les résultats de tests et les mentions de branches sont des constats historiques.
 
 ### Contexte
 
