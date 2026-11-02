@@ -473,6 +473,7 @@ level: 2
 </style>
 <!-- Cahier des charges <br/>
 Intérêt découplage : <br/>
+Bcp de framework JS dans monde pro, libraires matures pour meilleur design <br/>
 Pédagogique <br/>
 Application mobile <br/>
 W à plusieurs -->
@@ -2305,10 +2306,12 @@ class: pe-section
 
 # Veille
 
-<!-- Newsletter <br/>
-Medium <br/>
+<!-- Essentiel au développeur <br/>
+Max <br/>
+Medium, Newsletter <br/>
 Meet up <br/>
-Onglets qui attendent  -->
+veille automatisée pip audit <br/>
+Incident Railway   -->
 
 ---
 hideInToc: true
